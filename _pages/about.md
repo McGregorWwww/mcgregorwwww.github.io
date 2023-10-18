@@ -96,7 +96,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/analysis.png'><img src='images/analysis.png' alt="analysis" width="70%"></a><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="70%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
-[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://arxiv.org/abs/2310.11320) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/DHC?style=social">--> 
+[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://arxiv.org/abs/2310.11320) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
 
 <div markdown="1" style="font-size:13px">
 _Conference on Neural Information Processing Systems_ (***NeurIPS***), 2023 <font color="SteelBlue"> &#124; CCF A</font>
