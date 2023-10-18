@@ -52,13 +52,13 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : 
+  twitter          : "https://twitter.com/haonan_hkust"
   vine             :
   weibo            :
   xing             :
   youtube          :
   wikipedia        :
-  csdn             : "https://blog.csdn.net/qq_40475568"
+  csdn             :
 
 # Reading Files
 include:
