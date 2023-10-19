@@ -55,19 +55,18 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 </div>
 
----
 
-<div markdown="1" style="font-size:14px">
+
+<!--<div markdown="1" style="font-size:14px">-->
 
 <!-- **Curriculum Vitae**: &nbsp; <a href='./static/resume.pdf'><img alt="" src="https://img.shields.io/badge/Download-CCCCCC?style=flat-square&logo=docusign&logoColor=black"></a> -->
 
-**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>
+<!--**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>-->
 
 <!-- **Skills**: &nbsp; Python, C++, Pytorch, Keras, CUDA, MMCV -->
 
-</div>
+<!--</div>-->
 
----
 
 <br/>
 
