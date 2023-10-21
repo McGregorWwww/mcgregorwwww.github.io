@@ -99,7 +99,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 [**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://arxiv.org/abs/2310.11320) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
 
 <div markdown="1" style="font-size:13px">
-_Conference on Neural Information Processing Systems_ (***NeurIPS***), 2023 <font color="SteelBlue"> &#124; CCF A</font>
+_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023 <font color="SteelBlue"> &#124; CCF A</font>
 
 **Haonan Wang**, Xiaomeng Li
   
