@@ -104,6 +104,8 @@ _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023 <font 
 **Haonan Wang**, Xiaomeng Li
   
 <a href="https://github.com/xmed-lab/GenericSSL"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
+<a href="https://www.bilibili.com/video/BV1VQ4y1h7VA/?spm_id_from=333.999.0.0&vd_source=99138e8188d50ba1501059078ab79ca5"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=bilibili&logoColor=white" alt="" /></a>
+
 
 </div>
 </div>
