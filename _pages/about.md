@@ -80,7 +80,6 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 - *2023.09*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**NeurIPS-2023**_.
 - *2023.08*: &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
 - *2023.06*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**MICCAI-2023**_.
-- *2023.05*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**Medical Image Analysis**_. 
 - *2022.02*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**AAAI-2022**_. 
 
 </div>
@@ -129,22 +128,6 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge" background-color="000000">MedIA</div><a href='images/UDTransNet.png'><img src='images/UDTransNet.png' alt="UDTransNet" width="100%"></a></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
-  
-**Narrowing the Semantic Gaps in U-Net with Learnable Skip Connections: The Case of Medical Image Segmentation** <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/udtransnet?style=social"> 
-
-<div markdown="1" style="font-size:13px">
-<!-- In *36th AAAI Conference on Artificial Intelligence (AAAI), 2022* <font color="SteelBlue"> &#124; CCF A</font> -->
-_Accepted by Medical Image Analysis_ (_**MedIA**_) <font color="SteelBlue"> &#124; JCR Q1 &#124; IF=13.828</font>
-
-**Haonan Wang**, Peng Cao, Xiaoli Liu, Jinzhu Yang and Osmar R. Zaiane
-  
-<a href="https://github.com/McGregorWwww/UDTransNet"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-  
-</div>
-</div>
-</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge" background-color="000000">AAAI 2022</div><a href='images/UCTransNet.png'><img src='images/UCTransNet.png' alt="UCTransNet" width="100%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
@@ -168,6 +151,18 @@ _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022 <font color
 ## Other Publications
 <div markdown="1" style="font-size:13px;height: 300px; overflow: auto;">
 
+
+
+
+[**Narrowing the Semantic Gaps in U-Net with Learnable Skip Connections: The Case of Medical Image Segmentation**](https://arxiv.org/abs/2312.15182) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
+
+<div markdown="1" style="font-size:13px">
+*Arxiv preprint*, 2023
+
+**Haonan Wang**, Peng Cao, Jinzhu Yang and Osmar R. Zaiane
+</div>
+
+---
 
 
 [**Dynamic Data Augmentation via MCTS for Prostate MRI Segmentation**](https://arxiv.org/abs/2305.15777) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
