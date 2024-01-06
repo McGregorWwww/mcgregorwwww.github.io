@@ -244,6 +244,12 @@ _6th International Conference on Computing and Artificial Intelligence_ (**_ICCA
 - IEEE Transactions on Medical Imaging (TMI)
 - IEEE Journal of Biomedical and Health Informatics (JBHI)
 
+## Conference Reviews
+- IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+- AAAI Conference on Artificial Intelligence (AAAI)
+- Medical Image Computing and Computer Assisted Intervention (MICCAI)
+
+
 ---
 <br/>
 <br/>
