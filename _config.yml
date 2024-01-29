@@ -23,7 +23,8 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 author:
   name             : "Haonan Wang"
   name_cn          : "王浩楠"
-  avatar           : "images/android-chrome-512x512.png"
+  # avatar           : "images/android-chrome-512x512.png"
+  avatar           : "images/avatar.png"
   bio              : "Ph.D. Student in HKUST"
   location         :
   employer         :
