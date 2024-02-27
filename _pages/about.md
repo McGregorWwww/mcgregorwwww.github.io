@@ -77,6 +77,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto;">
 
+- *2024.02*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**CVPR-2024**_.
 - *2023.09*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**NeurIPS-2023**_.
 - *2023.08*: &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
 - *2023.06*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**MICCAI-2023**_.
