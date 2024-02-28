@@ -75,7 +75,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 # News
 
-<div markdown="1" style="height: 240px; overflow: auto;">
+<div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
 - *2024.02*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**CVPR-2024**_.
 - *2023.09*: &nbsp; <u><strong><font size='5'>1</font></strong></u> paper accepted by _**NeurIPS-2023**_.
