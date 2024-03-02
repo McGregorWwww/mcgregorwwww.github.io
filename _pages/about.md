@@ -93,6 +93,26 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 # Publications
 ## Featured Publications
 
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="analysis" width="70%"></a><a href='images/allspark.png'><img src='images/allspark.png' alt="AND" width="70%"></a></div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px">
+  
+[**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
+Semi-Supervised Semantic Segmentation**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
+
+<div markdown="1" style="font-size:13px">
+_Proceedings of the IEEE/CVF international conference on computer vision_ (***CVPR***), 2024 <font color="SteelBlue"> &#124; CCF A</font>
+
+**Haonan Wang**, Qixiang Zhang, Yi Li, Xiaomeng Li
+  
+<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
+
+
+
+</div>
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/analysis.png'><img src='images/analysis.png' alt="analysis" width="70%"></a><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="70%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
