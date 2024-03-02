@@ -101,7 +101,7 @@ $^\dagger$ denotes equal contribution.
 Semi-Supervised Semantic Segmentation**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
 
 <div markdown="1" style="font-size:13px">
-_Proceedings of the IEEE/CVF international conference on computer vision_ (***CVPR***), 2024 <font color="SteelBlue"> &#124; CCF A</font>
+_IEEE / CVF Computer Vision and Pattern Recognition Conference_ (***CVPR***), 2024 <font color="SteelBlue"> &#124; CCF A</font>
 
 **Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Yi Li, Xiaomeng Li
   
