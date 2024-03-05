@@ -98,7 +98,7 @@ $^\dagger$ denotes equal contribution.
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
 [**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
-Semi-Supervised Semantic Segmentation**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
+Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
 
 <div markdown="1" style="font-size:13px">
 _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024 <font color="SteelBlue"> &#124; CCF A</font>
