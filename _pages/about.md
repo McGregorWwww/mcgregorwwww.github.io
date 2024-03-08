@@ -101,7 +101,7 @@ $^\dagger$ denotes equal contribution.
 Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
 
 <div markdown="1" style="font-size:13px">
-_IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024 <font color="SteelBlue"> &#124; CCF A</font>
+_IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024
 
 **Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Yi Li, Xiaomeng Li
   
@@ -120,7 +120,7 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 [**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://arxiv.org/abs/2310.11320) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
 
 <div markdown="1" style="font-size:13px">
-_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023 <font color="SteelBlue"> &#124; CCF A</font>
+_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
 
 **Haonan Wang**, Xiaomeng Li
   
@@ -140,7 +140,7 @@ _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023 <font 
 
 <div markdown="1" style="font-size:13px">
 
-_Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 2023 <font color="SteelBlue"> &#124; CCF B</font>
+_Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 2023
 
 **Haonan Wang**, Xiaomeng Li
   
@@ -158,7 +158,7 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 
 <div markdown="1" style="font-size:13px">
 
-_36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022 <font color="SteelBlue"> &#124; CCF A</font>
+_36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 
 **Haonan Wang**, Peng Cao, Jiaqi Wang, Osmar R. Zaiane
   
@@ -190,7 +190,7 @@ _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022 <font color
 [**Dynamic Data Augmentation via MCTS for Prostate MRI Segmentation**](https://arxiv.org/abs/2305.15777) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
 
 <div markdown="1" style="font-size:13px">
-*International Conference on Neural Information Processing (**ICONIP**)*, 2023 <font color="SteelBlue"> &#124; CCF C</font>
+*International Conference on Neural Information Processing (**ICONIP**)*, 2023 
 
 Xinyue Xu, Yuhan Hsi, **Haonan Wang**, Xiaomeng Li
 </div>
@@ -201,7 +201,7 @@ Xinyue Xu, Yuhan Hsi, **Haonan Wang**, Xiaomeng Li
 [**MS-SSD: Multi-scale Single Shot Detector for Ship Detection in Remote Sensing Images**](https://link.springer.com/article/10.1007/s10489-022-03549-6) <span class="show_paper_citations" data="KDNRnW0AAAAJ:9yKSN-GCB0IC"></span>
 
 <div markdown="1" style="font-size:13px">
-*Applied Intelligence*, 2022 <font color="SteelBlue"> &#124; JCR Q2 &#124; IF=5.086</font>
+*Applied Intelligence*, 2022 
 
 Guangqi Wen, Peng Cao, **Haonan Wang**, Hanlin Chen, Xiaoli Liu, Jinghui Xu, Osmar Zaiane
 </div>
@@ -211,7 +211,7 @@ Guangqi Wen, Peng Cao, **Haonan Wang**, Hanlin Chen, Xiaoli Liu, Jinghui Xu, Osm
 [**MCA-UNet: Multi-scale Cross Ço-attentional U-Net for Automatic Medical Image Segmentation**](https://link.springer.com/article/10.1007/s13755-022-00209-4) <span class="show_paper_citations" data="KDNRnW0AAAAJ:UeHWp8X0CEIC"></span>
 
 <div markdown="1" style="font-size:13px">
-*Health Information Science and Systems*, 2023 <font color="SteelBlue"> &#124; JCR Q2 &#124; IF=5.371</font>
+*Health Information Science and Systems*, 2023
 
 **Haonan Wang**, Peng Cao, Jinzhu Yang, Osmar Zaiane
 </div>
@@ -221,7 +221,7 @@ Guangqi Wen, Peng Cao, **Haonan Wang**, Hanlin Chen, Xiaoli Liu, Jinghui Xu, Osm
 [**Collaborative Learning of Weakly-supervised Domain Adaptation for Diabetic Retinopathy Grading on Retinal Images**](https://www.sciencedirect.com/science/article/pii/S0010482522001330) <span class="show_paper_citations" data="KDNRnW0AAAAJ:d1gkVwhDpl0C"></span>
 
 <div markdown="1" style="font-size:13px">
-*Computers in Biology and Medicine*, 2022 <font color="SteelBlue"> &#124; JCR Q1 &#124; IF=6.744</font>
+*Computers in Biology and Medicine*, 2022
 
 Peng Cao, Qingshan Hou, Ruoxian Song, **Haonan Wang**, Osmar Zaiane
 </div>
@@ -231,7 +231,7 @@ Peng Cao, Qingshan Hou, Ruoxian Song, **Haonan Wang**, Osmar Zaiane
 [**An Improved Breast Cancer Nuclei Segmentation Method Based on UNet++**](https://dl.acm.org/doi/abs/10.1145/3404555.3404577) <span class="show_paper_citations" data="KDNRnW0AAAAJ:u5HHmVD_uO8C"></span>
 
 <div markdown="1" style="font-size:13px">
-_6th International Conference on Computing and Artificial Intelligence_ (**_ICCAI_**), 2020 <font color="SteelBlue">&#124; EI</font>
+_6th International Conference on Computing and Artificial Intelligence_ (**_ICCAI_**), 2020
 
 **Haonan Wang**, Yinhan Li, Zhiyi Luo
 </div>
