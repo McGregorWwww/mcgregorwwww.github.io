@@ -77,12 +77,12 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-- ![Static Badge](https://img.shields.io/badge/2024%2F02-black) &nbsp; **One** paper accepted by _**CVPR-2024**_.
-- ![Static Badge](https://img.shields.io/badge/2023%2F09-black)
+- ![Static Badge](https://img.shields.io/badge/2024%2F02-green) &nbsp; **One** paper accepted by _**CVPR-2024**_.
+- ![Static Badge](https://img.shields.io/badge/2023%2F09-green)
  &nbsp; **One** paper accepted by _**NeurIPS-2023**_.
-- ![Static Badge](https://img.shields.io/badge/2023%2F08-black) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
-- ![Static Badge](https://img.shields.io/badge/2023%2F06-black) &nbsp; **One** paper accepted by _**MICCAI-2023**_.
-- ![Static Badge](https://img.shields.io/badge/2022%2F02-black) &nbsp; **One** paper accepted by _**AAAI-2022**_. 
+- ![Static Badge](https://img.shields.io/badge/2023%2F08-green) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
+- ![Static Badge](https://img.shields.io/badge/2023%2F06-green) &nbsp; **One** paper accepted by _**MICCAI-2023**_.
+- ![Static Badge](https://img.shields.io/badge/2022%2F02-green) &nbsp; **One** paper accepted by _**AAAI-2022**_. 
 
 </div>
 
