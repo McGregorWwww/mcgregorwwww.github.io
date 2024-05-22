@@ -77,16 +77,16 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2024%2F02-light_green) &nbsp; One paper accepted by _**CVPR-2024**_.
+![Static Badge](https://img.shields.io/badge/2024%2F02-silver?style=flat-square) &nbsp; One paper accepted by _**CVPR-2024**_.
 
-![Static Badge](https://img.shields.io/badge/2023%2F09-light_green)
+![Static Badge](https://img.shields.io/badge/2023%2F09-silver?style=flat-square)
  &nbsp; One paper accepted by _**NeurIPS-2023**_.
  
-![Static Badge](https://img.shields.io/badge/2023%2F08-light_green) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
+![Static Badge](https://img.shields.io/badge/2023%2F08-silver?style=flat-square) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
 
-![Static Badge](https://img.shields.io/badge/2023%2F06-light_green) &nbsp; One paper accepted by _**MICCAI-2023**_.
+![Static Badge](https://img.shields.io/badge/2023%2F06-silver?style=flat-square) &nbsp; One paper accepted by _**MICCAI-2023**_.
 
-![Static Badge](https://img.shields.io/badge/2022%2F02-light_green) &nbsp; One paper accepted by _**AAAI-2022**_. 
+![Static Badge](https://img.shields.io/badge/2022%2F02-silver?style=flat-square) &nbsp; One paper accepted by _**AAAI-2022**_. 
 
 </div>
 
@@ -110,7 +110,7 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 
 **Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Yi Li, Xiaomeng Li
   
-<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
+<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a> 
 
 
 
@@ -131,6 +131,7 @@ _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
   
 <a href="https://github.com/xmed-lab/GenericSSL"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
 <a href="https://www.bilibili.com/video/BV1VQ4y1h7VA/?spm_id_from=333.999.0.0&vd_source=99138e8188d50ba1501059078ab79ca5"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=bilibili&logoColor=white" alt="" /></a>
+<a href="https://hkustconnect-my.sharepoint.com/:b:/g/personal/hwanggr_connect_ust_hk/EQ62bNBRfvVCgP2mVdAJ2yUBN7qTeIJUVFgmEzy2EeOUwA?e=qcxGvH"><img src="https://img.shields.io/badge/Slides-100000?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white" alt="" /></a>
 
 
 </div>
