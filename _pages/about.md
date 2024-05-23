@@ -99,7 +99,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="100%"></a>
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="90%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
