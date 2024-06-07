@@ -123,7 +123,7 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="100%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
-[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://arxiv.org/abs/2310.11320) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
+[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
 
 <div markdown="1" style="font-size:13px">
 _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
