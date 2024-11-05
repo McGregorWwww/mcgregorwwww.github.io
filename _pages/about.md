@@ -104,11 +104,11 @@ $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
 
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="allspark" width="80%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
-[**_S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
+[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
