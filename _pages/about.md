@@ -77,6 +77,10 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
+![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; Take a look at our new work on Generic Semi-supervised Medical Image Segmentation: _S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation_. We established new SOTAs on **six** benchmark datasets!🌟
+
+![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**TMI-2024**_.
+
 ![Static Badge](https://img.shields.io/badge/2024%2F02-silver?style=flat-square) &nbsp; One paper accepted by _**CVPR-2024**_.
 
 ![Static Badge](https://img.shields.io/badge/2023%2F09-silver?style=flat-square)
@@ -98,6 +102,28 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 # Publications
 $^\dagger$ denotes equal contribution.
 ## Featured Publications
+
+
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
+<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px">
+  
+[**_S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
+
+<div markdown="1" style="font-size:13px">
+_Arxiv Preprints_, 2024
+
+Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
+  
+<!--<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
+
+
+
+</div>
+</div>
+</div>
+
+
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
