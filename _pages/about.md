@@ -104,7 +104,7 @@ $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
 
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="allspark" width="80%"></a>
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
