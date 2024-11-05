@@ -77,7 +77,7 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; Take a look at our new work on Generic Semi-supervised Medical Image Segmentation: _S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation_. We established new SOTAs on **six** benchmark datasets!🌟
+![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; Take a look at our new work on Generic Semi-supervised Medical Image Segmentation: [_S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation_](https://arxiv.org/abs/2407.07763). We established new SOTAs on **six** benchmark datasets! 🌟
 
 ![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**TMI-2024**_.
 
