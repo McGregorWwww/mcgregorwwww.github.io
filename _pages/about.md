@@ -132,7 +132,7 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
 <div markdown="1" style="font-size:13px">
 _IEEE Transactions on Medical Imaging_ (***TMI***), 2024
 
-Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
+Qixiang Zhang, Yi Li, Cheng Xue, **Haonan Wang**, Xiaomeng Li
   
 <!--<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
 
