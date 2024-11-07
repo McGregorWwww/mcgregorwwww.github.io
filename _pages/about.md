@@ -103,6 +103,24 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/MedRegA.png'><img src='images/MedRegA.png' alt="MedRegA" width="100%"></a>
+<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px">
+  
+[**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
+
+<div markdown="1" style="font-size:13px">
+_Arxiv Preprints_, 2024
+
+Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xiaomeng Li
+  
+<a href="https://github.com/xmed-lab/MedRegA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
+</div>
+</div>
+</div>
+
+
+
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
