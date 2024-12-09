@@ -227,6 +227,8 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 
 _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 
+[🏅 Top-1 Most Influential AAAI 2022 Paper](https://www.paperdigest.org/2024/05/most-influential-aaai-papers-2024-05/)
+
 **Haonan Wang**, Peng Cao, Jiaqi Wang, Osmar R. Zaiane
   
 <a href="https://github.com/McGregorWwww/UCTransNet"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
