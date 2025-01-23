@@ -35,7 +35,7 @@ redirect_from:
 
 I am a Ph.D. student supervised by [Prof. Xiaomeng Li](https://xmengli.github.io/) at [The Hong Kong University of Science and Technology](https://hkust.edu.hk/).
 
-Before that, I recieved my Master's degree in [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree in [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
+Before that, I received my Master's degree in [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree in [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
 
 ---
 
@@ -77,6 +77,8 @@ Before that, I recieved my Master's degree in [The University of Hong Kong](http
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
+![Static Badge](https://img.shields.io/badge/2025%2F01-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**ICLR-2025**_.
+
 ![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; Take a look at our new work on Generic Semi-supervised Medical Image Segmentation: [_S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation_](https://arxiv.org/abs/2407.07763). We established new SOTAs on **six** benchmark datasets! 🌟
 
 ![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**TMI-2024**_.
@@ -110,7 +112,7 @@ $^\dagger$ denotes equal contribution.
 [**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
 
 <div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2024
+_The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
 
 Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xiaomeng Li
   
