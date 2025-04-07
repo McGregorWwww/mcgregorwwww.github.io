@@ -152,14 +152,14 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
   
-[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
+[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
 
 Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
   
-<!--<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
+<a href="https://github.com/xmed-lab/SD-Messenger"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <!--<a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
 
 </div>
 </div>
