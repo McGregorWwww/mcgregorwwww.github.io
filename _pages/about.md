@@ -18,12 +18,12 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-
+<!--
 <img alt="last updated" src="https://img.shields.io/github/last-commit/McGregorWwww/mcgregorwwww.github.io?color=e8e8e8&label=Last%20Updated&logo=Convertio&logoColor=white&style=flat-square&labelColor=gray">  &nbsp;
 
 
 <img src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=mcgregorwwww.github.io&lcolor=gray&color=e8e8e8&style=flat-square&cache=on&logo=Myspace"> 
-
+-->
 
 
 # Biography
@@ -34,7 +34,7 @@ I am a Ph.D. student supervised by [Prof. Xiaomeng Li](https://xmengli.github.io
 
 Before that, I received my Master's degree from [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree from [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
 
-**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>
+<!--**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>-->
 
 ---
 
