@@ -22,7 +22,7 @@ redirect_from:
 <img alt="last updated" src="https://img.shields.io/github/last-commit/McGregorWwww/mcgregorwwww.github.io?color=e8e8e8&label=Last%20Updated&logo=Convertio&logoColor=white&style=flat-square&labelColor=gray">  &nbsp;
 
 
-<img src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://mcgregorwwww.github.io&lcolor=gray&color=e8e8e8&style=flat-square&cache=on&logo=Myspace"> 
+<img src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=mcgregorwwww.github.io&lcolor=gray&color=e8e8e8&style=flat-square&cache=on&logo=Myspace"> 
 
 
 
