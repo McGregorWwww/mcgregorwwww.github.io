@@ -35,7 +35,7 @@ redirect_from:
 
 I am a Ph.D. student supervised by [Prof. Xiaomeng Li](https://xmengli.github.io/) at [The Hong Kong University of Science and Technology](https://hkust.edu.hk/).
 
-Before that, I received my Master's degree in [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree in [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
+Before that, I received my Master's degree from [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree from [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
 
 ---
 
@@ -269,12 +269,22 @@ _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 <div markdown="1" style="font-size:13px;height: 300px; overflow: auto;">
 
 
-
-
-[**Narrowing the Semantic Gaps in U-Net with Learnable Skip Connections: The Case of Medical Image Segmentation**](https://arxiv.org/abs/2312.15182) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
+[**Artificial intelligence model for automatic 3-dimensional reconstruction of ossicular chain and bony labyrinth from high-resolution CT**](https://academic.oup.com/radadv/article/2/1/umaf004/7989450) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
 
 <div markdown="1" style="font-size:13px">
-*Arxiv preprint*, 2023
+*Neural Networks*, 2024
+
+Mingwei Xie, **Haonan Wang**, Zehong Yang, Ming Gao, Guangzi Shi, Xingnan Liao, Zhongqiang Luo, Xiaomeng Li, Jun Shen
+</div>
+
+---
+
+
+[**Narrowing the Semantic Gaps in U-Net with Learnable Skip Connections: The Case of Medical Image Segmentation**](https://arxiv.org/abs/2312.15182) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/udtransnet?style=social">
+
+
+<div markdown="1" style="font-size:13px">
+*Neural Networks*, 2024
 
 **Haonan Wang**, Peng Cao, Jinzhu Yang and Osmar R. Zaiane
 </div>
@@ -358,11 +368,14 @@ _6th International Conference on Computing and Artificial Intelligence_ (**_ICCA
 
 # Professional Activities
 ## Journal Reviews
+- IEEE Transactions on Neural Networks and Learning Systems (TNNLS)
 - IEEE Transactions on Medical Imaging (TMI)
 - IEEE Journal of Biomedical and Health Informatics (JBHI)
 
 ## Conference Reviews
 - IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+- International Conference on Computer Vision (ICCV)
+- Conference on Neural Information Processing Systems (NeurIPS)
 - AAAI Conference on Artificial Intelligence (AAAI)
 - Medical Image Computing and Computer Assisted Intervention (MICCAI)
 
