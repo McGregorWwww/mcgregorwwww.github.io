@@ -18,12 +18,12 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-<!--
+
 <img alt="last updated" src="https://img.shields.io/github/last-commit/McGregorWwww/mcgregorwwww.github.io?color=e8e8e8&label=Last%20Updated&logo=Convertio&logoColor=white&style=flat-square&labelColor=gray">  &nbsp;
--->
-<!--
+
+
 <img src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=haonanwang.tech&lcolor=gray&color=e8e8e8&style=flat-square&cache=on&logo=Myspace"> 
--->
+
 
 
 
@@ -36,6 +36,8 @@ redirect_from:
 I am a Ph.D. student supervised by [Prof. Xiaomeng Li](https://xmengli.github.io/) at [The Hong Kong University of Science and Technology](https://hkust.edu.hk/).
 
 Before that, I received my Master's degree from [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree from [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
+
+**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>
 
 ---
 
@@ -63,8 +65,6 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 <!--<div markdown="1" style="font-size:14px">-->
 
 <!-- **Curriculum Vitae**: &nbsp; <a href='./static/resume.pdf'><img alt="" src="https://img.shields.io/badge/Download-CCCCCC?style=flat-square&logo=docusign&logoColor=black"></a> -->
-
-<!--**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>-->
 
 <!-- **Skills**: &nbsp; Python, C++, Pytorch, Keras, CUDA, MMCV -->
 
@@ -272,7 +272,7 @@ _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 [**Artificial intelligence model for automatic 3-dimensional reconstruction of ossicular chain and bony labyrinth from high-resolution CT**](https://academic.oup.com/radadv/article/2/1/umaf004/7989450) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
 
 <div markdown="1" style="font-size:13px">
-*Neural Networks*, 2024
+*Radiology Advances*, 2024
 
 Mingwei Xie, **Haonan Wang**, Zehong Yang, Ming Gao, Guangzi Shi, Xingnan Liao, Zhongqiang Luo, Xiaomeng Li, Jun Shen
 </div>
