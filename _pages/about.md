@@ -108,6 +108,24 @@ $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
 
+
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/RCMed.png'><img src='images/RCMed.png' alt="RCMed" width="100%"></a>
+</div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px">
+  
+[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
+
+<div markdown="1" style="font-size:13px">
+_Arxiv Preprints_, 2025
+
+**Haonan Wang**, Jiaji Mao, Lehan Wang, Qixiang Zhang, Marawan Elbatel, Yi Qin, Huijun Hu, Baoxun Li, Wenhui Deng, Weifeng Qin, Hongrui Li, Jialin Liang, Jun Shen, Xiaomeng Li
+  
+<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Homepage-100000?style=for-the-badge&logo=htmx&logoColor=white" alt="Homepage" /></a>
+</div>
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/Neurons.png'><img src='images/Neurons.png' alt="Neurons" width="100%"></a>
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px">
