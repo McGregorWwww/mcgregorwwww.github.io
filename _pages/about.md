@@ -573,86 +573,49 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     // Handle citation counts
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
-    // Function to fetch and display citation count
-    async function fetchAndDisplayCitationCount(scholarId, citationElement) {
+    // Function to fetch citation counts from the local JSON file
+    async function fetchCitationCounts() {
       try {
-        // Create citation badge
-        const citationBadge = document.createElement('span');
-        citationBadge.className = 'citation-badge';
-        citationBadge.style.display = 'inline-block';
-        citationBadge.style.padding = '1px 5px';
-        citationBadge.style.margin = '0 5px';
-        citationBadge.style.backgroundColor = '#f5f5f5';
-        citationBadge.style.color = '#333';
-        citationBadge.style.borderRadius = '3px';
-        citationBadge.style.fontSize = '12px';
-        citationBadge.style.fontWeight = 'normal';
+        // Fetch the citation data from the JSON file
+        const response = await fetch('/results/paper_citations.json');
         
-        // First show a loading indicator
-        citationBadge.textContent = 'Loading...';
-        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
-        
-        // Use the Semantic Scholar API which allows CORS and provides citation counts
-        // This is a more reliable approach than trying to scrape Google Scholar
-        // Format: scholarId is in the format 'KDNRnW0AAAAJ:2osOgNQ5qMEC'
-        // We'll extract the paper title from the closest link element
-        const paperLink = citationElement.closest('div').querySelector('a');
-        let paperTitle = '';
-        
-        if (paperLink) {
-          paperTitle = paperLink.textContent.trim();
-        }
-        
-        if (paperTitle) {
-          // Fetch from Semantic Scholar API
-          const response = await fetch(`https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(paperTitle)}&fields=title,citationCount`);
+        if (response.ok) {
+          const citationData = await response.json();
           
-          if (response.ok) {
-            const data = await response.json();
-            if (data.data && data.data.length > 0) {
-              // Get the first result (most relevant)
-              const paper = data.data[0];
-              const citationCount = paper.citationCount || 0;
+          // Process each citation element
+          citationElements.forEach(element => {
+            const scholarId = element.getAttribute('data');
+            if (scholarId && citationData[scholarId]) {
+              // Create citation badge
+              const citationBadge = document.createElement('span');
+              citationBadge.className = 'citation-badge';
+              citationBadge.style.display = 'inline-block';
+              citationBadge.style.padding = '1px 5px';
+              citationBadge.style.margin = '0 5px';
+              citationBadge.style.backgroundColor = '#f5f5f5';
+              citationBadge.style.color = '#333';
+              citationBadge.style.borderRadius = '3px';
+              citationBadge.style.fontSize = '12px';
+              citationBadge.style.fontWeight = 'normal';
               
-              // Update the badge with the citation count
-              citationBadge.innerHTML = `📄 ${citationCount}`;
-            } else {
-              // No results found
-              citationBadge.innerHTML = `📄 0`;
+              // Get citation count from the data
+              const citationCount = citationData[scholarId].citations || 0;
+              citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
+              
+              // Insert the citation badge after the citation element
+              element.parentNode.insertBefore(citationBadge, element.nextSibling);
             }
-          } else {
-            // API request failed
-            citationBadge.innerHTML = `📄 -`;
-          }
+          });
         } else {
-          // Couldn't find paper title
-          citationBadge.innerHTML = `📄 ?`;
+          console.error('Failed to load citation data');
         }
       } catch (error) {
-        console.error('Error fetching citation count:', error);
-        // Show error indicator
-        const citationBadge = document.createElement('span');
-        citationBadge.className = 'citation-badge';
-        citationBadge.style.display = 'inline-block';
-        citationBadge.style.padding = '1px 5px';
-        citationBadge.style.margin = '0 5px';
-        citationBadge.style.backgroundColor = '#f5f5f5';
-        citationBadge.style.color = '#333';
-        citationBadge.style.borderRadius = '3px';
-        citationBadge.style.fontSize = '12px';
-        citationBadge.style.fontWeight = 'normal';
-        citationBadge.innerHTML = `📄 !`;
-        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
+        console.error('Error fetching citation counts:', error);
       }
     }
     
-    // Process each citation element
-    citationElements.forEach(element => {
-      const scholarId = element.getAttribute('data');
-      if (scholarId) {
-        fetchAndDisplayCitationCount(scholarId, element);
-      }
-    });
+    // Fetch citation counts when the page loads
+    fetchCitationCounts();
   });
 </script>
 
