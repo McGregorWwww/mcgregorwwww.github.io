@@ -114,13 +114,13 @@ $^\dagger$ denotes equal contribution.
 }
 .filter-button {
   display: inline-block;
-  padding: 8px 15px;
-  margin: 5px;
+  padding: 5px 10px;
+  margin: 3px;
   background-color: white;
   border: 1px solid #000;
   border-radius: 0px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   transition: all 0.3s ease;
 }
 .filter-button:hover {
@@ -133,12 +133,12 @@ $^\dagger$ denotes equal contribution.
 }
 .publication-tag {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 2px 6px;
   margin: 2px;
   background-color: white;
   border: 1px solid #000;
   border-radius: 0px;
-  font-size: 11px;
+  font-size: 10px;
   color: #000;
 }
 </style>
@@ -479,17 +479,13 @@ _6th International Conference on Computing and Artificial Intelligence_ (**_ICCA
         // Find or create tags container
         let tagsContainer = paperText.querySelector('.publication-tags');
         if (!tagsContainer) {
-          // Find the title link (first link in the paper-box-text)
-          const titleElement = paperText.querySelector('a');
-          if (titleElement) {
-            // Create tags container after the title
-            tagsContainer = document.createElement('div');
-            tagsContainer.className = 'publication-tags';
-            
-            // Insert after the title's parent paragraph
-            const paragraph = titleElement.closest('p') || titleElement;
-            paragraph.parentNode.insertBefore(tagsContainer, paragraph.nextSibling);
-          }
+          // Create tags container at the end of the paper-box-text
+          tagsContainer = document.createElement('div');
+          tagsContainer.className = 'publication-tags';
+          tagsContainer.style.marginTop = '5px';
+          
+          // Append at the end of paper-box-text
+          paperText.appendChild(tagsContainer);
         } else {
           // Clear existing tags
           tagsContainer.innerHTML = '';
