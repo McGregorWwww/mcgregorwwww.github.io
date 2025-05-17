@@ -573,8 +573,8 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     // Handle citation counts
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
-    // Function to display citation count
-    function displayCitationCount(scholarId, citationElement) {
+    // Function to fetch and display citation count
+    async function fetchAndDisplayCitationCount(scholarId, citationElement) {
       try {
         // Create citation badge
         const citationBadge = document.createElement('span');
@@ -588,27 +588,61 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         citationBadge.style.fontSize = '12px';
         citationBadge.style.fontWeight = 'normal';
         
-        // Since we can't directly fetch from Google Scholar due to CORS restrictions,
-        // we'll use a static approach with known citation counts
-        // In a production environment, you would need a server-side proxy or API
-        
-        // Map of citation counts (you can update these manually periodically)
-        const citationCounts = {
-          'KDNRnW0AAAAJ:2osOgNQ5qMEC': 256, // UCTransNet paper
-          'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': 43,  // DHC paper
-          'KDNRnW0AAAAJ:u-x6o8ySG0sC': 18   // Other papers
-        };
-        
-        // Get citation count or default to 0
-        const citationCount = citationCounts[scholarId] || 0;
-        
-        // Display the citation count with a quote icon
-        citationBadge.innerHTML = `📄 ${citationCount}`;
-        
-        // Insert the citation badge after the citation element
+        // First show a loading indicator
+        citationBadge.textContent = 'Loading...';
         citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
+        
+        // Use the Semantic Scholar API which allows CORS and provides citation counts
+        // This is a more reliable approach than trying to scrape Google Scholar
+        // Format: scholarId is in the format 'KDNRnW0AAAAJ:2osOgNQ5qMEC'
+        // We'll extract the paper title from the closest link element
+        const paperLink = citationElement.closest('div').querySelector('a');
+        let paperTitle = '';
+        
+        if (paperLink) {
+          paperTitle = paperLink.textContent.trim();
+        }
+        
+        if (paperTitle) {
+          // Fetch from Semantic Scholar API
+          const response = await fetch(`https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(paperTitle)}&fields=title,citationCount`);
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.data && data.data.length > 0) {
+              // Get the first result (most relevant)
+              const paper = data.data[0];
+              const citationCount = paper.citationCount || 0;
+              
+              // Update the badge with the citation count
+              citationBadge.innerHTML = `📄 ${citationCount}`;
+            } else {
+              // No results found
+              citationBadge.innerHTML = `📄 0`;
+            }
+          } else {
+            // API request failed
+            citationBadge.innerHTML = `📄 -`;
+          }
+        } else {
+          // Couldn't find paper title
+          citationBadge.innerHTML = `📄 ?`;
+        }
       } catch (error) {
-        console.error('Error displaying citation count:', error);
+        console.error('Error fetching citation count:', error);
+        // Show error indicator
+        const citationBadge = document.createElement('span');
+        citationBadge.className = 'citation-badge';
+        citationBadge.style.display = 'inline-block';
+        citationBadge.style.padding = '1px 5px';
+        citationBadge.style.margin = '0 5px';
+        citationBadge.style.backgroundColor = '#f5f5f5';
+        citationBadge.style.color = '#333';
+        citationBadge.style.borderRadius = '3px';
+        citationBadge.style.fontSize = '12px';
+        citationBadge.style.fontWeight = 'normal';
+        citationBadge.innerHTML = `📄 !`;
+        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
       }
     }
     
@@ -616,7 +650,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     citationElements.forEach(element => {
       const scholarId = element.getAttribute('data');
       if (scholarId) {
-        displayCitationCount(scholarId, element);
+        fetchAndDisplayCitationCount(scholarId, element);
       }
     });
   });
