@@ -533,14 +533,16 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
           }
         });
         
-        // Immediately hide elements that need to be hidden
-        toHide.forEach(pub => {
-          pub.style.display = 'none';
-        });
-        
-        // Prepare all elements to be shown (set to visible but with fade-out class)
-        toShow.forEach(pub => {
-          if (pub.style.display === 'none') {
+        // First hide all papers to reset the view
+        publications.forEach(pub => {
+          if (!toShow.includes(pub)) {
+            // Immediately hide papers not in the current filter
+            pub.style.display = 'none';
+          } else {
+            // For papers that will be shown, prepare them for animation
+            // by making them invisible but keeping them in the layout
+            pub.style.opacity = '0';
+            pub.classList.remove('fade-in');
             pub.classList.add('fade-out');
             pub.style.display = '';
           }
@@ -549,7 +551,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         // Force reflow to ensure the fade-out state is applied before transitioning
         void document.body.offsetWidth;
         
-        // Start staggered fade-in animation for visible elements immediately
+        // Start staggered fade-in animation for all papers in the current filter
         const staggerDelay = 80; // Delay between each paper's animation (in ms)
         
         toShow.forEach((pub, index) => {
@@ -557,6 +559,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
           setTimeout(() => {
             pub.classList.remove('fade-out');
             pub.classList.add('fade-in');
+            pub.style.opacity = ''; // Remove the explicit opacity setting
             
             // Remove the fade-in class after animation completes
             setTimeout(() => {
