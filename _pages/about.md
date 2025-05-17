@@ -609,9 +609,12 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         
         // 从GitHub Actions生成的JSON文件加载数据
         try {
+          // 获取网站当前基础路径，确保在本地和GitHub Pages上都能工作
+          const basePath = window.location.href.includes('github.io') ? '/mcgregorwwww.github.io' : '';
           // 添加时间戳避免缓存问题
           const timestamp = new Date().getTime();
-          const response = await fetch(`google_scholar_crawler/results/gs_data.json?t=${timestamp}`);
+          console.log(`Loading citation data from: ${basePath}/google_scholar_crawler/results/gs_data.json?t=${timestamp}`);
+          const response = await fetch(`${basePath}/google_scholar_crawler/results/gs_data.json?t=${timestamp}`);
           
           if (response.ok) {
             const scholarData = await response.json();
