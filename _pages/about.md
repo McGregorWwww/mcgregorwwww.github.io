@@ -116,29 +116,30 @@ $^\dagger$ denotes equal contribution.
   display: inline-block;
   padding: 8px 15px;
   margin: 5px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 20px;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 0px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 .filter-button:hover {
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
 }
 .filter-button.active {
-  background-color: #4CAF50;
+  background-color: #000;
   color: white;
-  border-color: #4CAF50;
+  border-color: #000;
 }
 .publication-tag {
   display: inline-block;
   padding: 3px 8px;
   margin: 2px;
-  background-color: #f1f1f1;
-  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 0px;
   font-size: 11px;
-  color: #333;
+  color: #000;
 }
 </style>
 
@@ -159,6 +160,10 @@ $^\dagger$ denotes equal contribution.
   
 [**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
 
+<div class="publication-tags">
+  <span class="publication-tag">Foundation Models / VLMs</span>
+  <span class="publication-tag">Interpretability</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -177,6 +182,10 @@ _Arxiv Preprints_, 2025
   
 [**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
 
+<div class="publication-tags">
+  <span class="publication-tag">Brain Decoding</span>
+  <span class="publication-tag">Interpretability</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -196,7 +205,10 @@ _Arxiv Preprints_, 2025
   
 [**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
 
-
+<div class="publication-tags">
+  <span class="publication-tag">Foundation Models / VLMs</span>
+  <span class="publication-tag">Interpretability</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
@@ -217,7 +229,10 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
   
 [**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
 
-
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
@@ -238,7 +253,10 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
   
 [**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
 
-
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _IEEE Transactions on Medical Imaging_ (***TMI***), 2024
@@ -253,11 +271,16 @@ Qixiang Zhang, Yi Li, Cheng Xue, **Haonan Wang**, Xiaomeng Li
 
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
 [**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
-Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
+Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div> 
 
 <div markdown="1" style="font-size:13px">
 _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024
@@ -276,7 +299,12 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="100%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
 
-[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social"> 
+[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
@@ -296,7 +324,12 @@ _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge" background-color="000000">MICCAI 2023</div><a href='images/DHC.png'><img src='images/DHC.png' alt="DHC" width="100%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
-[**DHC: Dual-debiased Heterogeneous Co-training Framework for Class-imbalanced Semi-supervised Medical Image Segmentation**](https://arxiv.org/abs/2307.11960) <span class='show_paper_citations' data='KDNRnW0AAAAJ:Tyk-4Ss8FVUC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/DHC?style=social"> 
+[**DHC: Dual-debiased Heterogeneous Co-training Framework for Class-imbalanced Semi-supervised Medical Image Segmentation**](https://arxiv.org/abs/2307.11960) <span class='show_paper_citations' data='KDNRnW0AAAAJ:Tyk-4Ss8FVUC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/DHC?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 
@@ -315,6 +348,10 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg">
   
 [**UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer**](https://ojs.aaai.org/index.php/AAAI/article/view/20144) <span class='show_paper_citations' data='KDNRnW0AAAAJ:2osOgNQ5qMEC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/uctransnet?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Segmentation</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 
