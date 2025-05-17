@@ -595,7 +595,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       return citationBadge;
     }
     
-    // 引用数据加载，只从GitHub Actions生成的JSON文件获取
+    // 按照acad-homepage的方式加载引用计数
     async function fetchCitation(paperTitle, element, scholarId) {
       try {
         // 显示加载中的徽章
@@ -607,29 +607,46 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
           return;
         }
         
-        // 从JSON文件加载引用数据，使用相对路径
-        try {
-          // 采用相对路径加载数据，在哪里都能正确访问
-          const timestamp = new Date().getTime(); // 添加时间戳防止缓存
-          const jsonUrl = `./google_scholar_crawler/results/gs_data.json?t=${timestamp}`;
-          console.log(`尝试加载引用数据：${jsonUrl}`);
-          const response = await fetch(jsonUrl);
-          
-          if (response.ok) {
+        // 创建多个可能的路径来尝试加载数据
+        const possiblePaths = [
+          // 当前分支中的数据文件
+          "./google_scholar_crawler/results/gs_data.json",
+          // GitHub Pages基本URL下的数据文件
+          "/google_scholar_crawler/results/gs_data.json",
+          // 相对于根目录的数据文件
+          "../google_scholar_crawler/results/gs_data.json",
+          // 绝对路径
+          "/mcgregorwwww.github.io/google_scholar_crawler/results/gs_data.json"
+        ];
+        
+        // 添加时间戳参数以防止缓存
+        const timestamp = new Date().getTime();
+        
+        // 依次尝试所有可能的路径
+        for (const basePath of possiblePaths) {
+          try {
+            const jsonUrl = `${basePath}?t=${timestamp}`;
+            console.log(`尝试路径: ${jsonUrl}`);
+            
+            const response = await fetch(jsonUrl);
+            if (!response.ok) continue;
+            
             const scholarData = await response.json();
+            console.log('成功加载引用数据:', scholarData);
             
             if (scholarData && scholarData.publications && scholarData.publications[scholarId]) {
               const pub = scholarData.publications[scholarId];
               const count = pub.num_citations || 0;
               
-              // 显示引用计数
+              console.log(`论文ID ${scholarId} 的引用数: ${count}`);
               const citationBadge = createCitationBadge(count);
               element.parentNode.replaceChild(citationBadge, loadingBadge);
-              return;
+              return; // 成功加载数据，退出函数
             }
+          } catch (err) {
+            console.log(`路径 ${basePath} 加载失败:`, err);
+            // 继续尝试下一个路径
           }
-        } catch (error) {
-          console.error('无法加载引用数据:', error);
         }
         
         // If all fails, show a dash
