@@ -547,29 +547,35 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
             pub.classList.remove('fade-out');
           });
           
-          // Prepare elements to be shown (set to visible but with fade-out class)
+          // Prepare all elements to be shown (set to visible but with fade-out class)
           toShow.forEach(pub => {
             if (pub.style.display === 'none') {
               pub.classList.add('fade-out');
               pub.style.display = '';
+            } else {
+              // For already visible elements, we'll still animate them for consistency
+              pub.classList.add('fade-out');
             }
           });
           
           // Force reflow to ensure the fade-out state is applied before transitioning
           void document.body.offsetWidth;
           
-          // Start fade-in animation for all visible elements
-          toShow.forEach(pub => {
-            pub.classList.remove('fade-out');
-            pub.classList.add('fade-in');
-          });
+          // Start staggered fade-in animation for visible elements
+          const staggerDelay = 150; // Delay between each paper's animation (in ms)
           
-          // Remove the fade-in class after animation completes
-          setTimeout(() => {
-            toShow.forEach(pub => {
-              pub.classList.remove('fade-in');
-            });
-          }, 400);
+          toShow.forEach((pub, index) => {
+            // Use setTimeout to create the staggered effect
+            setTimeout(() => {
+              pub.classList.remove('fade-out');
+              pub.classList.add('fade-in');
+              
+              // Remove the fade-in class after animation completes
+              setTimeout(() => {
+                pub.classList.remove('fade-in');
+              }, 400);
+            }, index * staggerDelay);
+          });
         }, 400);
       });
     });
