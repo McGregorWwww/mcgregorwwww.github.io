@@ -518,6 +518,61 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         });
       });
     });
+    
+    // Handle citation counts
+    const citationElements = document.querySelectorAll('.show_paper_citations');
+    
+    // Function to fetch citation count from Google Scholar
+    async function fetchCitationCount(scholarId, citationElement) {
+      try {
+        // Create citation badge
+        const citationBadge = document.createElement('span');
+        citationBadge.className = 'citation-badge';
+        citationBadge.style.display = 'inline-block';
+        citationBadge.style.padding = '1px 5px';
+        citationBadge.style.margin = '0 5px';
+        citationBadge.style.backgroundColor = '#f5f5f5';
+        citationBadge.style.color = '#333';
+        citationBadge.style.borderRadius = '3px';
+        citationBadge.style.fontSize = '12px';
+        citationBadge.style.fontWeight = 'normal';
+        
+        // Use the Google Scholar API endpoint
+        // Note: This is a simplified approach. In a production environment, you might need a server-side proxy
+        // to handle CORS issues and rate limiting.
+        const response = await fetch(`https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${scholarId.split(':')[0]}&citation_for_view=${scholarId}`);
+        
+        if (response.ok) {
+          const data = await response.text();
+          // Extract citation count from the response
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+          const citationCountElement = doc.querySelector('.gsc_oci_value');
+          
+          if (citationCountElement) {
+            const citationCount = citationCountElement.textContent.trim();
+            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
+          } else {
+            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> 0`;
+          }
+        } else {
+          citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
+        }
+        
+        // Insert the citation badge after the citation element
+        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
+      } catch (error) {
+        console.error('Error fetching citation count:', error);
+      }
+    }
+    
+    // Process each citation element
+    citationElements.forEach(element => {
+      const scholarId = element.getAttribute('data');
+      if (scholarId) {
+        fetchCitationCount(scholarId, element);
+      }
+    });
   });
 </script>
 
