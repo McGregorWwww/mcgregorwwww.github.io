@@ -1,4 +1,4 @@
-name: Update Google Scholar Citations
+name: Check Google Scholar Citations
 
 on:
   schedule:
@@ -7,12 +7,9 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  update-citations:
+  check-citations:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -21,23 +18,59 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r google_scholar_crawler/requirements.txt
+          pip install requests
 
-      - name: Run citation crawler
+      - name: Run citation checker
         env:
           GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
         run: |
-          python google_scholar_crawler/main.py
+          # Simple script to check citation counts without saving files
+          python -c '
+          import requests
+          import re
+          import random
+          import time
+          import os
           
-      - name: Commit and push if changed
-        run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add results/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update citation data [automated]"
-            # Use PAT instead of GITHUB_TOKEN
-            git push "https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref }}
-          fi
+          # Configuration
+          USER_AGENTS = [
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
+          ]
+          
+          def get_random_user_agent():
+              return random.choice(USER_AGENTS)
+          
+          def fetch_citation_count(paper_id):
+              author_id, citation_id = paper_id.split(":", 1) if ":" in paper_id else (paper_id, "")
+              url = f"https://scholar.google.com/citations?view_op=view_citation&hl=en&user={author_id}&citation_for_view={paper_id}"
+              
+              headers = {"User-Agent": get_random_user_agent()}
+              
+              try:
+                  response = requests.get(url, headers=headers, timeout=5)
+                  if response.status_code == 200:
+                      match = re.search(r"Cited by (\\d+)", response.text)
+                      if match:
+                          return int(match.group(1))
+                  return 0
+              except Exception as e:
+                  print(f"Error fetching {paper_id}: {str(e)}")
+                  return 0
+          
+          # Important paper IDs
+          important_papers = {
+              "KDNRnW0AAAAJ:2osOgNQ5qMEC": "UCTransNet",
+              "KDNRnW0AAAAJ:Tyk-4Ss8FVUC": "DHC",
+              "KDNRnW0AAAAJ:u-x6o8ySG0sC": "Other papers"
+          }
+          
+          # Fetch citation counts
+          print("Citation counts:")
+          for paper_id, paper_name in important_papers.items():
+              count = fetch_citation_count(paper_id)
+              print(f"{paper_name}: {count} citations")
+              time.sleep(1)  # Avoid rate limiting
+          '
+          
+          echo "Citation check complete"
