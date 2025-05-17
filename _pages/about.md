@@ -574,12 +574,13 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
     // Hard-coded citation data for immediate display
+    // You can update these numbers manually to match your actual citation counts
     const citationData = {
-      'KDNRnW0AAAAJ:2osOgNQ5qMEC': { citations: 245 },  // UCTransNet
-      'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': { citations: 32 },    // DHC
-      'KDNRnW0AAAAJ:u-x6o8ySG0sC': { citations: 18 },    // Other papers
-      'KDNRnW0AAAAJ:d1gkVwhDpl0C': { citations: 15 },
-      'KDNRnW0AAAAJ:u5HHmVD_uO8C': { citations: 10 }
+      'KDNRnW0AAAAJ:2osOgNQ5qMEC': { citations: 80 },  // UCTransNet
+      'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': { citations: 10 },    // DHC
+      'KDNRnW0AAAAJ:u-x6o8ySG0sC': { citations: 5 },     // Other papers
+      'KDNRnW0AAAAJ:d1gkVwhDpl0C': { citations: 8 },
+      'KDNRnW0AAAAJ:u5HHmVD_uO8C': { citations: 7 }
     };
     
     // Process each citation element
