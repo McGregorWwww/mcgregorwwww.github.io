@@ -426,7 +426,20 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     const filterButtons = document.querySelectorAll('.filter-button');
     const publications = document.querySelectorAll('.paper-box');
     
-    // Generate tags for each publication based on data-categories
+    // Create a counter for each category
+    const categoryCounts = {
+      'brain': 0,
+      'foundation': 0,
+      'label-efficient': 0,
+      'seg': 0,
+      'interpret': 0,
+      'all': 0
+    };
+    
+    // Count total publications
+    categoryCounts['all'] = publications.length;
+    
+    // Generate tags for each publication based on data-categories and count categories
     publications.forEach(pub => {
       const paperText = pub.querySelector('.paper-box-text');
       const categoriesAttr = paperText.getAttribute('data-categories');
@@ -441,6 +454,13 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
           'seg': 'Segmentation',
           'interpret': 'Interpretability'
         };
+        
+        // Count each category
+        categories.forEach(category => {
+          if (categoryCounts.hasOwnProperty(category)) {
+            categoryCounts[category]++;
+          }
+        });
         
         // Find or create tags container
         let tagsContainer = paperText.querySelector('.publication-tags');
@@ -469,8 +489,14 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       }
     });
     
-    // Add click event to each filter button
+    // Update filter button text with counts
     filterButtons.forEach(button => {
+      const filterValue = button.getAttribute('data-filter');
+      const count = categoryCounts[filterValue] || 0;
+      const originalText = button.textContent.split('(')[0].trim(); // Get text without count
+      button.textContent = `${originalText} (${count})`;
+      
+      // Add click event to each filter button
       button.addEventListener('click', function() {
         // Remove active class from all buttons
         filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -484,7 +510,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         publications.forEach(pub => {
           const categories = pub.querySelector('.paper-box-text').getAttribute('data-categories');
           
-          if (filterValue === 'all' || categories.includes(filterValue)) {
+          if (filterValue === 'all' || (categories && categories.includes(filterValue))) {
             pub.style.display = '';
           } else {
             pub.style.display = 'none';
