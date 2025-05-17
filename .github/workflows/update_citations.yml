@@ -38,5 +38,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update citation data [automated]"
-            git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref }}
+            # Use PAT instead of GITHUB_TOKEN
+            git push "https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref }}
           fi
