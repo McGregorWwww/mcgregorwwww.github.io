@@ -1,126 +1,109 @@
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
+import jsonpickle
 import json
 from datetime import datetime
 import os
 import time
 import sys
 
-# Simple script to fetch Google Scholar data without complex proxy handling
+def main():
+    # Setup proxy using rotating free proxies
+    try:
+        print("Setting up proxy generator...")
+        pg = ProxyGenerator()
+        success = pg.FreeProxies()
+        print(f"Proxy setup success: {success}")
+        scholarly.use_proxy(pg)
+    except Exception as e:
+        print(f"Failed to set up proxy: {e}")
+        print("Continuing without proxy...")
 
-print("Starting Google Scholar data crawler...")
+    print(f"Fetching data for Scholar ID: {os.environ.get('GOOGLE_SCHOLAR_ID', 'KDNRnW0AAAAJ')}")
 
-try:
-    # Get the Google Scholar ID
-    scholar_id = os.environ.get('GOOGLE_SCHOLAR_ID', 'KDNRnW0AAAAJ')
-    print(f"Looking up Google Scholar ID: {scholar_id}")
-    
-    # Basic fetch with retry
-    max_attempts = 3
-    for attempt in range(max_attempts):
+    # Search for author and retrieve data with retry mechanism
+    max_retries = 3
+    for retry in range(max_retries):
         try:
-            print(f"Attempt {attempt+1} of {max_attempts}")
+            print(f"Attempt {retry + 1} of {max_retries}")
             
-            # Simple direct fetch without proxies
-            author = scholarly.search_author_id(scholar_id)
-            print("Retrieved basic author data")
+            # Get author data
+            author = scholarly.search_author_id(os.environ.get('GOOGLE_SCHOLAR_ID', 'KDNRnW0AAAAJ'))
+            print(f"Found author: {author.get('name', 'Unknown')}")
             
-            # Fill with publications
-            print("Fetching detailed author data...")
+            # Fill in additional author details and publications
             scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
-            print(f"Retrieved {len(author['publications'])} publications")
+            print(f"Retrieved {len(author.get('publications', []))} publications")
             
-            # We've succeeded, so break out of the retry loop
-            break
+            # Save the full author data with all publications
+            name = author['name']
+            author['updated'] = str(datetime.now())
+            author['publications'] = {v['author_pub_id']: v for v in author['publications']}
+            
+            # Print summary
+            print(f"Author: {name}")
+            print(f"Citations: {author.get('citedby', 0)}")
+            print(f"h-index: {author.get('hindex', 0)}")
+            print(f"Publications count: {len(author.get('publications', []))}")
+            
+            # Create output directory (relative to script location)
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            results_dir = os.path.join(script_dir, 'results')
+            os.makedirs(results_dir, exist_ok=True)
+            
+            # Save full data to JSON file
+            with open(os.path.join(results_dir, 'gs_data.json'), 'w') as outfile:
+                json.dump(author, outfile, ensure_ascii=False)
+            
+            # Create shield.io badge data
+            shieldio_data = {
+                "schemaVersion": 1,
+                "label": "citations",
+                "message": f"{author['citedby']}",
+            }
+            with open(os.path.join(results_dir, 'gs_data_shieldsio.json'), 'w') as outfile:
+                json.dump(shieldio_data, outfile, ensure_ascii=False)
+            
+            print("Successfully saved Google Scholar data")
+            return True  # Success
             
         except Exception as e:
-            print(f"Error on attempt {attempt+1}: {e}")
-            if attempt < max_attempts - 1:
-                wait_time = 5 * (attempt + 1)  # Simple linear backoff
-                print(f"Waiting {wait_time} seconds before retrying...")
-                time.sleep(wait_time)
+            print(f"Error fetching scholar data on attempt {retry + 1}: {e}")
+            if retry < max_retries - 1:
+                backoff_time = 5 * (2 ** retry)  # Exponential backoff
+                print(f"Retrying in {backoff_time} seconds...")
+                time.sleep(backoff_time)
             else:
-                print("All attempts failed. Exiting.")
-                raise
+                print("Maximum retries reached. Unable to fetch scholar data.")
+                print(f"Error details: {e}")
     
-    # Process publications data to extract what we need
-    print("Processing publication data...")
-    
-    # Basic author metadata
-    result = {
-        "name": author.get('name', 'Unknown'),
-        "updated": str(datetime.now()),
-        "citedby": author.get('citedby', 0),
-        "publications": {}
-    }
-    
-    # Process publications
-    target_paper_ids = [
-        'KDNRnW0AAAAJ:2osOgNQ5qMEC',  # UCTransNet
-        'KDNRnW0AAAAJ:Tyk-4Ss8FVUC'   # DHC
-    ]
-    
-    pub_dict = {}
-    for pub in author['publications']:
-        pub_id = pub.get('author_pub_id')
-        if pub_id:
-            pub_dict[pub_id] = {
-                "title": pub.get('bib', {}).get('title', 'Unknown'),
-                "num_citations": pub.get('num_citations', 0)
-            }
-    
-    # Make sure we capture our target papers
-    for target in target_paper_ids:
-        if target not in pub_dict:
-            print(f"Warning: Target paper {target} not found in publications data")
-    
-    result['publications'] = pub_dict
-    
-    # Save the results
-    os.makedirs('results', exist_ok=True)
-    print("Saving data to JSON files...")
-    
-    # Save the full data
-    with open(f'results/gs_data.json', 'w') as outfile:
-        json.dump(result, outfile, ensure_ascii=False)
-    
-    # Save the shield.io badge data
-    shieldio_data = {
-      "schemaVersion": 1,
-      "label": "citations",
-      "message": f"{result['citedby']}",
-    }
-    with open(f'results/gs_data_shieldsio.json', 'w') as outfile:
-        json.dump(shieldio_data, outfile, ensure_ascii=False)
-    
-    print("Successfully updated citation data!")
-    sys.exit(0)  # Successful exit
-    
-except Exception as e:
-    print(f"Error in main script: {e}")
+    # All retries failed
     print("Failed to update citation data. No fallback data will be generated.")
-    
-    # Instead of creating fallback files with hardcoded data,
-    # we'll just exit and keep the existing files (if any)
-    # This ensures we're not using any static data
-    
-    # Create empty/minimal files only if they don't already exist
-    os.makedirs('results', exist_ok=True)
-    
-    if not os.path.exists(f'results/gs_data.json'):
-        minimal_data = {
-            "name": "Haonan Wang",
-            "updated": str(datetime.now()),
-            "citedby": "?",
-            "publications": {}
-        }
-        with open(f'results/gs_data.json', 'w') as outfile:
-            json.dump(minimal_data, outfile, ensure_ascii=False)
-    
-    if not os.path.exists(f'results/gs_data_shieldsio.json'):
-        minimal_shield_data = {
-          "schemaVersion": 1,
-          "label": "citations",
-          "message": "?",
-        }
-        with open(f'results/gs_data_shieldsio.json', 'w') as outfile:
-            json.dump(minimal_shield_data, outfile, ensure_ascii=False)
+    return False
+
+if __name__ == "__main__":
+    success = main()
+    if not success:
+        # Create empty/minimal files only if they don't already exist
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        results_dir = os.path.join(script_dir, 'results')
+        os.makedirs(results_dir, exist_ok=True)
+        
+        if not os.path.exists(os.path.join(results_dir, 'gs_data.json')):
+            minimal_data = {
+                "name": "Haonan Wang",
+                "updated": str(datetime.now()),
+                "citedby": "?",
+                "publications": {}
+            }
+            with open(os.path.join(results_dir, 'gs_data.json'), 'w') as outfile:
+                json.dump(minimal_data, outfile, ensure_ascii=False)
+        
+        if not os.path.exists(os.path.join(results_dir, 'gs_data_shieldsio.json')):
+            minimal_shield_data = {
+              "schemaVersion": 1,
+              "label": "citations",
+              "message": "?",
+            }
+            with open(os.path.join(results_dir, 'gs_data_shieldsio.json'), 'w') as outfile:
+                json.dump(minimal_shield_data, outfile, ensure_ascii=False)
+        sys.exit(1)  # Exit with error code

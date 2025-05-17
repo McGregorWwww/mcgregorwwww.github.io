@@ -1,47 +1,50 @@
-name: Update Google Scholar Citations
+name: Update Citation Data
 
 on:
   schedule:
-    # Run monthly instead of weekly to avoid rate limiting
+    # Run on the 1st of every month at midnight
     - cron: '0 0 1 * *'
-  # Allow manual triggering
-  workflow_dispatch:
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
-  update-citations:
+  update_citations:
     runs-on: ubuntu-latest
-    # Add timeout to prevent workflow from running too long
-    timeout-minutes: 10
+    timeout-minutes: 15  # Increased timeout to handle proxy retries
+    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
         
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
-          cache: 'pip'
+          python-version: '3.10'
           
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r google_scholar_crawler/requirements.txt
+          pip install scholarly requests jsonpickle
           
       - name: Run Google Scholar crawler
         env:
-          GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
+          GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ  # Your Google Scholar ID
         run: |
+          mkdir -p google_scholar_crawler/results
           cd google_scholar_crawler
           python main.py
-        # Add a timeout for just this step
-        timeout-minutes: 5
           
-      - name: Commit and push if changed
+      - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add google_scholar_crawler/results/gs_data.json google_scholar_crawler/results/gs_data_shieldsio.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update citation data"
-          git push
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add google_scholar_crawler/results/
+          # Only commit if there are changes
+          git diff --staged --quiet || (git commit -m "Update citation data from Google Scholar" && git push)
+          
+      - name: Check for failure
+        if: failure()
+        run: |
+          echo "The Google Scholar crawler failed. This might be due to rate limiting or proxy issues."
+          echo "Try running it again manually later or check the logs for more details."
         # Continue on error to prevent workflow failure if push fails
         continue-on-error: true
