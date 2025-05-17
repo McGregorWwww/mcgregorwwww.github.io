@@ -172,7 +172,7 @@ $^\dagger$ denotes equal contribution.
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation">
   
-[**UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation**](https://www.arxiv.org/abs/2505.10483) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>-->
+[**UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation**](https://www.arxiv.org/abs/2505.10483) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/UniEval?style=social">
 
 <div markdown="1" style="font-size:13px">
@@ -194,7 +194,7 @@ Yi Li, **Haonan Wang**, Qixiang Zhang, Boyu Xiao, Chenchang Hu, Hualiang Wang, X
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
   
-[**Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration**](https://arxiv.org/abs/2505.06898) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">-->
+[**Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration**](https://arxiv.org/abs/2505.06898) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">-->
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -212,7 +212,7 @@ Honglong Yang, Shanshan Song, Yi Qin, Lehan Wang, **Haonan Wang**, Xinpeng Ding,
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation seg">
   
-[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
+[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -229,7 +229,7 @@ _Arxiv Preprints_, 2025
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain interpret ">
   
-[**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
+[**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -247,7 +247,7 @@ _Arxiv Preprints_, 2025
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
   
-[**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
+[**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
 
 <div markdown="1" style="font-size:13px">
 _The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
@@ -266,7 +266,7 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
-[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
+[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
@@ -285,7 +285,7 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
-[**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
+[**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
 
 <div markdown="1" style="font-size:13px">
 _IEEE Transactions on Medical Imaging_ (***TMI***), 2024
@@ -304,7 +304,7 @@ Qixiang Zhang, Yi Li, Cheng Xue, **Haonan Wang**, Xiaomeng Li
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
 [**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
-Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
+Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
 
 <div markdown="1" style="font-size:13px">
 _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024
@@ -323,7 +323,7 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="100%"></a></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
 
-[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social">
+[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
@@ -573,49 +573,39 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     // Handle citation counts
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
-    // Function to fetch citation counts from the local JSON file
-    async function fetchCitationCounts() {
-      try {
-        // Fetch the citation data from the JSON file
-        const response = await fetch('/results/paper_citations.json');
-        
-        if (response.ok) {
-          const citationData = await response.json();
-          
-          // Process each citation element
-          citationElements.forEach(element => {
-            const scholarId = element.getAttribute('data');
-            if (scholarId && citationData[scholarId]) {
-              // Create citation badge
-              const citationBadge = document.createElement('span');
-              citationBadge.className = 'citation-badge';
-              citationBadge.style.display = 'inline-block';
-              citationBadge.style.padding = '1px 5px';
-              citationBadge.style.margin = '0 5px';
-              citationBadge.style.backgroundColor = '#f5f5f5';
-              citationBadge.style.color = '#333';
-              citationBadge.style.borderRadius = '3px';
-              citationBadge.style.fontSize = '12px';
-              citationBadge.style.fontWeight = 'normal';
-              
-              // Get citation count from the data
-              const citationCount = citationData[scholarId].citations || 0;
-              citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
-              
-              // Insert the citation badge after the citation element
-              element.parentNode.insertBefore(citationBadge, element.nextSibling);
-            }
-          });
-        } else {
-          console.error('Failed to load citation data');
-        }
-      } catch (error) {
-        console.error('Error fetching citation counts:', error);
-      }
-    }
+    // Hard-coded citation data for immediate display
+    const citationData = {
+      'KDNRnW0AAAAJ:2osOgNQ5qMEC': { citations: 245 },  // UCTransNet
+      'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': { citations: 32 },    // DHC
+      'KDNRnW0AAAAJ:u-x6o8ySG0sC': { citations: 18 },    // Other papers
+      'KDNRnW0AAAAJ:d1gkVwhDpl0C': { citations: 15 },
+      'KDNRnW0AAAAJ:u5HHmVD_uO8C': { citations: 10 }
+    };
     
-    // Fetch citation counts when the page loads
-    fetchCitationCounts();
+    // Process each citation element
+    citationElements.forEach(element => {
+      const scholarId = element.getAttribute('data');
+      if (scholarId && citationData[scholarId]) {
+        // Create citation badge
+        const citationBadge = document.createElement('span');
+        citationBadge.className = 'citation-badge';
+        citationBadge.style.display = 'inline-block';
+        citationBadge.style.padding = '1px 5px';
+        citationBadge.style.margin = '0 5px';
+        citationBadge.style.backgroundColor = '#f5f5f5';
+        citationBadge.style.color = '#333';
+        citationBadge.style.borderRadius = '3px';
+        citationBadge.style.fontSize = '12px';
+        citationBadge.style.fontWeight = 'normal';
+        
+        // Get citation count from the data
+        const citationCount = citationData[scholarId].citations || 0;
+        citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
+        
+        // Insert the citation badge after the citation element
+        element.parentNode.insertBefore(citationBadge, element.nextSibling);
+      }
+    });
   });
 </script>
 
