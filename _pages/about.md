@@ -570,16 +570,15 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       });
     });
     
-    // Handle citation counts
+    // 查找所有引用元素
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
-    // Function to create citation badge
+    // 创建引用徽章的函数
     function createCitationBadge(count, isLoading = false) {
       const citationBadge = document.createElement('span');
-      citationBadge.className = 'citation-badge';
       citationBadge.style.display = 'inline-block';
-      citationBadge.style.padding = '1px 5px';
-      citationBadge.style.margin = '0 5px';
+      citationBadge.style.padding = '0.15em 0.5em';
+      citationBadge.style.marginLeft = '0.5em';
       citationBadge.style.backgroundColor = '#f5f5f5';
       citationBadge.style.color = '#333';
       citationBadge.style.borderRadius = '3px';
@@ -595,70 +594,50 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       return citationBadge;
     }
     
-    // 按照acad-homepage的方式加载引用计数
-    async function fetchCitation(paperTitle, element, scholarId) {
+    // 加载引用数据并显示
+    async function loadCitations() {
       try {
-        // 显示加载中的徽章
-        const loadingBadge = createCitationBadge('', true);
-        element.parentNode.insertBefore(loadingBadge, element.nextSibling);
+        // 尝试加载Google Scholar数据
+        const response = await fetch('google_scholar_crawler/results/gs_data.json');
         
-        if (!scholarId) {
-          loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
-          return;
-        }
-        
-        // 创建多个可能的路径来尝试加载数据
-        const possiblePaths = [
-          // 当前分支中的数据文件
-          "./google_scholar_crawler/results/gs_data.json",
-          // GitHub Pages基本URL下的数据文件
-          "/google_scholar_crawler/results/gs_data.json",
-          // 相对于根目录的数据文件
-          "../google_scholar_crawler/results/gs_data.json",
-          // 绝对路径
-          "/mcgregorwwww.github.io/google_scholar_crawler/results/gs_data.json"
-        ];
-        
-        // 添加时间戳参数以防止缓存
-        const timestamp = new Date().getTime();
-        
-        // 依次尝试所有可能的路径
-        for (const basePath of possiblePaths) {
-          try {
-            const jsonUrl = `${basePath}?t=${timestamp}`;
-            console.log(`尝试路径: ${jsonUrl}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Google Scholar data loaded', data);
+          
+          citationElements.forEach(element => {
+            const scholarId = element.getAttribute('data');
+            if (!scholarId) return;
             
-            const response = await fetch(jsonUrl);
-            if (!response.ok) continue;
-            
-            const scholarData = await response.json();
-            console.log('成功加载引用数据:', scholarData);
-            
-            if (scholarData && scholarData.publications && scholarData.publications[scholarId]) {
-              const pub = scholarData.publications[scholarId];
-              const count = pub.num_citations || 0;
-              
-              console.log(`论文ID ${scholarId} 的引用数: ${count}`);
-              const citationBadge = createCitationBadge(count);
-              element.parentNode.replaceChild(citationBadge, loadingBadge);
-              return; // 成功加载数据，退出函数
+            if (data.publications && data.publications[scholarId]) {
+              const count = data.publications[scholarId].num_citations || 0;
+              const badge = createCitationBadge(count);
+              element.parentNode.insertBefore(badge, element.nextSibling);
+            } else {
+              const badge = createCitationBadge('-');
+              element.parentNode.insertBefore(badge, element.nextSibling);
             }
-          } catch (err) {
-            console.log(`路径 ${basePath} 加载失败:`, err);
-            // 继续尝试下一个路径
-          }
+          });
+        } else {
+          console.error('Failed to load citation data');
+          showDefaultCitations();
         }
-        
-        // If all fails, show a dash
-        loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
       } catch (error) {
-        console.error('Error handling citation:', error);
-        // Show dash in case of any unexpected error
-        if (loadingBadge && loadingBadge.parentNode) {
-          loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
-        }
+        console.error('Error loading citations:', error);
+        showDefaultCitations();
       }
     }
+    
+    // 当无法加载数据时显示默认徽章
+    function showDefaultCitations() {
+      citationElements.forEach(element => {
+        const badge = createCitationBadge('-');
+        element.parentNode.insertBefore(badge, element.nextSibling);
+      });
+    }
+    
+    // 加载引用数据
+    loadCitations();
+  });
     
     // Map of paper IDs to titles
     const paperTitles = {
