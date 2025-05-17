@@ -325,92 +325,17 @@ _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 </div>
 
 
-## Other Publications
-<div markdown="1" style="font-size:13px;height: 300px; overflow: auto;">
+## Full Publication List
+
+For a complete list of publications, please refer to my [Google Scholar](https://scholar.google.com/citations?user=KDNRnW0AAAAJ).
 
 
-[**Artificial intelligence model for automatic 3-dimensional reconstruction of ossicular chain and bony labyrinth from high-resolution CT**](https://academic.oup.com/radadv/article/2/1/umaf004/7989450) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
-
-<div markdown="1" style="font-size:13px">
-*Radiology Advances*, 2024
-
-Mingwei Xie, **Haonan Wang**, Zehong Yang, Ming Gao, Guangzi Shi, Xingnan Liao, Zhongqiang Luo, Xiaomeng Li, Jun Shen
-</div>
-
----
-
-
-[**Narrowing the Semantic Gaps in U-Net with Learnable Skip Connections: The Case of Medical Image Segmentation**](https://arxiv.org/abs/2312.15182) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/udtransnet?style=social">
-
-
-<div markdown="1" style="font-size:13px">
-*Neural Networks*, 2024
-
-**Haonan Wang**, Peng Cao, Jinzhu Yang and Osmar R. Zaiane
-</div>
-
----
-
-
-[**Dynamic Data Augmentation via MCTS for Prostate MRI Segmentation**](https://arxiv.org/abs/2305.15777) <span class="show_paper_citations" data="KDNRnW0AAAAJ:zYLM7Y9cAGgC"></span>
-
-<div markdown="1" style="font-size:13px">
-*International Conference on Neural Information Processing (**ICONIP**)*, 2023 
-
-Xinyue Xu, Yuhan Hsi, **Haonan Wang**, Xiaomeng Li
-</div>
-
----
-
-
-[**MS-SSD: Multi-scale Single Shot Detector for Ship Detection in Remote Sensing Images**](https://link.springer.com/article/10.1007/s10489-022-03549-6) <span class="show_paper_citations" data="KDNRnW0AAAAJ:9yKSN-GCB0IC"></span>
-
-<div markdown="1" style="font-size:13px">
-*Applied Intelligence*, 2022 
-
-Guangqi Wen, Peng Cao, **Haonan Wang**, Hanlin Chen, Xiaoli Liu, Jinghui Xu, Osmar Zaiane
-</div>
-
----
-
-[**MCA-UNet: Multi-scale Cross Ço-attentional U-Net for Automatic Medical Image Segmentation**](https://link.springer.com/article/10.1007/s13755-022-00209-4) <span class="show_paper_citations" data="KDNRnW0AAAAJ:UeHWp8X0CEIC"></span>
-
-<div markdown="1" style="font-size:13px">
-*Health Information Science and Systems*, 2023
-
-**Haonan Wang**, Peng Cao, Jinzhu Yang, Osmar Zaiane
-</div>
-
----
-
-[**Collaborative Learning of Weakly-supervised Domain Adaptation for Diabetic Retinopathy Grading on Retinal Images**](https://www.sciencedirect.com/science/article/pii/S0010482522001330) <span class="show_paper_citations" data="KDNRnW0AAAAJ:d1gkVwhDpl0C"></span>
-
-<div markdown="1" style="font-size:13px">
-*Computers in Biology and Medicine*, 2022
-
-Peng Cao, Qingshan Hou, Ruoxian Song, **Haonan Wang**, Osmar Zaiane
-</div>
-
----
-
-[**An Improved Breast Cancer Nuclei Segmentation Method Based on UNet++**](https://dl.acm.org/doi/abs/10.1145/3404555.3404577) <span class="show_paper_citations" data="KDNRnW0AAAAJ:u5HHmVD_uO8C"></span>
-
-<div markdown="1" style="font-size:13px">
-_6th International Conference on Computing and Artificial Intelligence_ (**_ICCAI_**), 2020
-
-**Haonan Wang**, Yinhan Li, Zhiyi Luo
-</div>
-
----
-<br/>
-  
-</div>
 
 <!--
 # Honors and Awards
 - *2018.12* &nbsp; Outstanding Students of Northeastern University.
 - *2018.12* &nbsp; First Class Scholarship of Northeastern University.
-- *2018.11* &nbsp; China National Scholarship.
+{{ ... }}
 
 ---
 <br/>
