@@ -153,6 +153,30 @@ $^\dagger$ denotes equal contribution.
 </div>
 
 
+
+
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/UniEval.png'><img src='images/UniEval.png' alt="UniEval" width="100%"></a>
+</div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation">
+  
+[**UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation**](https://www.arxiv.org/abs/2505.10483) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>-->
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/UniEval?style=social">
+
+<div markdown="1" style="font-size:13px">
+_Arxiv Preprints_, 2025
+
+Yi Li, **Haonan Wang**, Qixiang Zhang, Boyu Xiao, Chenchang Hu, Hualiang Wang, Xiaomeng Li
+  
+ <a href="https://github.com/xmed-lab/UniEval"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/UniEval/"><img src="https://img.shields.io/badge/Website-100000?style=for-the-badge&logoColor=white" alt="Website" /></a>
+</div>
+</div>
+</div>
+
+
+
+
+
+
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/xmedgpt.png'><img src='images/xmedgpt.png' alt="XMedGPT" width="100%"></a>
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
@@ -182,7 +206,7 @@ _Arxiv Preprints_, 2025
 
 **Haonan Wang**, Jiaji Mao, Lehan Wang, Qixiang Zhang, Marawan Elbatel, Yi Qin, Huijun Hu, Baoxun Li, Wenhui Deng, Weifeng Qin, Hongrui Li, Jialin Liang, Jun Shen, Xiaomeng Li
   
-<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Homepage-100000?style=for-the-badge&logo=htmx&logoColor=white" alt="Homepage" /></a>
+<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Website-100000?style=for-the-badge&logoColor=white" alt="Website" /></a>
 </div>
 </div>
 </div>
