@@ -109,7 +109,7 @@ $^\dagger$ denotes equal contribution.
 
 <style>
 .filter-buttons {
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   text-align: center;
 }
 .filter-button {
@@ -144,14 +144,15 @@ $^\dagger$ denotes equal contribution.
 
 /* Animation styles */
 .paper-box {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.paper-box.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
 }
 .paper-box.fade-in {
   opacity: 1;
   transform: translateY(0);
-}
-.paper-box.hidden {
-  display: none;
 }
 </style>
 
@@ -534,25 +535,27 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         
         // Immediately hide elements that need to be hidden
         toHide.forEach(pub => {
-          pub.classList.remove('fade-in');
           pub.style.display = 'none';
-          pub.classList.add('hidden');
         });
+        
+        // Prepare all elements to be shown (set to visible but with fade-out class)
+        toShow.forEach(pub => {
+          if (pub.style.display === 'none') {
+            pub.classList.add('fade-out');
+            pub.style.display = '';
+          }
+        });
+        
+        // Force reflow to ensure the fade-out state is applied before transitioning
+        void document.body.offsetWidth;
         
         // Start staggered fade-in animation for visible elements immediately
         const staggerDelay = 80; // Delay between each paper's animation (in ms)
         
         toShow.forEach((pub, index) => {
-          // First make sure the paper is visible but without animation yet
-          if (pub.classList.contains('hidden')) {
-            pub.classList.remove('hidden');
-            pub.style.opacity = '0';
-            pub.style.transform = 'translateY(10px)';
-            pub.style.display = '';
-          }
-          
           // Use setTimeout to create the staggered effect
           setTimeout(() => {
+            pub.classList.remove('fade-out');
             pub.classList.add('fade-in');
             
             // Remove the fade-in class after animation completes
