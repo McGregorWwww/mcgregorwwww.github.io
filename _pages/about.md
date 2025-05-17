@@ -109,7 +109,7 @@ $^\dagger$ denotes equal contribution.
 
 <style>
 .filter-buttons {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 .filter-button {
