@@ -141,6 +141,19 @@ $^\dagger$ denotes equal contribution.
   font-size: 10px;
   color: #000;
 }
+
+/* Animation styles */
+.paper-box {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.paper-box.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.paper-box.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 
 <div class="filter-buttons">
@@ -506,14 +519,38 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         
         const filterValue = this.getAttribute('data-filter');
         
-        // Show or hide publications based on selected filter
+        // Show or hide publications based on selected filter with animation
         publications.forEach(pub => {
           const categories = pub.querySelector('.paper-box-text').getAttribute('data-categories');
           
           if (filterValue === 'all' || (categories && categories.includes(filterValue))) {
-            pub.style.display = '';
+            // If it was previously hidden, fade it in
+            if (pub.style.display === 'none') {
+              pub.classList.add('fade-out');
+              pub.style.display = '';
+              
+              // Trigger reflow to ensure the fade-out state is applied before transitioning
+              void pub.offsetWidth;
+              
+              // Start fade-in animation
+              pub.classList.remove('fade-out');
+              pub.classList.add('fade-in');
+              
+              // Remove the fade-in class after animation completes
+              setTimeout(() => {
+                pub.classList.remove('fade-in');
+              }, 400);
+            }
           } else {
-            pub.style.display = 'none';
+            // Fade out before hiding
+            pub.classList.remove('fade-in');
+            pub.classList.add('fade-out');
+            
+            // Hide after animation completes
+            setTimeout(() => {
+              pub.style.display = 'none';
+              pub.classList.remove('fade-out');
+            }, 400);
           }
         });
       });
