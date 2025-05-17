@@ -631,26 +631,9 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     // Start processing citations
     processCitations();
     
-    // For testing - direct citation display without the JSON file
-    // This is a fallback to show some data even if the crawler hasn't run
+    // Log message if no citation data is available
     if (citationElements.length > 0 && !document.querySelector('.citation-badge')) {
-      setTimeout(() => {
-        // If no citation badges were created (file not found), use hardcoded values
-        const citationData = {
-          'KDNRnW0AAAAJ:2osOgNQ5qMEC': 287, // UCTransNet
-          'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': 23   // DHC
-        };
-        
-        citationElements.forEach(element => {
-          const scholarId = element.getAttribute('data');
-          if (scholarId && citationData[scholarId]) {
-            const badge = createCitationBadge(citationData[scholarId]);
-            if (!element.nextSibling || !element.nextSibling.classList || !element.nextSibling.classList.contains('citation-badge')) {
-              element.parentNode.insertBefore(badge, element.nextSibling);
-            }
-          }
-        });
-      }, 1000); // Wait 1 second to see if the JSON fetch worked first
+      console.log('No citation data available. Please ensure the Google Scholar crawler has run.');
     }
   });
 </script>

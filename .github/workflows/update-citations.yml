@@ -2,14 +2,16 @@ name: Update Google Scholar Citations
 
 on:
   schedule:
-    # Run weekly on Sunday at 00:00 UTC
-    - cron: '0 0 * * 0'
+    # Run monthly instead of weekly to avoid rate limiting
+    - cron: '0 0 1 * *'
   # Allow manual triggering
   workflow_dispatch:
 
 jobs:
   update-citations:
     runs-on: ubuntu-latest
+    # Add timeout to prevent workflow from running too long
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -18,6 +20,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+          cache: 'pip'
           
       - name: Install dependencies
         run: |
@@ -30,6 +33,8 @@ jobs:
         run: |
           cd google_scholar_crawler
           python main.py
+        # Add a timeout for just this step
+        timeout-minutes: 5
           
       - name: Commit and push if changed
         run: |
@@ -38,3 +43,5 @@ jobs:
           git add google_scholar_crawler/results/gs_data.json google_scholar_crawler/results/gs_data_shieldsio.json
           git diff --quiet && git diff --staged --quiet || git commit -m "Update citation data"
           git push
+        # Continue on error to prevent workflow failure if push fails
+        continue-on-error: true
