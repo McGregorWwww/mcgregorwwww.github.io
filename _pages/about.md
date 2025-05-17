@@ -160,11 +160,6 @@ $^\dagger$ denotes equal contribution.
   
 [**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
 
-<div class="publication-tags">
-  <span class="publication-tag">Foundation Models / VLMs</span>
-  <span class="publication-tag">Interpretability</span>
-</div>
-
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
 
@@ -181,11 +176,6 @@ _Arxiv Preprints_, 2025
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain interpret ">
   
 [**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
-
-<div class="publication-tags">
-  <span class="publication-tag">Brain Decoding</span>
-  <span class="publication-tag">Interpretability</span>
-</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -204,11 +194,6 @@ _Arxiv Preprints_, 2025
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
   
 [**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
-
-<div class="publication-tags">
-  <span class="publication-tag">Foundation Models / VLMs</span>
-  <span class="publication-tag">Interpretability</span>
-</div>
 
 <div markdown="1" style="font-size:13px">
 _The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
@@ -229,11 +214,6 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
   
 [**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
 
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-  <span class="publication-tag">Label-efficient Learning</span>
-</div>
-
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
 
@@ -253,11 +233,6 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
   
 [**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
 
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-  <span class="publication-tag">Label-efficient Learning</span>
-</div>
-
 <div markdown="1" style="font-size:13px">
 _IEEE Transactions on Medical Imaging_ (***TMI***), 2024
 
@@ -275,12 +250,7 @@ Qixiang Zhang, Yi Li, Cheng Xue, **Haonan Wang**, Xiaomeng Li
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
 [**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
-Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social">
-
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-  <span class="publication-tag">Label-efficient Learning</span>
-</div> 
+Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
 
 <div markdown="1" style="font-size:13px">
 _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024
@@ -300,11 +270,6 @@ _IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***),
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
 
 [**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social">
-
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-  <span class="publication-tag">Label-efficient Learning</span>
-</div>
 
 <div markdown="1" style="font-size:13px">
 _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
@@ -326,11 +291,6 @@ _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
   
 [**DHC: Dual-debiased Heterogeneous Co-training Framework for Class-imbalanced Semi-supervised Medical Image Segmentation**](https://arxiv.org/abs/2307.11960) <span class='show_paper_citations' data='KDNRnW0AAAAJ:Tyk-4Ss8FVUC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/DHC?style=social">
 
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-  <span class="publication-tag">Label-efficient Learning</span>
-</div>
-
 <div markdown="1" style="font-size:13px">
 
 _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 2023
@@ -348,10 +308,6 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg">
   
 [**UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer**](https://ojs.aaai.org/index.php/AAAI/article/view/20144) <span class='show_paper_citations' data='KDNRnW0AAAAJ:2osOgNQ5qMEC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/uctransnet?style=social">
-
-<div class="publication-tags">
-  <span class="publication-tag">Segmentation</span>
-</div>
 
 <div markdown="1" style="font-size:13px">
 
@@ -503,6 +459,53 @@ _6th International Conference on Computing and Artificial Intelligence_ (**_ICCA
     // Get all filter buttons and publications
     const filterButtons = document.querySelectorAll('.filter-button');
     const publications = document.querySelectorAll('.paper-box');
+    
+    // Generate tags for each publication based on data-categories
+    publications.forEach(pub => {
+      const paperText = pub.querySelector('.paper-box-text');
+      const categoriesAttr = paperText.getAttribute('data-categories');
+      
+      if (categoriesAttr) {
+        // Get categories and create a map for display names
+        const categories = categoriesAttr.split(' ').filter(cat => cat.trim() !== '');
+        const categoryDisplayNames = {
+          'brain': 'Brain Decoding',
+          'foundation': 'Foundation Models / VLMs',
+          'label-efficient': 'Label-efficient Learning',
+          'seg': 'Segmentation',
+          'interpret': 'Interpretability'
+        };
+        
+        // Find or create tags container
+        let tagsContainer = paperText.querySelector('.publication-tags');
+        if (!tagsContainer) {
+          // Find the title link (first link in the paper-box-text)
+          const titleElement = paperText.querySelector('a');
+          if (titleElement) {
+            // Create tags container after the title
+            tagsContainer = document.createElement('div');
+            tagsContainer.className = 'publication-tags';
+            
+            // Insert after the title's parent paragraph
+            const paragraph = titleElement.closest('p') || titleElement;
+            paragraph.parentNode.insertBefore(tagsContainer, paragraph.nextSibling);
+          }
+        } else {
+          // Clear existing tags
+          tagsContainer.innerHTML = '';
+        }
+        
+        // Add tags to container
+        if (tagsContainer) {
+          categories.forEach(category => {
+            const tag = document.createElement('span');
+            tag.className = 'publication-tag';
+            tag.textContent = categoryDisplayNames[category] || category;
+            tagsContainer.appendChild(tag);
+          });
+        }
+      }
+    });
     
     // Add click event to each filter button
     filterButtons.forEach(button => {
