@@ -1,0 +1,40 @@
+name: Update Google Scholar Citations
+
+on:
+  schedule:
+    # Run weekly on Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r google_scholar_crawler/requirements.txt
+          
+      - name: Run Google Scholar crawler
+        env:
+          GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
+        run: |
+          cd google_scholar_crawler
+          python main.py
+          
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add google_scholar_crawler/results/gs_data.json google_scholar_crawler/results/gs_data_shieldsio.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update citation data"
+          git push
