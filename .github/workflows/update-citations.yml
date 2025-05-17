@@ -32,9 +32,14 @@ jobs:
           GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
         run: |
           cd google_scholar_crawler
-          python main.py
-        # Add a timeout for just this step
-        timeout-minutes: 5
+          # Add retries at the shell level for additional reliability
+          for i in 1 2 3; do
+            echo "Attempt $i to run crawler..."
+            python main.py && break || echo "Crawler failed, retrying in 30s..." && sleep 30
+          done
+        # Increase timeout to 15 minutes
+        timeout-minutes: 15
+        continue-on-error: true # Don't fail the whole workflow if this step fails
           
       - name: Commit and push if changed
         run: |

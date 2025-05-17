@@ -14,8 +14,23 @@ try:
     scholar_id = os.environ.get('GOOGLE_SCHOLAR_ID', 'KDNRnW0AAAAJ')
     print(f"Looking up Google Scholar ID: {scholar_id}")
     
+    # Check if we already have previous data we can use if scraping fails
+    has_previous_data = False
+    previous_data = None
+    if os.path.exists('results/gs_data.json'):
+        try:
+            with open('results/gs_data.json', 'r') as f:
+                previous_data = json.load(f)
+                has_previous_data = True
+                print(f"Found previous data from {previous_data.get('updated', 'unknown date')}")
+        except Exception as e:
+            print(f"Error reading previous data: {e}")
+    
+    # Longer timeout in GitHub Actions environment
+    in_github_actions = os.environ.get('GITHUB_ACTIONS') == 'true'
+    max_attempts = 5 if in_github_actions else 3
+    
     # Basic fetch with retry
-    max_attempts = 3
     for attempt in range(max_attempts):
         try:
             print(f"Attempt {attempt+1} of {max_attempts}")
@@ -24,22 +39,47 @@ try:
             author = scholarly.search_author_id(scholar_id)
             print("Retrieved basic author data")
             
-            # Fill with publications
-            print("Fetching detailed author data...")
-            scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
-            print(f"Retrieved {len(author['publications'])} publications")
+            # Use longer timeouts in GitHub Actions
+            if in_github_actions:
+                print("Running in GitHub Actions, using optimized settings...")
+                # Add a delay to avoid rate limits
+                time.sleep(2)
             
-            # We've succeeded, so break out of the retry loop
-            break
+            # Fill with publications - only get essential data in GitHub Actions
+            print("Fetching detailed author data...")
+            sections = ['basics', 'indices', 'counts']
+            if not in_github_actions or attempt < 2:  # First try full data in GH Actions
+                sections.append('publications')
+            
+            scholarly.fill(author, sections=sections)
+            
+            # If we couldn't get publications but have previous data, use those
+            if 'publications' not in sections and has_previous_data and previous_data.get('publications'):
+                print("Using publications from previous data")
+                author['publications'] = previous_data.get('publications', [])
+            
+            print(f"Retrieved data with {len(author.get('publications', []))} publications")
+            
+            # If we got data, break out of the retry loop
+            if author.get('publications') or author.get('citedby'):
+                break
+            else:
+                print("No publication data found, retrying...")
+                raise Exception("No publication data in response")
             
         except Exception as e:
             print(f"Error on attempt {attempt+1}: {e}")
             if attempt < max_attempts - 1:
-                wait_time = 5 * (attempt + 1)  # Simple linear backoff
+                # Exponential backoff with longer waits in GitHub Actions
+                wait_time = (5 * (attempt + 1)) * (3 if in_github_actions else 1)
                 print(f"Waiting {wait_time} seconds before retrying...")
                 time.sleep(wait_time)
+            elif has_previous_data:
+                print("All attempts failed. Using previous data.")
+                author = previous_data
+                break
             else:
-                print("All attempts failed. Exiting.")
+                print("All attempts failed. No previous data available.")
                 raise
     
     # Process publications data to extract what we need
