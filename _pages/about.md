@@ -595,21 +595,30 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       return citationBadge;
     }
     
-    // Direct citation fetching with more accurate counts
+    // Direct citation display with verified counts
     async function fetchCitation(paperTitle, element, scholarId) {
       try {
-        // Show loading badge
+        // Show loading badge initially
         const loadingBadge = createCitationBadge('', true);
         element.parentNode.insertBefore(loadingBadge, element.nextSibling);
         
-        // Map of pre-verified citation counts that are accurate as of May 2025
-        // These will be used as fallbacks if the API requests fail
+        // Map of verified citation counts from Google Scholar as of May 2025
         const verifiedCounts = {
           'KDNRnW0AAAAJ:2osOgNQ5qMEC': 907, // UCTransNet
           'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': 53    // DHC
         };
         
-        // Try CrossRef API first (often more accurate than Semantic Scholar)
+        // Use verified counts for specified papers
+        if (scholarId && verifiedCounts[scholarId]) {
+          setTimeout(() => {
+            const citationBadge = createCitationBadge(verifiedCounts[scholarId]);
+            element.parentNode.replaceChild(citationBadge, loadingBadge);
+          }, 300); // Small delay to show loading animation
+          return;
+        }
+        
+        // For papers without verified counts, try API calls
+        // First try CrossRef API
         try {
           const crossrefUrl = `https://api.crossref.org/works?query.bibliographic=${encodeURIComponent(paperTitle)}&rows=1`;
           const crossrefResponse = await fetch(crossrefUrl);
@@ -627,7 +636,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
             }
           }
         } catch (crossrefError) {
-          console.log('CrossRef API failed, trying alternative...', crossrefError);
+          console.log('CrossRef API failed', crossrefError);
         }
         
         // If CrossRef fails, try Semantic Scholar API
@@ -646,19 +655,13 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
             }
           }
         } catch (semanticError) {
-          console.log('Semantic Scholar API failed, using verified count', semanticError);
+          console.log('Semantic Scholar API failed', semanticError);
         }
         
-        // If both APIs fail, use our verified counts
-        if (scholarId && verifiedCounts[scholarId]) {
-          const citationBadge = createCitationBadge(verifiedCounts[scholarId]);
-          element.parentNode.replaceChild(citationBadge, loadingBadge);
-        } else {
-          loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
-        }
-        
+        // If all fails, show a dash
+        loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
       } catch (error) {
-        console.error('Error fetching citation:', error);
+        console.error('Error handling citation:', error);
       }
     }
     
