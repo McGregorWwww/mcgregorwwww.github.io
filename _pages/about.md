@@ -519,40 +519,58 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
         
         const filterValue = this.getAttribute('data-filter');
         
-        // Show or hide publications based on selected filter with animation
+        // First, collect which publications should be shown or hidden
+        const toShow = [];
+        const toHide = [];
+        
         publications.forEach(pub => {
           const categories = pub.querySelector('.paper-box-text').getAttribute('data-categories');
           
           if (filterValue === 'all' || (categories && categories.includes(filterValue))) {
-            // If it was previously hidden, fade it in
+            toShow.push(pub);
+          } else {
+            toHide.push(pub);
+          }
+        });
+        
+        // Step 1: Fade out all publications that need to be hidden
+        toHide.forEach(pub => {
+          pub.classList.remove('fade-in');
+          pub.classList.add('fade-out');
+        });
+        
+        // Step 2: After fade-out animation completes, hide them and prepare to show others
+        setTimeout(() => {
+          // Hide the elements that were fading out
+          toHide.forEach(pub => {
+            pub.style.display = 'none';
+            pub.classList.remove('fade-out');
+          });
+          
+          // Prepare elements to be shown (set to visible but with fade-out class)
+          toShow.forEach(pub => {
             if (pub.style.display === 'none') {
               pub.classList.add('fade-out');
               pub.style.display = '';
-              
-              // Trigger reflow to ensure the fade-out state is applied before transitioning
-              void pub.offsetWidth;
-              
-              // Start fade-in animation
-              pub.classList.remove('fade-out');
-              pub.classList.add('fade-in');
-              
-              // Remove the fade-in class after animation completes
-              setTimeout(() => {
-                pub.classList.remove('fade-in');
-              }, 400);
             }
-          } else {
-            // Fade out before hiding
-            pub.classList.remove('fade-in');
-            pub.classList.add('fade-out');
-            
-            // Hide after animation completes
-            setTimeout(() => {
-              pub.style.display = 'none';
-              pub.classList.remove('fade-out');
-            }, 400);
-          }
-        });
+          });
+          
+          // Force reflow to ensure the fade-out state is applied before transitioning
+          void document.body.offsetWidth;
+          
+          // Start fade-in animation for all visible elements
+          toShow.forEach(pub => {
+            pub.classList.remove('fade-out');
+            pub.classList.add('fade-in');
+          });
+          
+          // Remove the fade-in class after animation completes
+          setTimeout(() => {
+            toShow.forEach(pub => {
+              pub.classList.remove('fade-in');
+            });
+          }, 400);
+        }, 400);
       });
     });
     
