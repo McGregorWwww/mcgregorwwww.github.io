@@ -144,15 +144,14 @@ $^\dagger$ denotes equal contribution.
 
 /* Animation styles */
 .paper-box {
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.paper-box.fade-out {
-  opacity: 0;
-  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .paper-box.fade-in {
   opacity: 1;
   transform: translateY(0);
+}
+.paper-box.hidden {
+  display: none;
 }
 </style>
 
@@ -533,50 +532,35 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
           }
         });
         
-        // Step 1: Fade out all publications that need to be hidden
+        // Immediately hide elements that need to be hidden
         toHide.forEach(pub => {
           pub.classList.remove('fade-in');
-          pub.classList.add('fade-out');
+          pub.style.display = 'none';
+          pub.classList.add('hidden');
         });
         
-        // Step 2: After fade-out animation completes, hide them and prepare to show others
-        setTimeout(() => {
-          // Hide the elements that were fading out
-          toHide.forEach(pub => {
-            pub.style.display = 'none';
-            pub.classList.remove('fade-out');
-          });
+        // Start staggered fade-in animation for visible elements immediately
+        const staggerDelay = 80; // Delay between each paper's animation (in ms)
+        
+        toShow.forEach((pub, index) => {
+          // First make sure the paper is visible but without animation yet
+          if (pub.classList.contains('hidden')) {
+            pub.classList.remove('hidden');
+            pub.style.opacity = '0';
+            pub.style.transform = 'translateY(10px)';
+            pub.style.display = '';
+          }
           
-          // Prepare all elements to be shown (set to visible but with fade-out class)
-          toShow.forEach(pub => {
-            if (pub.style.display === 'none') {
-              pub.classList.add('fade-out');
-              pub.style.display = '';
-            } else {
-              // For already visible elements, we'll still animate them for consistency
-              pub.classList.add('fade-out');
-            }
-          });
-          
-          // Force reflow to ensure the fade-out state is applied before transitioning
-          void document.body.offsetWidth;
-          
-          // Start staggered fade-in animation for visible elements
-          const staggerDelay = 150; // Delay between each paper's animation (in ms)
-          
-          toShow.forEach((pub, index) => {
-            // Use setTimeout to create the staggered effect
+          // Use setTimeout to create the staggered effect
+          setTimeout(() => {
+            pub.classList.add('fade-in');
+            
+            // Remove the fade-in class after animation completes
             setTimeout(() => {
-              pub.classList.remove('fade-out');
-              pub.classList.add('fade-in');
-              
-              // Remove the fade-in class after animation completes
-              setTimeout(() => {
-                pub.classList.remove('fade-in');
-              }, 400);
-            }, index * staggerDelay);
-          });
-        }, 400);
+              pub.classList.remove('fade-in');
+            }, 300);
+          }, index * staggerDelay);
+        });
       });
     });
     
