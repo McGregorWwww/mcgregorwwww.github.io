@@ -107,13 +107,62 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 $^\dagger$ denotes equal contribution.
 ## Featured Publications
 
+<style>
+.filter-buttons {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.filter-button {
+  display: inline-block;
+  padding: 8px 15px;
+  margin: 5px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.filter-button:hover {
+  background-color: #e0e0e0;
+}
+.filter-button.active {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+.publication-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  margin: 2px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  font-size: 11px;
+  color: #333;
+}
+</style>
+
+<div class="filter-buttons">
+  <span class="filter-button active" data-filter="all">All</span>
+  <span class="filter-button" data-filter="medical-ai">Medical AI</span>
+  <span class="filter-button" data-filter="multimodal">Multimodal Learning</span>
+  <span class="filter-button" data-filter="label-efficient">Label-efficient Learning</span>
+  <span class="filter-button" data-filter="interpretable">Interpretable AI</span>
+</div>
+
 
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/RCMed.png'><img src='images/RCMed.png' alt="RCMed" width="100%"></a>
 </div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="medical-ai multimodal interpretable">
   
 [**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Medical AI</span>
+  <span class="publication-tag">Multimodal Learning</span>
+  <span class="publication-tag">Interpretable AI</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -128,9 +177,15 @@ _Arxiv Preprints_, 2025
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/Neurons.png'><img src='images/Neurons.png' alt="Neurons" width="100%"></a>
 </div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="medical-ai interpretable multimodal">
   
 [**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Medical AI</span>
+  <span class="publication-tag">Interpretable AI</span>
+  <span class="publication-tag">Multimodal Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -146,9 +201,15 @@ _Arxiv Preprints_, 2025
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICLR 2025</div><a href='images/MedRegA.png'><img src='images/MedRegA.png' alt="MedRegA" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="medical-ai interpretable multimodal">
   
 [**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Medical AI</span>
+  <span class="publication-tag">Interpretable AI</span>
+  <span class="publication-tag">Multimodal Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
@@ -165,9 +226,14 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="medical-ai label-efficient">
   
 [**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
+
+<div class="publication-tags">
+  <span class="publication-tag">Medical AI</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2024
@@ -184,9 +250,14 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">TMI 2024</div><a href='images/GlandSAM.png'><img src='images/GlandSAM.png' alt="GlandSAM" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="medical-ai label-efficient">
   
 [**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
+
+<div class="publication-tags">
+  <span class="publication-tag">Medical AI</span>
+  <span class="publication-tag">Label-efficient Learning</span>
+</div>
 
 <div markdown="1" style="font-size:13px">
 _IEEE Transactions on Medical Imaging_ (***TMI***), 2024
@@ -408,6 +479,38 @@ _6th International Conference on Computing and Artificial Intelligence_ (**_ICCA
 </div>
 </div>
 <br/>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all filter buttons and publications
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const publications = document.querySelectorAll('.paper-box');
+    
+    // Add click event to each filter button
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        const filterValue = this.getAttribute('data-filter');
+        
+        // Show or hide publications based on selected filter
+        publications.forEach(pub => {
+          const categories = pub.querySelector('.paper-box-text').getAttribute('data-categories');
+          
+          if (filterValue === 'all' || categories.includes(filterValue)) {
+            pub.style.display = '';
+          } else {
+            pub.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
 
 <div style="height:2px; background-color:Black"></div>
 <br/>
