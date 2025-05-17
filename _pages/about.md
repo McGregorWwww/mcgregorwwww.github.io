@@ -592,7 +592,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     // Function to fetch citation data from local JSON file
     async function fetchLocalCitationData() {
       try {
-        const response = await fetch('/results/gs_data.json');
+        const response = await fetch('/google_scholar_crawler/results/gs_data.json');
         if (response.ok) {
           const data = await response.json();
           return data;
