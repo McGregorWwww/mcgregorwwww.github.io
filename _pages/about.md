@@ -574,7 +574,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
     // Function to create citation badge
-    function createCitationBadge(count) {
+    function createCitationBadge(count, isLoading = false) {
       const citationBadge = document.createElement('span');
       citationBadge.className = 'citation-badge';
       citationBadge.style.display = 'inline-block';
@@ -585,56 +585,62 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       citationBadge.style.borderRadius = '3px';
       citationBadge.style.fontSize = '12px';
       citationBadge.style.fontWeight = 'normal';
-      citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${count}`;
+      
+      if (isLoading) {
+        citationBadge.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+      } else {
+        citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${count}`;
+      }
+      
       return citationBadge;
     }
     
-    // Function to fetch citation data from local JSON file
-    async function fetchLocalCitationData() {
+    // Direct citation fetching using Semantic Scholar API
+    async function fetchCitation(paperTitle, element) {
       try {
-        const response = await fetch('/google_scholar_crawler/results/gs_data.json');
+        // Show loading badge
+        const loadingBadge = createCitationBadge('', true);
+        element.parentNode.insertBefore(loadingBadge, element.nextSibling);
+        
+        // Fetch from Semantic Scholar API
+        const encodedTitle = encodeURIComponent(paperTitle);
+        const url = `https://api.semanticscholar.org/graph/v1/paper/search?query=${encodedTitle}&limit=1&fields=citationCount,title`;
+        
+        const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
-          return data;
+          if (data.data && data.data.length > 0) {
+            const paper = data.data[0];
+            const count = paper.citationCount || 0;
+            
+            // Replace loading badge with citation count
+            const citationBadge = createCitationBadge(count);
+            element.parentNode.replaceChild(citationBadge, loadingBadge);
+          } else {
+            loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
+          }
         } else {
-          console.error('Could not load citation data');
-          return null;
+          loadingBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
+          console.error('Failed to fetch citation data');
         }
       } catch (error) {
-        console.error('Error loading citation data:', error);
-        return null;
+        console.error('Error fetching citation:', error);
       }
     }
     
-    // Process each citation element
-    async function processCitations() {
-      const scholarData = await fetchLocalCitationData();
-      
-      citationElements.forEach(element => {
-        const scholarId = element.getAttribute('data');
-        if (scholarId && scholarData) {
-          // Try to find the publication in the loaded data
-          if (scholarData.publications && scholarData.publications[scholarId]) {
-            const pub = scholarData.publications[scholarId];
-            const citationCount = pub.num_citations || 0;
-            const badge = createCitationBadge(citationCount);
-            element.parentNode.insertBefore(badge, element.nextSibling);
-          } else {
-            // Fallback if publication not found
-            const badge = createCitationBadge('N/A');
-            element.parentNode.insertBefore(badge, element.nextSibling);
-          }
-        }
-      });
-    }
+    // Map of paper IDs to titles (this will be used to fetch citations)
+    const paperTitles = {
+      'KDNRnW0AAAAJ:2osOgNQ5qMEC': 'UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer',
+      'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': 'DHC: Dual-debiased heterogeneous co-training framework for class-imbalanced semi-supervised medical image segmentation'
+    };
     
-    // Start processing citations
-    processCitations();
-    
-    // Log message if no citation data is available
-    if (citationElements.length > 0 && !document.querySelector('.citation-badge')) {
-      console.log('No citation data available. Please ensure the Google Scholar crawler has run.');
-    }
+    // Process each citation element directly when page loads
+    citationElements.forEach(element => {
+      const scholarId = element.getAttribute('data');
+      if (scholarId && paperTitles[scholarId]) {
+        fetchCitation(paperTitles[scholarId], element);
+      }
+    });
   });
 </script>
 
