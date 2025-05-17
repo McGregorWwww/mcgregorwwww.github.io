@@ -1,83 +1,99 @@
-from scholarly import scholarly, ProxyGenerator
-import jsonpickle
+from scholarly import scholarly
 import json
 from datetime import datetime
 import os
 import time
+import sys
 
-# Add timeout and retry logic to make it more robust
-def get_author_with_retry(scholar_id, max_retries=3, retry_delay=5):
-    for attempt in range(max_retries):
-        try:
-            print(f"Attempt {attempt+1} of {max_retries} to fetch author data")
-            # Set up a proxy generator to avoid Google rate limits
-            pg = ProxyGenerator()
-            pg.FreeProxies()
-            scholarly.use_proxy(pg)
-            
-            # Fetch basic author data first
-            author = scholarly.search_author_id(scholar_id)
-            
-            # Only fill necessary sections to speed things up
-            scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
-            
-            # Focus on only recent/important publications
-            # Limit to top publications to avoid timeouts
-            limited_pubs = author['publications'][:15] if len(author['publications']) > 15 else author['publications']
-            
-            # Get citation data for specific papers (the ones we're showing on the website)
-            target_paper_ids = [
-                'KDNRnW0AAAAJ:2osOgNQ5qMEC',  # UCTransNet
-                'KDNRnW0AAAAJ:Tyk-4Ss8FVUC'   # DHC
-            ]
-            
-            # Keep only the publications we're interested in
-            filtered_pubs = []
-            for pub in limited_pubs:
-                if pub['author_pub_id'] in target_paper_ids or len(filtered_pubs) < 10:
-                    filtered_pubs.append(pub)
-            
-            # Replace the full list with our filtered one to reduce data size
-            author['publications'] = filtered_pubs
-            return author
-            
-        except Exception as e:
-            print(f"Error fetching author data: {e}")
-            if attempt < max_retries - 1:
-                print(f"Retrying in {retry_delay} seconds...")
-                time.sleep(retry_delay)
-                retry_delay *= 2  # Exponential backoff
-            else:
-                print("Maximum retries reached. Unable to fetch author data.")
-                raise
+# Simple script to fetch Google Scholar data without complex proxy handling
+
+print("Starting Google Scholar data crawler...")
 
 try:
-    # Get author data with retry logic
+    # Get the Google Scholar ID
     scholar_id = os.environ.get('GOOGLE_SCHOLAR_ID', 'KDNRnW0AAAAJ')
-    author = get_author_with_retry(scholar_id)
+    print(f"Looking up Google Scholar ID: {scholar_id}")
     
-    # Process author data
-    name = author['name']
-    author['updated'] = str(datetime.now())
+    # Basic fetch with retry
+    max_attempts = 3
+    for attempt in range(max_attempts):
+        try:
+            print(f"Attempt {attempt+1} of {max_attempts}")
+            
+            # Simple direct fetch without proxies
+            author = scholarly.search_author_id(scholar_id)
+            print("Retrieved basic author data")
+            
+            # Fill with publications
+            print("Fetching detailed author data...")
+            scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
+            print(f"Retrieved {len(author['publications'])} publications")
+            
+            # We've succeeded, so break out of the retry loop
+            break
+            
+        except Exception as e:
+            print(f"Error on attempt {attempt+1}: {e}")
+            if attempt < max_attempts - 1:
+                wait_time = 5 * (attempt + 1)  # Simple linear backoff
+                print(f"Waiting {wait_time} seconds before retrying...")
+                time.sleep(wait_time)
+            else:
+                print("All attempts failed. Exiting.")
+                raise
     
-    # Convert publications to a dictionary for easier lookup
-    author['publications'] = {p['author_pub_id']: p for p in author['publications']}
+    # Process publications data to extract what we need
+    print("Processing publication data...")
     
-    # Save results
+    # Basic author metadata
+    result = {
+        "name": author.get('name', 'Unknown'),
+        "updated": str(datetime.now()),
+        "citedby": author.get('citedby', 0),
+        "publications": {}
+    }
+    
+    # Process publications
+    target_paper_ids = [
+        'KDNRnW0AAAAJ:2osOgNQ5qMEC',  # UCTransNet
+        'KDNRnW0AAAAJ:Tyk-4Ss8FVUC'   # DHC
+    ]
+    
+    pub_dict = {}
+    for pub in author['publications']:
+        pub_id = pub.get('author_pub_id')
+        if pub_id:
+            pub_dict[pub_id] = {
+                "title": pub.get('bib', {}).get('title', 'Unknown'),
+                "num_citations": pub.get('num_citations', 0)
+            }
+    
+    # Make sure we capture our target papers
+    for target in target_paper_ids:
+        if target not in pub_dict:
+            print(f"Warning: Target paper {target} not found in publications data")
+    
+    result['publications'] = pub_dict
+    
+    # Save the results
     os.makedirs('results', exist_ok=True)
-    with open(f'results/gs_data.json', 'w') as outfile:
-        json.dump(author, outfile, ensure_ascii=False)
+    print("Saving data to JSON files...")
     
-    # Create shield.io badge data
+    # Save the full data
+    with open(f'results/gs_data.json', 'w') as outfile:
+        json.dump(result, outfile, ensure_ascii=False)
+    
+    # Save the shield.io badge data
     shieldio_data = {
       "schemaVersion": 1,
       "label": "citations",
-      "message": f"{author['citedby']}",
+      "message": f"{result['citedby']}",
     }
     with open(f'results/gs_data_shieldsio.json', 'w') as outfile:
         json.dump(shieldio_data, outfile, ensure_ascii=False)
     
-    print("Successfully updated citation data")
+    print("Successfully updated citation data!")
+    sys.exit(0)  # Successful exit
     
 except Exception as e:
     print(f"Error in main script: {e}")
