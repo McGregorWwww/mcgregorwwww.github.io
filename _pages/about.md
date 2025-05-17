@@ -570,86 +570,58 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
       });
     });
     
-    // 查找所有引用元素
+    // Handle citation counts
     const citationElements = document.querySelectorAll('.show_paper_citations');
     
-    // 创建引用徽章的函数
-    function createCitationBadge(count, isLoading = false) {
-      const citationBadge = document.createElement('span');
-      citationBadge.style.display = 'inline-block';
-      citationBadge.style.padding = '0.15em 0.5em';
-      citationBadge.style.marginLeft = '0.5em';
-      citationBadge.style.backgroundColor = '#f5f5f5';
-      citationBadge.style.color = '#333';
-      citationBadge.style.borderRadius = '3px';
-      citationBadge.style.fontSize = '12px';
-      citationBadge.style.fontWeight = 'normal';
-      
-      if (isLoading) {
-        citationBadge.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-      } else {
-        citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${count}`;
-      }
-      
-      return citationBadge;
-    }
-    
-    // 加载引用数据并显示
-    async function loadCitations() {
+    // Function to fetch citation count from Google Scholar
+    async function fetchCitationCount(scholarId, citationElement) {
       try {
-        // 尝试加载Google Scholar数据
-        const response = await fetch('google_scholar_crawler/results/gs_data.json');
+        // Create citation badge
+        const citationBadge = document.createElement('span');
+        citationBadge.className = 'citation-badge';
+        citationBadge.style.display = 'inline-block';
+        citationBadge.style.padding = '1px 5px';
+        citationBadge.style.margin = '0 5px';
+        citationBadge.style.backgroundColor = '#f5f5f5';
+        citationBadge.style.color = '#333';
+        citationBadge.style.borderRadius = '3px';
+        citationBadge.style.fontSize = '12px';
+        citationBadge.style.fontWeight = 'normal';
+        
+        // Use the Google Scholar API endpoint
+        // Note: This is a simplified approach. In a production environment, you might need a server-side proxy
+        // to handle CORS issues and rate limiting.
+        const response = await fetch(`https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${scholarId.split(':')[0]}&citation_for_view=${scholarId}`);
         
         if (response.ok) {
-          const data = await response.json();
-          console.log('Google Scholar data loaded', data);
+          const data = await response.text();
+          // Extract citation count from the response
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+          const citationCountElement = doc.querySelector('.gsc_oci_value');
           
-          citationElements.forEach(element => {
-            const scholarId = element.getAttribute('data');
-            if (!scholarId) return;
-            
-            if (data.publications && data.publications[scholarId]) {
-              const count = data.publications[scholarId].num_citations || 0;
-              const badge = createCitationBadge(count);
-              element.parentNode.insertBefore(badge, element.nextSibling);
-            } else {
-              const badge = createCitationBadge('-');
-              element.parentNode.insertBefore(badge, element.nextSibling);
-            }
-          });
+          if (citationCountElement) {
+            const citationCount = citationCountElement.textContent.trim();
+            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
+          } else {
+            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> 0`;
+          }
         } else {
-          console.error('Failed to load citation data');
-          showDefaultCitations();
+          citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
         }
+        
+        // Insert the citation badge after the citation element
+        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
       } catch (error) {
-        console.error('Error loading citations:', error);
-        showDefaultCitations();
+        console.error('Error fetching citation count:', error);
       }
     }
     
-    // 当无法加载数据时显示默认徽章
-    function showDefaultCitations() {
-      citationElements.forEach(element => {
-        const badge = createCitationBadge('-');
-        element.parentNode.insertBefore(badge, element.nextSibling);
-      });
-    }
-    
-    // 加载引用数据
-    loadCitations();
-  });
-    
-    // Map of paper IDs to titles
-    const paperTitles = {
-      'KDNRnW0AAAAJ:2osOgNQ5qMEC': 'UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer',
-      'KDNRnW0AAAAJ:Tyk-4Ss8FVUC': 'DHC: Dual-debiased heterogeneous co-training framework for class-imbalanced semi-supervised medical image segmentation'
-    };
-    
-    // Process each citation element directly when page loads
+    // Process each citation element
     citationElements.forEach(element => {
       const scholarId = element.getAttribute('data');
-      if (scholarId && paperTitles[scholarId]) {
-        fetchCitation(paperTitles[scholarId], element, scholarId);
+      if (scholarId) {
+        fetchCitationCount(scholarId, element);
       }
     });
   });
