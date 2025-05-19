@@ -49,7 +49,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 - Deep Learning
 - Computer Vision
-- Self-/Semi-/Weakly-supervised Learning
+- Label-efficient Learning
 - Medical Image Analysis
 - Foundation Models
 - Brain Decoding
@@ -402,8 +402,8 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
 
 # Educations
 - *2023.09 -  &emsp;&emsp;&emsp;&nbsp;&nbsp;* &nbsp; Ph.D. student, HKUST. 
-- *2022.09 - 2023.09* &nbsp; Master's student, Computer Science, HKU. 
-- *2017.09 - 2021.06* &nbsp; B.Eng, Computer Science, Northeastern University. 
+- *2022.09 - 2023.09* &nbsp; MSc, Computer Science, HKU. 
+- *2017.09 - 2021.06* &nbsp; BEng, Computer Science, Northeastern University. 
 
 ---
 <br/>
