@@ -77,6 +77,8 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
+![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
+
 ![Static Badge](https://img.shields.io/badge/2025%2F03-silver?style=flat-square) &nbsp; New attempt in Brain Decoding: [*Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction*](https://arxiv.org/abs/2503.11167)
 
 ![Static Badge](https://img.shields.io/badge/2025%2F01-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**ICLR-2025**_.
@@ -262,14 +264,14 @@ Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xi
 
 
 
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2024</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">TMI 2025</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
 <!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
   
 [**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
 
 <div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2024
+_IEEE Transactions on Medical Imaging_ (***TMI***), 2025
 
 Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
   
