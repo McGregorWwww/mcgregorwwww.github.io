@@ -231,7 +231,7 @@ _Arxiv Preprints_, 2025
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICCV 2025</div><a href='images/Neurons.png'><img src='images/Neurons.png' alt="Neurons" width="100%"></a>
 </div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain interpret">
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
   
 [**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
 
