@@ -77,7 +77,8 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_!
+![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & **_TAM_**)
+
 ![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
 
 ![Static Badge](https://img.shields.io/badge/2025%2F03-silver?style=flat-square) &nbsp; New attempt in Brain Decoding: [*Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction*](https://arxiv.org/abs/2503.11167)
