@@ -77,7 +77,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & **_TAM_**)
+![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270))
 
 ![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
 
@@ -253,7 +253,7 @@ _International Conference on Computer Vision_ (***ICCV***), 2025
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
   
-[**Token Activation Map to Visually Explain Multimodal LLMs**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/TAM?style=social">
+[**Token Activation Map to Visually Explain Multimodal LLMs**](https://arxiv.org/abs/2506.23270) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/TAM?style=social">
 
 <div markdown="1" style="font-size:13px">
 _International Conference on Computer Vision_ (***ICCV***), 2025
