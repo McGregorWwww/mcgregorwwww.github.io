@@ -77,7 +77,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#006600">TAM is selected as Oral Presentation! </font><br />
+![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#00dd00">**TAM is selected as Oral Presentation!** </font><br />
 
 ![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
 
@@ -258,7 +258,7 @@ _International Conference on Computer Vision_ (***ICCV***), 2025
 <div markdown="1" style="font-size:13px">
 _International Conference on Computer Vision_ (***ICCV***), 2025
 
-<font color="#006600">🏅 Oral Presentation</font><br />
+<font color="#00dd00">🏅 **Oral Presentation**</font>
 
 Yi Li, Hualiang Wang, Xinpeng Ding, **Haonan Wang**, Xiaomeng Li 
   
@@ -397,7 +397,7 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 
 _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 
-<font color="#006600">[🏅 Top-1 Most Influential AAAI 2022 Paper](https://www.paperdigest.org/2024/05/most-influential-aaai-papers-2024-05/)</font><br /> 
+<font color="#00dd00">🏅 **Top-1 Most Influential AAAI 2022 Paper** </font> [Link](https://www.paperdigest.org/2024/05/most-influential-aaai-papers-2024-05/)
 
 
 
