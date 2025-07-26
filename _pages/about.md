@@ -258,7 +258,7 @@ _International Conference on Computer Vision_ (***ICCV***), 2025
 <div markdown="1" style="font-size:13px">
 _International Conference on Computer Vision_ (***ICCV***), 2025
 
-<font color="#008000" size=5px><b>🏅 Oral Presentation</b></font>
+<font color="#008000" size=3px><b>🏅 Oral Presentation</b></font>
 
 Yi Li, Hualiang Wang, Xinpeng Ding, **Haonan Wang**, Xiaomeng Li 
   
@@ -397,7 +397,7 @@ _Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 202
 
 _36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
 
-<font color="#008000" size=6px><b>🏅 Top-1 Most Influential AAAI 2022 Paper </b></font>
+<font color="#008000" size=3px><b>🏅 Top-1 Most Influential AAAI 2022 Paper </b></font>
 
 
 
