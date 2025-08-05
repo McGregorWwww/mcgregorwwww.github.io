@@ -257,7 +257,7 @@ _International Conference on Computer Vision_ (***ICCV***), 2025
 
 <div markdown="1" style="font-size:13px">
 _International Conference on Computer Vision_ (***ICCV***), 2025
-<font color="#008000"><b>🏅 Oral Presentation</b></font>
+<font color="#008000" size=3px><b>🏅 Oral Presentation</b></font>
 
 Yi Li, Hualiang Wang, Xinpeng Ding, **Haonan Wang**, Xiaomeng Li 
   
