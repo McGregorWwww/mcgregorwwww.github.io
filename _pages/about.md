@@ -441,6 +441,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
 
 # Professional Activities
 ## Journal Reviews
+- IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)
 - IEEE Transactions on Neural Networks and Learning Systems (TNNLS)
 - IEEE Transactions on Medical Imaging (TMI)
 - IEEE Journal of Biomedical and Health Informatics (JBHI)
