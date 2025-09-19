@@ -77,7 +77,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose ***ZEBRA***, the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation. Paper and code will be made publicly available soon! </b></font>
+![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose ***ZEBRA***, the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation. Paper and code coming soon.
 
 ![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#008000"><b>TAM is selected as Oral Presentation! </b></font>
 
