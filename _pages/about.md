@@ -77,6 +77,8 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
+![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose ***ZEBRA***, the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation. Paper and code will be made publicly available soon! </b></font>
+
 ![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#008000"><b>TAM is selected as Oral Presentation! </b></font>
 
 ![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
@@ -167,6 +169,25 @@ $^\dagger$ denotes equal contribution.
 <span class="filter-button" data-filter="seg">Segmentation</span>
   <span class="filter-button" data-filter="interpret">Interpretability</span>
  <span class="filter-button active" data-filter="all">All</span>
+</div>
+
+
+
+
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2025</div><a href='images/ZEBRA.png'><img src='images/ZEBRA.png' alt="ZEBRA" width="100%"></a>
+</div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
+  
+[**ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">
+
+<div markdown="1" style="font-size:13px">
+_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2025
+
+**Haonan Wang**, Jingyu Lu, Hongrui Li, Xiaomeng Li
+  
+<a href="https://github.com/xmed-lab/ZEBRA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
+</div>
+</div>
 </div>
 
 
