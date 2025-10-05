@@ -79,7 +79,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 ![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose ***ZEBRA***, the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation. Paper and code coming soon.
 
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#008000"><b>TAM is selected as Oral Presentation! </b></font>
+![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
 
 ![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
 
