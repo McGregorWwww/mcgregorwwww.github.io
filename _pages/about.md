@@ -77,7 +77,7 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose ***ZEBRA***, the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation. Paper and code coming soon.
+![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.
 
 ![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
 
@@ -178,7 +178,7 @@ $^\dagger$ denotes equal contribution.
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
   
-[**ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding**]() <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">
+[**ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding**](https://arxiv.org/abs/2510.27128) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Advances in Neural Information Processing Systems_ (***NeurIPS***), 2025
