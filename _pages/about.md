@@ -77,7 +77,9 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.
+![Static Badge](https://img.shields.io/badge/2026%2F01-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**ICLR-2026**_.
+
+![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.  
 
 ![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
 
@@ -173,14 +175,14 @@ $^\dagger$ denotes equal contribution.
 
 
 
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/vcflow.png'><img src='images/vcflow.png' alt="vcflow" width="100%"></a>
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICLR 2026</div><a href='images/vcflow.png'><img src='images/vcflow.png' alt="vcflow" width="100%"></a>
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
   
 [**A Cognitive Process-Inspired Architecture for Subject-Agnostic Brain Visual Decoding**](https://arxiv.org/abs/2511.02565) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">-->
 
 <div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2025
+_The Fourteenth International Conference on Learning Representations (**ICLR**)_, 2026
   
 Jingyu Lu, **Haonan Wang**, Qixiang Zhang, Xiaomeng Li
   
