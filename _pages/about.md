@@ -77,32 +77,28 @@ Before that, I received my Master's degree from [The University of Hong Kong](ht
 
 <div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
 
-![Static Badge](https://img.shields.io/badge/2026%2F01-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**ICLR-2026**_.
+![Static Badge](https://img.shields.io/badge/2026%2F01-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**ICLR-2026**_.
 
-![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; One paper accepted by _**NeurIPS-2025**_! We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.  
+![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; **1** paper accepted by _**NeurIPS-2025**_. We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.  
 
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; Two papers accepted by _**ICCV-2025**_! ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
+![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; **2** papers accepted by _**ICCV-2025**_. ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
 
-![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; [_S&D Messenger_](https://arxiv.org/abs/2407.07763) is accepted by _**TMI-2025**_! 
+![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**TMI-2025**_. 
 
-![Static Badge](https://img.shields.io/badge/2025%2F03-silver?style=flat-square) &nbsp; New attempt in Brain Decoding: [*Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction*](https://arxiv.org/abs/2503.11167)
+![Static Badge](https://img.shields.io/badge/2025%2F01-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**ICLR-2025**_.
 
-![Static Badge](https://img.shields.io/badge/2025%2F01-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**ICLR-2025**_.
+![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**TMI-2024**_.
 
-![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; Take a look at our new work on Generic Semi-supervised Medical Image Segmentation: [_S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation_](https://arxiv.org/abs/2407.07763). We established new SOTAs on **six** benchmark datasets! 🌟
-
-![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; One co-authored paper accepted by _**TMI-2024**_.
-
-![Static Badge](https://img.shields.io/badge/2024%2F02-silver?style=flat-square) &nbsp; One paper accepted by _**CVPR-2024**_.
+![Static Badge](https://img.shields.io/badge/2024%2F02-silver?style=flat-square) &nbsp; **1** paper accepted by _**CVPR-2024**_.
 
 ![Static Badge](https://img.shields.io/badge/2023%2F09-silver?style=flat-square)
- &nbsp; One paper accepted by _**NeurIPS-2023**_.
+ &nbsp; **1** paper accepted by _**NeurIPS-2023**_.
  
 ![Static Badge](https://img.shields.io/badge/2023%2F08-silver?style=flat-square) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
 
-![Static Badge](https://img.shields.io/badge/2023%2F06-silver?style=flat-square) &nbsp; One paper accepted by _**MICCAI-2023**_.
+![Static Badge](https://img.shields.io/badge/2023%2F06-silver?style=flat-square) &nbsp; **1** paper accepted by _**MICCAI-2023**_.
 
-![Static Badge](https://img.shields.io/badge/2022%2F02-silver?style=flat-square) &nbsp; One paper accepted by _**AAAI-2022**_. 
+![Static Badge](https://img.shields.io/badge/2022%2F02-silver?style=flat-square) &nbsp; **1** paper accepted by _**AAAI-2022**_. 
 
 </div>
 
