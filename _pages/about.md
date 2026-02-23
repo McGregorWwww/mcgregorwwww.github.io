@@ -478,6 +478,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
 # Professional Activities
 ## Journal Reviews
 - IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)
+- IEEE Transactions on Image Processing (TIP)
 - IEEE Transactions on Neural Networks and Learning Systems (TNNLS)
 - IEEE Transactions on Medical Imaging (TMI)
 - IEEE Journal of Biomedical and Health Informatics (JBHI)
@@ -485,9 +486,11 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
 ## Conference Reviews
 - IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
 - International Conference on Computer Vision (ICCV)
+- International Conference on Machine Learning (ICML)
+- International Conference on Learning Representations (ICLR)
 - Conference on Neural Information Processing Systems (NeurIPS)
 - AAAI Conference on Artificial Intelligence (AAAI)
-- Medical Image Computing and Computer Assisted Intervention (MICCAI)
+- Medical Image Computing and Computer-Assisted Intervention (MICCAI)
 
 
 ---
