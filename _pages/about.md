@@ -170,6 +170,27 @@ $^\dagger$ denotes equal contribution.
 </div>
 
 
+<!---------------------------------------------------------------------------------------------------->
+
+
+<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2026</div><a href='images/semkey.png'><img src='images/semkey.png' alt="semkey" width="100%"></a>
+</div></div>
+<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
+  
+[**Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding**](https://arxiv.org/abs/2603.03312) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">-->
+
+<div markdown="1" style="font-size:13px">
+_Arxiv Preprints_, 2026
+  
+Yuchen Wang, **Haonan Wang**, Yu Guo, Honglong Yang, Xiaomeng Li
+  
+<!--<a href="https://github.com/xmed-lab/ZEBRA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> -->
+</div>
+</div>
+</div>
+
+
+
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICLR 2026</div><a href='images/vcflow.png'><img src='images/vcflow.png' alt="vcflow" width="100%"></a>
 </div></div>
