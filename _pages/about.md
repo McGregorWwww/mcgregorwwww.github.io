@@ -177,7 +177,7 @@ $^\dagger$ denotes equal contribution.
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
   
-[**Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding**](https://arxiv.org/abs/2603.03312) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">-->
+[**Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding**](https://arxiv.org/abs/2603.03312) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> --> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SemKey?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2026
