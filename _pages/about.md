@@ -184,7 +184,7 @@ _Arxiv Preprints_, 2026
   
 Yuchen Wang, **Haonan Wang**, Yu Guo, Honglong Yang, Xiaomeng Li
   
-<!--<a href="https://github.com/xmed-lab/ZEBRA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> -->
+<a href="https://github.com/xmed-lab/SemKey"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a>    
 </div>
 </div>
 </div>
@@ -203,7 +203,7 @@ _The Fourteenth International Conference on Learning Representations (**ICLR**)_
   
 Jingyu Lu, **Haonan Wang**, Qixiang Zhang, Xiaomeng Li
   
-<!--<a href="https://github.com/xmed-lab/ZEBRA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> -->
+<a href="https://github.com/xmed-lab/VCFLOW"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a>
 </div>
 </div>
 </div>
