@@ -250,22 +250,21 @@ Yi Li, **Haonan Wang**, Qixiang Zhang, Boyu Xiao, Chenchang Hu, Hualiang Wang, X
 
 
 
-
+<!--
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/xmedgpt.png'><img src='images/xmedgpt.png' alt="XMedGPT" width="100%"></a>
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
   
-[**Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration**](https://arxiv.org/abs/2505.06898) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">-->
-
+[**Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration**](https://arxiv.org/abs/2505.06898) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
 
 Honglong Yang, Shanshan Song, Yi Qin, Lehan Wang, **Haonan Wang**, Xinpeng Ding, Qixiang Zhang, Bodong Du, Xiaomeng Li
   
- <!-- <a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Homepage-100000?style=for-the-badge&logo=htmx&logoColor=white" alt="Homepage" /></a> -->
+<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Homepage-100000?style=for-the-badge&logo=htmx&logoColor=white" alt="Homepage" /></a></div>
 </div>
 </div>
-</div>
+
 
 
 
@@ -273,7 +272,7 @@ Honglong Yang, Shanshan Song, Yi Qin, Lehan Wang, **Haonan Wang**, Xinpeng Ding,
 </div></div>
 <div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation seg">
   
-[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
+[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
 
 <div markdown="1" style="font-size:13px">
 _Arxiv Preprints_, 2025
@@ -284,7 +283,7 @@ _Arxiv Preprints_, 2025
 </div>
 </div>
 </div>
-
+-->
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICCV 2025</div><a href='images/Neurons.png'><img src='images/Neurons.png' alt="Neurons" width="100%"></a>
 </div></div>
@@ -366,23 +365,6 @@ Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
 </div>
 
 
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">TMI 2024</div><a href='images/GlandSAM.png'><img src='images/GlandSAM.png' alt="GlandSAM" width="100%"></a>
-<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
-  
-[**GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation**](https://ieeexplore.ieee.org/abstract/document/10707661/) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <!--<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> -->
-
-<div markdown="1" style="font-size:13px">
-_IEEE Transactions on Medical Imaging_ (***TMI***), 2024
-
-Qixiang Zhang, Yi Li, Cheng Xue, **Haonan Wang**, Xiaomeng Li
-  
-<!--<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
-
-</div>
-</div>
-</div>
 
 
 <div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
