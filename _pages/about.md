@@ -294,7 +294,7 @@ _Arxiv Preprints_, 2025
 <div markdown="1" style="font-size:13px">
 _International Conference on Computer Vision_ (***ICCV***), 2025
 
-**Haonan Wang**, Qixiang Zhang, Lehan Wang, Xuanqi Huang, Xiaomeng Li
+**Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Lehan Wang, Xuanqi Huang, Xiaomeng Li
   
 <a href="https://github.com/xmed-lab/NEURONS"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
 </div>
