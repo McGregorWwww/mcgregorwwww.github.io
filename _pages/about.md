@@ -489,7 +489,7 @@ For a complete list of publications, please refer to my [Google Scholar](https:/
 ## Conference Reviews
 - IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
 - International Conference on Computer Vision (ICCV)
-- International Conference on Machine Learning (ICML)
+- International Conference on Machine Learning (ICML, Gold Reviewer 2026)
 - International Conference on Learning Representations (ICLR)
 - Conference on Neural Information Processing Systems (NeurIPS)
 - AAAI Conference on Artificial Intelligence (AAAI)
