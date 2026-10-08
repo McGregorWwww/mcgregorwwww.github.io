@@ -40,6 +40,10 @@
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
 
+/* The homepage has its own layout; these rules are scoped to
+   html[data-tpl="home"] so the archive pages keep the stock theme. */
+@import "home";
+
 .paper-box {
     display: flex;
     justify-content: left;

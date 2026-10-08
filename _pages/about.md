@@ -1,708 +1,147 @@
 ---
 permalink: /
+layout: home
 title: "Haonan Wang (王浩楠)"
 excerpt: ""
-author_profile: true
-redirect_from: 
+redirect_from:
   - /about/
   - /about.html
 ---
 
-{% if site.google_scholar_stats_use_cdn %}
-{% assign gsDataBaseUrl = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: "@" %}
-{% else %}
-{% assign gsDataBaseUrl = "https://raw.githubusercontent.com/" | append: site.repository | append: "/" %}
-{% endif %}
-{% assign url = gsDataBaseUrl | append: "google-scholar-stats/gs_data_shieldsio.json" %}
+<!-- Page content only. The banner above it is site chrome and lives in
+     _layouts/home.html, so that it can span the full viewport width. -->
 
+<!-- ============ row 1 · biography + news ============ -->
+<div class="duo">
+  <section id="bio" class="rv">
+    <div class="sec-head"><span class="num">01</span><h2>Biography</h2></div>
+    <p class="lede">I am a Ph.D. student supervised by <a href="https://xmengli.github.io/" target="_blank" rel="noopener">Prof. Xiaomeng Li</a> at <a href="https://hkust.edu.hk/" target="_blank" rel="noopener">The Hong Kong University of Science and Technology</a>.</p>
+    <p>My research follows one question &mdash; <em>how are visual semantics represented?</em> &mdash; across three settings: medical scans where labels are scarce, natural images in the open world, and finally the human visual cortex itself. <a href="#research">See how the pieces connect &darr;</a></p>
+    <p>Before that, I received my Master's degree from <a href="https://www.hku.hk/" target="_blank" rel="noopener">The University of Hong Kong</a> and my B.Eng. degree from <a href="http://www.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University</a>, supervised by <a href="https://scholar.google.com/citations?user=0OfgZSsAAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Peng Cao</a>.</p>
+    <p class="interests">
+      <i>Interests</i>
+      <span>Deep Learning</span><span class="dot">&middot;</span>
+      <span>Computer Vision</span><span class="dot">&middot;</span>
+      <span>Label-efficient Learning</span><span class="dot">&middot;</span>
+      <span>Medical Image Analysis</span><span class="dot">&middot;</span>
+      <span>Foundation Models</span><span class="dot">&middot;</span>
+      <span>Brain Decoding</span><span class="dot">&middot;</span>
+      <span>Generative Models</span>
+    </p>
+  </section>
 
-<span class='anchor' id='about-me'></span>
-
-<!--
-<img alt="last updated" src="https://img.shields.io/github/last-commit/McGregorWwww/mcgregorwwww.github.io?color=e8e8e8&label=Last%20Updated&logo=Convertio&logoColor=white&style=flat-square&labelColor=gray">  &nbsp;
-
-
-<img src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=mcgregorwwww.github.io&lcolor=gray&color=e8e8e8&style=flat-square&cache=on&logo=Myspace"> 
--->
-
-
-# Biography
-
-<div markdown="1" style="font-size:17px">
-
-I am a Ph.D. student supervised by [Prof. Xiaomeng Li](https://xmengli.github.io/) at [The Hong Kong University of Science and Technology](https://hkust.edu.hk/).
-
-Before that, I received my Master's degree from [The University of Hong Kong](https://www.hku.hk/) and my B.Eng degree from [Northeastern University](http://www.neu.edu.cn/) supervised by [Prof. Peng Cao](https://scholar.google.com/citations?user=0OfgZSsAAAAJ&hl=en).
-
-<!--**Google scholar info**: &nbsp; <a href='https://scholar.google.com/citations?user=KDNRnW0AAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Moleculer&color=e8e8e8&style=flat-square&label=Total%20Citations&labelColor=CCCCCC&logoColor=black"></a>-->
-
----
-
+  <section id="news" class="rv">
+    <div class="sec-head"><span class="num">02</span><h2>News</h2><span class="count" id="news-count"></span></div>
+    <div class="news-box" id="news-box">
+      <div class="news-scroll" id="news-scroll">
+        <ul class="news-list">
+          <li><span class="when">2026.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2026</em> &mdash; <a class="jump" href="#pub-vcflow">VCFLOW</a>.</span></li>
+          <li><span class="when">2025.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2025</em>. We propose <a class="jump" href="#pub-zebra">ZEBRA</a>, the first zero-shot brain visual decoding framework that eliminates subject-specific adaptation.</span></li>
+          <li><span class="when">2025.06</span><span><strong>2</strong> papers accepted by <em>ICCV&nbsp;2025</em> &mdash; <a class="jump" href="#pub-neurons">Neurons</a> &amp; <a class="jump" href="#pub-tam">TAM</a>.<span class="flag">TAM &middot; Oral</span></span></li>
+          <li><span class="when">2025.05</span><span><strong>1</strong> co-authored paper accepted by <em>TMI&nbsp;2025</em> &mdash; <a class="jump" href="#pub-snd">S&amp;D Messenger</a>.</span></li>
+          <li><span class="when">2025.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2025</em> &mdash; <a class="jump" href="#pub-medrega">MedRegA</a>.</span></li>
+          <li><span class="when">2024.10</span><span><strong>1</strong> co-authored paper accepted by <em>TMI&nbsp;2024</em>.</span></li>
+          <li><span class="when">2024.02</span><span><strong>1</strong> paper accepted by <em>CVPR&nbsp;2024</em> &mdash; <a class="jump" href="#pub-allspark">AllSpark</a>.</span></li>
+          <li><span class="when">2023.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2023</em> &mdash; <a class="jump" href="#pub-and">GenericSSL</a>.</span></li>
+          <li><span class="when">2023.08</span><span>Joined <a href="https://xmengli.github.io/" target="_blank" rel="noopener">Prof. Xiaomeng Li</a>'s lab at HKUST to pursue my Ph.D.</span></li>
+          <li><span class="when">2023.06</span><span><strong>1</strong> paper accepted by <em>MICCAI&nbsp;2023</em> &mdash; <a class="jump" href="#pub-dhc">DHC</a>.</span></li>
+          <li><span class="when">2022.02</span><span><strong>1</strong> paper accepted by <em>AAAI&nbsp;2022</em> &mdash; <a class="jump" href="#pub-uctransnet">UCTransNet</a>.<span class="flag">Top-1 Influential</span></span></li>
+        </ul>
+      </div>
+      <div class="news-foot">
+        <span id="news-pos">1 / 11</span>
+        <div class="news-meter"><i id="news-meter"></i></div>
+        <button id="news-up" aria-label="scroll news up">&uarr;</button>
+        <button id="news-down" aria-label="scroll news down">&darr;</button>
+      </div>
+    </div>
+  </section>
 </div>
 
-
-
-<div markdown="1" style="font-size:14px">
-
-
-**Research interest:**
-
-- Deep Learning
-- Computer Vision
-- Label-efficient Learning
-- Medical Image Analysis
-- Foundation Models
-- Brain Decoding
-- Generative Models
-
-</div>
-
-
-
-<!--<div markdown="1" style="font-size:14px">-->
-
-<!-- **Curriculum Vitae**: &nbsp; <a href='./static/resume.pdf'><img alt="" src="https://img.shields.io/badge/Download-CCCCCC?style=flat-square&logo=docusign&logoColor=black"></a> -->
-
-<!-- **Skills**: &nbsp; Python, C++, Pytorch, Keras, CUDA, MMCV -->
-
-<!--</div>-->
-
-
-<br/>
-
-
-
-
-# News
-
-<div markdown="1" style="height: 240px; overflow: auto; font-size:14px">
-
-![Static Badge](https://img.shields.io/badge/2026%2F01-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**ICLR-2026**_.
-
-![Static Badge](https://img.shields.io/badge/2025%2F09-silver?style=flat-square) &nbsp; **1** paper accepted by _**NeurIPS-2025**_. We propose [***ZEBRA***](https://arxiv.org/abs/2510.27128), the first zero-shot brain visual decoding framework that eliminates the need for subject-specific adaptation.  
-
-![Static Badge](https://img.shields.io/badge/2025%2F06-silver?style=flat-square) &nbsp; **2** papers accepted by _**ICCV-2025**_. ([***Neurons***](https://arxiv.org/abs/2503.11167) & [**_TAM_**](https://arxiv.org/abs/2506.23270)) <font color="#FF3030"><b>TAM is selected as Oral Presentation! </b></font>
-
-![Static Badge](https://img.shields.io/badge/2025%2F05-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**TMI-2025**_. 
-
-![Static Badge](https://img.shields.io/badge/2025%2F01-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**ICLR-2025**_.
-
-![Static Badge](https://img.shields.io/badge/2024%2F10-silver?style=flat-square) &nbsp; **1** co-authored paper accepted by _**TMI-2024**_.
-
-![Static Badge](https://img.shields.io/badge/2024%2F02-silver?style=flat-square) &nbsp; **1** paper accepted by _**CVPR-2024**_.
-
-![Static Badge](https://img.shields.io/badge/2023%2F09-silver?style=flat-square)
- &nbsp; **1** paper accepted by _**NeurIPS-2023**_.
- 
-![Static Badge](https://img.shields.io/badge/2023%2F08-silver?style=flat-square) &nbsp; Join [Prof. Xiaomeng Li](https://xmengli.github.io/)'s lab at HKUST to pursue my Ph.D. degree.
-
-![Static Badge](https://img.shields.io/badge/2023%2F06-silver?style=flat-square) &nbsp; **1** paper accepted by _**MICCAI-2023**_.
-
-![Static Badge](https://img.shields.io/badge/2022%2F02-silver?style=flat-square) &nbsp; **1** paper accepted by _**AAAI-2022**_. 
-
-</div>
-
-
----
-<br/>
-
-
-# Publications
-$^\dagger$ denotes equal contribution.
-## Featured Publications
-
-<style>
-.filter-buttons {
-  margin-bottom: 5px;
-  text-align: center;
-}
-.filter-button {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 3px;
-  background-color: white;
-  border: 1px solid #000;
-  border-radius: 0px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-.filter-button:hover {
-  background-color: #f0f0f0;
-}
-.filter-button.active {
-  background-color: #000;
-  color: white;
-  border-color: #000;
-}
-.publication-tag {
-  display: inline-block;
-  padding: 2px 6px;
-  margin: 2px;
-  background-color: white;
-  border: 1px solid #000;
-  border-radius: 0px;
-  font-size: 10px;
-  color: #000;
-}
-
-/* Animation styles */
-.paper-box {
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.paper-box.fade-out {
-  opacity: 0;
-  transform: translateY(10px);
-}
-.paper-box.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
-
-<div class="filter-buttons">
-<span class="filter-button" data-filter="brain">Brain Decoding</span>
-  <span class="filter-button" data-filter="foundation">Foundation Models / VLMs</span>
-  <span class="filter-button" data-filter="label-efficient">Label-efficient Learning</span>
-<span class="filter-button" data-filter="seg">Segmentation</span>
-  <span class="filter-button" data-filter="interpret">Interpretability</span>
- <span class="filter-button active" data-filter="all">All</span>
-</div>
-
-
-<!---------------------------------------------------------------------------------------------------->
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2026</div><a href='images/semkey.png'><img src='images/semkey.png' alt="semkey" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
-  
-[**Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding**](https://arxiv.org/abs/2603.03312) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> --> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SemKey?style=social">
-
-<div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2026
-  
-Yuchen Wang, **Haonan Wang**, Yu Guo, Honglong Yang, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/SemKey"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a>    
-</div>
-</div>
-</div>
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICLR 2026</div><a href='images/vcflow.png'><img src='images/vcflow.png' alt="vcflow" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
-  
-[**A Cognitive Process-Inspired Architecture for Subject-Agnostic Brain Visual Decoding**](https://arxiv.org/abs/2511.02565) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">-->
-
-<div markdown="1" style="font-size:13px">
-_The Fourteenth International Conference on Learning Representations (**ICLR**)_, 2026
-  
-Jingyu Lu, **Haonan Wang**, Qixiang Zhang, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/VCFLOW"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a>
-</div>
-</div>
-</div>
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2025</div><a href='images/ZEBRA.png'><img src='images/ZEBRA.png' alt="ZEBRA" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
-  
-[**ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding**](https://arxiv.org/abs/2510.27128) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/ZEBRA?style=social">
-
-<div markdown="1" style="font-size:13px">
-_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2025
-
-**Haonan Wang**, Jingyu Lu, Hongrui Li, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/ZEBRA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-</div>
-</div>
-</div>
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/UniEval.png'><img src='images/UniEval.png' alt="UniEval" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation">
-  
-[**UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation**](https://www.arxiv.org/abs/2505.10483) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>-->
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/UniEval?style=social">
-
-<div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2025
-
-Yi Li, **Haonan Wang**, Qixiang Zhang, Boyu Xiao, Chenchang Hu, Hualiang Wang, Xiaomeng Li
-  
- <a href="https://github.com/xmed-lab/UniEval"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/UniEval/"><img src="https://img.shields.io/badge/Website-100000?style=for-the-badge&logoColor=white" alt="Website" /></a>
-</div>
-</div>
-</div>
-
-
-
-
-
-<!--
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/xmedgpt.png'><img src='images/xmedgpt.png' alt="XMedGPT" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
-  
-[**Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration**](https://arxiv.org/abs/2505.06898) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>
-<div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2025
-
-Honglong Yang, Shanshan Song, Yi Qin, Lehan Wang, **Haonan Wang**, Xinpeng Ding, Qixiang Zhang, Bodong Du, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Homepage-100000?style=for-the-badge&logo=htmx&logoColor=white" alt="Homepage" /></a></div>
-</div>
-</div>
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">Arxiv 2025</div><a href='images/RCMed.png'><img src='images/RCMed.png' alt="RCMed" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation seg">
-  
-[**Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant**](https://arxiv.org/abs/2505.03380) <span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/RCMed?style=social">
-
-<div markdown="1" style="font-size:13px">
-_Arxiv Preprints_, 2025
-
-**Haonan Wang**, Jiaji Mao, Lehan Wang, Qixiang Zhang, Marawan Elbatel, Yi Qin, Huijun Hu, Baoxun Li, Wenhui Deng, Weifeng Qin, Hongrui Li, Jialin Liang, Jun Shen, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/RCMed"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://xmed-lab.github.io/RCMed"><img src="https://img.shields.io/badge/Website-100000?style=for-the-badge&logoColor=white" alt="Website" /></a>
-</div>
-</div>
-</div>
--->
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICCV 2025</div><a href='images/Neurons.png'><img src='images/Neurons.png' alt="Neurons" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="brain">
-  
-[**Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction**](https://arxiv.org/abs/2503.11167) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/NEURONS?style=social">
-
-<div markdown="1" style="font-size:13px">
-_International Conference on Computer Vision_ (***ICCV***), 2025
-
-**Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Lehan Wang, Xuanqi Huang, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/NEURONS"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-</div>
-</div>
-</div>
-
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICCV 2025</div><a href='images/TAM.png'><img src='images/TAM.png' alt="TAM" width="100%"></a>
-</div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
-  
-[**Token Activation Map to Visually Explain Multimodal LLMs**](https://arxiv.org/abs/2506.23270) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/TAM?style=social">
-
-<div markdown="1" style="font-size:13px">
-_International Conference on Computer Vision_ (***ICCV***), 2025
-<font color="#FF3030" size=3px><b>🏅 Oral Presentation (oral rate: 64/11,239 = 0.57%) </b></font>
-
-Yi Li, Hualiang Wang, Xinpeng Ding, **Haonan Wang**, Xiaomeng Li 
-  
-<a href="https://github.com/xmed-lab/TAM"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">ICLR 2025</div><a href='images/MedRegA.png'><img src='images/MedRegA.png' alt="MedRegA" width="100%"></a>
-<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="foundation interpret">
-  
-[**Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks**](https://arxiv.org/abs/2410.18387) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/MedRegA?style=social">
-
-<div markdown="1" style="font-size:13px">
-_The Thirteenth International Conference on Learning Representations (**ICLR**)_, 2025
-
-Lehan Wang, **Haonan Wang**, Honglong Yang, Jiaji Mao, Zehong Yang, Jun Shen, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/MedRegA"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-</div>
-</div>
-</div>
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">TMI 2025</div><a href='images/SND.png'><img src='images/SND.png' alt="SND" width="100%"></a>
-<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
-  
-[**S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation**](https://arxiv.org/abs/2407.07763) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/SD-Messenger?style=social">
-
-<div markdown="1" style="font-size:13px">
-_IEEE Transactions on Medical Imaging_ (***TMI***), 2025
-
-Qixiang Zhang $^\dagger$, **Haonan Wang** $^\dagger$, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/SD-Messenger"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <!--<a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a>  -->
-
-</div>
-</div>
-</div>
-
-
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">CVPR 2024</div><a href='images/allspark.jpg'><img src='images/allspark.jpg' alt="allspark" width="80%"></a>
-<!--<a href='images/allspark.png'><img src='images/allspark.png' alt="allspark_framework" width="100%"></a>--></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
-  
-[**_AllSpark_: Reborn Labeled Features from Unlabeled in Transformer for
-Semi-Supervised Semantic Segmentation**](https://arxiv.org/abs/2403.01818) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/AllSpark?style=social"> 
-
-<div markdown="1" style="font-size:13px">
-_IEEE / CVF Conference on Computer Vision and Pattern Recognition_ (***CVPR***), 2024
-
-**Haonan Wang** $^\dagger$, Qixiang Zhang $^\dagger$, Yi Li, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/AllSpark"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> <a href="https://www.youtube.com/watch?v=Zebw47uPBFc"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=youtube&logoColor=white" alt="" /></a> 
-
-
-
-</div>
-</div>
-</div>
-
-
-<div class='paper-box'><div class='paper-box-image' style="text-align:center"><div><div class="badge" background-color="000000">NeurIPS 2023</div><a href='images/AND.png'><img src='images/AND.png' alt="AND" width="100%"></a></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
-
-[**Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation**](https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html) <!--<span class='show_paper_citations' data='KDNRnW0AAAAJ:u-x6o8ySG0sC'></span>--> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/GenericSSL?style=social">
-
-<div markdown="1" style="font-size:13px">
-_Advances in Neural Information Processing Systems_ (***NeurIPS***), 2023
-
-**Haonan Wang**, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/GenericSSL"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-<a href="https://www.bilibili.com/video/BV1VQ4y1h7VA/?spm_id_from=333.999.0.0&vd_source=99138e8188d50ba1501059078ab79ca5"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=bilibili&logoColor=white" alt="" /></a>
-<a href="https://hkustconnect-my.sharepoint.com/:b:/g/personal/hwanggr_connect_ust_hk/EQ62bNBRfvVCgP2mVdAJ2yUBN7qTeIJUVFgmEzy2EeOUwA?e=qcxGvH"><img src="https://img.shields.io/badge/Slides-100000?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white" alt="" /></a>
-
-
-</div>
-</div>
-</div>
-
-
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge" background-color="000000">MICCAI 2023</div><a href='images/DHC.png'><img src='images/DHC.png' alt="DHC" width="100%"></a></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg label-efficient">
-  
-[**DHC: Dual-debiased Heterogeneous Co-training Framework for Class-imbalanced Semi-supervised Medical Image Segmentation**](https://arxiv.org/abs/2307.11960) <span class='show_paper_citations' data='KDNRnW0AAAAJ:Tyk-4Ss8FVUC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xmed-lab/DHC?style=social">
-
-<div markdown="1" style="font-size:13px">
-
-_Medical Image Computing and Computer Assisted Intervention_ (**_MICCAI_**), 2023
-
-**Haonan Wang**, Xiaomeng Li
-  
-<a href="https://github.com/xmed-lab/DHC"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-  
-</div>
-</div>
-</div>
-
-
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge" background-color="000000">AAAI 2022</div><a href='images/UCTransNet.png'><img src='images/UCTransNet.png' alt="UCTransNet" width="100%"></a></div></div>
-<div class='paper-box-text' markdown="1" style="font-size:14px" data-categories="seg">
-  
-[**UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer**](https://ojs.aaai.org/index.php/AAAI/article/view/20144) <span class='show_paper_citations' data='KDNRnW0AAAAJ:2osOgNQ5qMEC'></span> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mcgregorwwww/uctransnet?style=social">
-
-<div markdown="1" style="font-size:13px">
-
-_36th AAAI Conference on Artificial Intelligence_ (_**AAAI**_), 2022
-
-<font color="#FF3030" size=3px><b>🏅 Top-1 Most Influential AAAI 2022 Paper </b></font>
-
-
-
-**Haonan Wang**, Peng Cao, Jiaqi Wang, Osmar R. Zaiane
-  
-<a href="https://github.com/McGregorWwww/UCTransNet"><img src="https://img.shields.io/badge/Code-100000?style=for-the-badge&logo=github&logoColor=white" alt="" /></a> 
-<a href="https://www.bilibili.com/video/BV1ZF411p7PM?spm_id_from=333.999.0.0"><img src="https://img.shields.io/badge/Video-100000?style=for-the-badge&logo=bilibili&logoColor=white" alt="" /></a>
-  
-</div>
-</div>
-</div>
-
-
-## Full Publication List
-
-For a complete list of publications, please refer to my [Google Scholar](https://scholar.google.com/citations?user=KDNRnW0AAAAJ).
-
----
-<br/>
-
-<br/>
-
-<!--
-# Honors and Awards
-- *2018.12* &nbsp; Outstanding Students of Northeastern University.
-- *2018.12* &nbsp; First Class Scholarship of Northeastern University.
-{{ ... }}
-
----
-<br/>
--->
-
-
-
-# Educations
-- *2023.09 -  &emsp;&emsp;&emsp;&nbsp;&nbsp;* &nbsp; Ph.D. student, HKUST. 
-- *2022.09 - 2023.09* &nbsp; MSc, Computer Science, HKU. 
-- *2017.09 - 2021.06* &nbsp; BEng, Computer Science, Northeastern University. 
-
----
-<br/>
-
-# Professional Activities
-## Journal Reviews
-- IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)
-- IEEE Transactions on Image Processing (TIP)
-- IEEE Transactions on Neural Networks and Learning Systems (TNNLS)
-- IEEE Transactions on Medical Imaging (TMI)
-- IEEE Journal of Biomedical and Health Informatics (JBHI)
-
-## Conference Reviews
-- IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
-- International Conference on Computer Vision (ICCV)
-- International Conference on Machine Learning (ICML, Gold Reviewer 2026)
-- International Conference on Learning Representations (ICLR)
-- Conference on Neural Information Processing Systems (NeurIPS)
-- AAAI Conference on Artificial Intelligence (AAAI)
-- Medical Image Computing and Computer-Assisted Intervention (MICCAI)
-
-
----
-<br/>
-<br/>
-
-<div style="height:1px; background-color:Black"></div>
-<br/>
-
-<div>
-<div style="margin-left: 10%; width: 70%">
-<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=080808&w=a&t=tt&d=ELDMpSQtbqCvD6euvyQWCsPttHSZd2FQHAPbrBGh0aA&co=ffffff&cmo=c93131&cmn=00b6ff&ct=808080'></script>
-</div>
-</div>
-<br/>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Get all filter buttons and publications
-    const filterButtons = document.querySelectorAll('.filter-button');
-    const publications = document.querySelectorAll('.paper-box');
-    
-    // Create a counter for each category
-    const categoryCounts = {
-      'brain': 0,
-      'foundation': 0,
-      'label-efficient': 0,
-      'seg': 0,
-      'interpret': 0,
-      'all': 0
-    };
-    
-    // Count total publications
-    categoryCounts['all'] = publications.length;
-    
-    // Generate tags for each publication based on data-categories and count categories
-    publications.forEach(pub => {
-      const paperText = pub.querySelector('.paper-box-text');
-      const categoriesAttr = paperText.getAttribute('data-categories');
-      
-      if (categoriesAttr) {
-        // Get categories and create a map for display names
-        const categories = categoriesAttr.split(' ').filter(cat => cat.trim() !== '');
-        const categoryDisplayNames = {
-          'brain': 'Brain Decoding',
-          'foundation': 'Foundation Models / VLMs',
-          'label-efficient': 'Label-efficient Learning',
-          'seg': 'Segmentation',
-          'interpret': 'Interpretability'
-        };
-        
-        // Count each category
-        categories.forEach(category => {
-          if (categoryCounts.hasOwnProperty(category)) {
-            categoryCounts[category]++;
-          }
-        });
-        
-        // Find or create tags container
-        let tagsContainer = paperText.querySelector('.publication-tags');
-        if (!tagsContainer) {
-          // Create tags container at the end of the paper-box-text
-          tagsContainer = document.createElement('div');
-          tagsContainer.className = 'publication-tags';
-          tagsContainer.style.marginTop = '5px';
-          
-          // Append at the end of paper-box-text
-          paperText.appendChild(tagsContainer);
-        } else {
-          // Clear existing tags
-          tagsContainer.innerHTML = '';
-        }
-        
-        // Add tags to container
-        if (tagsContainer) {
-          categories.forEach(category => {
-            const tag = document.createElement('span');
-            tag.className = 'publication-tag';
-            tag.textContent = categoryDisplayNames[category] || category;
-            tagsContainer.appendChild(tag);
-          });
-        }
-      }
-    });
-    
-    // Update filter button text with counts
-    filterButtons.forEach(button => {
-      const filterValue = button.getAttribute('data-filter');
-      const count = categoryCounts[filterValue] || 0;
-      const originalText = button.textContent.split('(')[0].trim(); // Get text without count
-      button.textContent = `${originalText} (${count})`;
-      
-      // Add click event to each filter button
-      button.addEventListener('click', function() {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        
-        // Add active class to clicked button
-        this.classList.add('active');
-        
-        const filterValue = this.getAttribute('data-filter');
-        
-        // First, collect which publications should be shown or hidden
-        const toShow = [];
-        const toHide = [];
-        
-        publications.forEach(pub => {
-          const categories = pub.querySelector('.paper-box-text').getAttribute('data-categories');
-          
-          if (filterValue === 'all' || (categories && categories.includes(filterValue))) {
-            toShow.push(pub);
-          } else {
-            toHide.push(pub);
-          }
-        });
-        
-        // First hide all papers to reset the view
-        publications.forEach(pub => {
-          if (!toShow.includes(pub)) {
-            // Immediately hide papers not in the current filter
-            pub.style.display = 'none';
-          } else {
-            // For papers that will be shown, prepare them for animation
-            // by making them invisible but keeping them in the layout
-            pub.style.opacity = '0';
-            pub.classList.remove('fade-in');
-            pub.classList.add('fade-out');
-            pub.style.display = '';
-          }
-        });
-        
-        // Force reflow to ensure the fade-out state is applied before transitioning
-        void document.body.offsetWidth;
-        
-        // Start staggered fade-in animation for all papers in the current filter
-        const staggerDelay = 80; // Delay between each paper's animation (in ms)
-        
-        toShow.forEach((pub, index) => {
-          // Use setTimeout to create the staggered effect
-          setTimeout(() => {
-            pub.classList.remove('fade-out');
-            pub.classList.add('fade-in');
-            pub.style.opacity = ''; // Remove the explicit opacity setting
-            
-            // Remove the fade-in class after animation completes
-            setTimeout(() => {
-              pub.classList.remove('fade-in');
-            }, 300);
-          }, index * staggerDelay);
-        });
-      });
-    });
-    
-    // Handle citation counts
-    const citationElements = document.querySelectorAll('.show_paper_citations');
-    
-    // Function to fetch citation count from Google Scholar
-    async function fetchCitationCount(scholarId, citationElement) {
-      try {
-        // Create citation badge
-        const citationBadge = document.createElement('span');
-        citationBadge.className = 'citation-badge';
-        citationBadge.style.display = 'inline-block';
-        citationBadge.style.padding = '1px 5px';
-        citationBadge.style.margin = '0 5px';
-        citationBadge.style.backgroundColor = '#f5f5f5';
-        citationBadge.style.color = '#333';
-        citationBadge.style.borderRadius = '3px';
-        citationBadge.style.fontSize = '12px';
-        citationBadge.style.fontWeight = 'normal';
-        
-        // Use the Google Scholar API endpoint
-        // Note: This is a simplified approach. In a production environment, you might need a server-side proxy
-        // to handle CORS issues and rate limiting.
-        const response = await fetch(`https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${scholarId.split(':')[0]}&citation_for_view=${scholarId}`);
-        
-        if (response.ok) {
-          const data = await response.text();
-          // Extract citation count from the response
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(data, 'text/html');
-          const citationCountElement = doc.querySelector('.gsc_oci_value');
-          
-          if (citationCountElement) {
-            const citationCount = citationCountElement.textContent.trim();
-            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> ${citationCount}`;
-          } else {
-            citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> 0`;
-          }
-        } else {
-          citationBadge.innerHTML = `<i class="fas fa-quote-right"></i> -`;
-        }
-        
-        // Insert the citation badge after the citation element
-        citationElement.parentNode.insertBefore(citationBadge, citationElement.nextSibling);
-      } catch (error) {
-        console.error('Error fetching citation count:', error);
-      }
-    }
-    
-    // Process each citation element
-    citationElements.forEach(element => {
-      const scholarId = element.getAttribute('data');
-      if (scholarId) {
-        fetchCitationCount(scholarId, element);
-      }
-    });
-  });
-</script>
-
-<div style="height:2px; background-color:Black"></div>
-<br/>
+<!-- ============ 03 · research thread ============ -->
+<section id="research" class="rv">
+  <div class="sec-head"><span class="num">03</span><h2>Research Thread</h2>
+    <span class="count">hover a dot &middot; click to open the paper</span></div>
+
+  <div class="thread" id="thread">
+    <div class="thread-head">
+      <p class="thread-title">
+        <span class="k">Core question &middot; Visual Semantic Representation</span>
+        <b>How are <em>visual semantics</em> represented &mdash; in scans, in photos, and in the brain?</b>
+      </p>
+      <div class="thread-ctrl" id="thread-ctrl">
+        <button class="tbtn on" data-focus="all">Overview</button>
+        <button class="tbtn" data-focus="med"><i style="background:var(--d-med)"></i>I &middot; Medical</button>
+        <button class="tbtn" data-focus="nat"><i style="background:var(--d-nat)"></i>II &middot; Natural</button>
+        <button class="tbtn" data-focus="hum"><i style="background:var(--d-hum)"></i>III &middot; Human</button>
+        <button class="tbtn play" id="play">&#9654; Play the story</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="map-wrap"><svg id="map" viewBox="0 0 940 528" role="img"
+        aria-label="Research map: papers arranged by year (angle) and domain (ring), from medical images through natural images to human vision"></svg></div>
+      <aside class="aside">
+        <div class="hcard" id="hcard"></div>
+        <ul class="legend">
+          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>
+          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/></svg>co-author</li>
+          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/><circle cx="11" cy="6" r="6.5" fill="none" class="lg-s" stroke-width=".8"/></svg>oral / award</li>
+          <li><svg width="22" height="12"><path d="M1 8 Q11 0 21 6" fill="none" class="lg-s" stroke-width="2"/></svg>my main thread</li>
+          <li><svg width="22" height="12"><path d="M1 6 H21" class="lg-s" stroke-width="1.1" stroke-dasharray="3 3"/></svg><button id="links-toggle">show shared ideas</button></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="chapters" id="chapters"></div>
+    <div class="thread-foot" id="thread-foot">
+      <span>Same question, widening scope: <b>pixels with scarce labels</b> &rarr; <b>open-world semantics</b> &rarr; <b>cortical representation</b></span>
+      <a href="#pubs" id="foot-link">all 14 papers &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · publications ============ -->
+<section id="pubs">
+  <div class="sec-head"><span class="num">04</span><h2>Selected Publications</h2>
+    <span class="count"><sup>&dagger;</sup> equal contribution &middot; <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">all papers on Google Scholar &rarr;</a></span></div>
+  <div class="filterbar" id="filterbar">
+    <button class="fbtn on" data-f="all">All<span class="n"></span></button>
+    <span class="fgrp b">Domain</span>
+    <button class="fbtn" data-f="med"><i style="background:var(--d-med)"></i>Medical<span class="n"></span></button>
+    <button class="fbtn" data-f="nat"><i style="background:var(--d-nat)"></i>Natural<span class="n"></span></button>
+    <button class="fbtn" data-f="hum"><i style="background:var(--d-hum)"></i>Human<span class="n"></span></button>
+    <span class="fgrp b brk">Topic</span>
+    <button class="fbtn" data-f="brain">Brain Decoding<span class="n"></span></button>
+    <button class="fbtn" data-f="foundation">Foundation Models<span class="n"></span></button>
+    <button class="fbtn" data-f="label-efficient">Label-efficient<span class="n"></span></button>
+    <button class="fbtn" data-f="seg">Segmentation<span class="n"></span></button>
+    <button class="fbtn" data-f="interpret">Interpretability<span class="n"></span></button>
+    <button class="fbtn-reset" id="reset">reset</button>
+  </div>
+  <div class="publist" id="publist"></div>
+  <p class="empty" id="empty">No papers match this filter.</p>
+</section>
+
+<!-- ============ 05 · education + service ============ -->
+<section id="service" class="rv">
+  <div class="sec-head"><span class="num">05</span><h2>Education &amp; Service</h2></div>
+  <div class="trio">
+    <div>
+      <p class="sub">Education</p>
+      <ul class="edu">
+        <li><span class="when">2023.09 &mdash;</span><span>Ph.D., The Hong Kong University of Science and Technology</span></li>
+        <li><span class="when">2022 &mdash; 2023</span><span>M.Sc. Computer Science, The University of Hong Kong</span></li>
+        <li><span class="when">2017 &mdash; 2021</span><span>B.Eng. Computer Science, Northeastern University</span></li>
+      </ul>
+    </div>
+    <div>
+      <p class="sub">Journal Reviews</p>
+      <ul><li>IEEE TPAMI</li><li>IEEE TIP</li><li>IEEE TNNLS</li><li>IEEE TMI</li><li>IEEE JBHI</li></ul>
+    </div>
+    <div>
+      <p class="sub">Conference Reviews</p>
+      <ul><li>CVPR &middot; ICCV</li><li>ICML <em>(Gold Reviewer 2026)</em></li><li>ICLR &middot; NeurIPS</li><li>AAAI &middot; MICCAI</li></ul>
+    </div>
+  </div>
+</section>

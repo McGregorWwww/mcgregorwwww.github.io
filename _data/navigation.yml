@@ -1,21 +1,18 @@
 # main links links
+# Anchors must match the section ids in _pages/about.md
+# (bio / news / research / pubs / service).
 main:
-  - title: "About Me"
-    url: "/#about-me"
+  - title: "Biography"
+    url: "/#bio"
 
   - title: "News"
     url: "/#news"
 
+  - title: "Research"
+    url: "/#research"
+
   - title: "Publications"
-    url: "/#publications"
+    url: "/#pubs"
 
-  #- title: "Honors and Awards"
-  #  url: "/#honors-and-awards"
-
-  - title: "Educations"
-    url: "/#educations"
-
-  #- title: "Invited Talks"
-  #  url: "/#-invited-talks"
-
-  
+  - title: "Service"
+    url: "/#service"

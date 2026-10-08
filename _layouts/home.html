@@ -1,0 +1,118 @@
+---
+layout: compress
+---
+
+{% if page.author and site.data.authors[page.author] %}
+  {% assign author = site.data.authors[page.author] %}
+{% else %}
+  {% assign author = site.author %}
+{% endif %}
+{% assign base = site.baseurl %}
+
+<!doctype html>
+<html lang="en" class="no-js" data-tpl="home" data-theme="indigo">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ site.title }}{% if page.title and page.title != site.title %} — {{ page.title }}{% endif %}</title>
+
+    {% include seo.html %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ base }}/assets/css/main.css">
+    {% include head/custom.html %}
+
+    <script>
+      /* Dark mode is opt-in and remembered. This runs before first paint so the
+         dark palette never arrives by way of a white flash. */
+      (function () {
+        try {
+          if (localStorage.getItem('home-theme') === 'midnight') {
+            document.documentElement.setAttribute('data-theme', 'midnight');
+          }
+        } catch (e) {}
+      })();
+
+      window.HOME_CONFIG = {
+        imgBase: "{{ base }}/images/",
+        citationsUrl: "{{ base }}/google-scholar-stats/citations.json"
+      };
+    </script>
+  </head>
+
+  <body class="home-body">
+
+    <div id="progress"></div>
+    <div class="bg-page" id="bgp" aria-hidden="true"></div>
+    <nav id="rail" aria-label="Sections"></nav>
+
+    <div id="mini">
+      <div class="mini-in">
+        <a class="mini-name" href="#top">{{ author.name }}</a>
+        <nav class="mini-nav">
+          <a href="#bio">Biography</a>
+          <a href="#news">News</a>
+          <a href="#research">Research</a>
+          <a href="#pubs">Publications</a>
+          <a href="#service">Service</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-pressed="false"
+                title="Switch to dark mode">
+          <span class="tt-icon" aria-hidden="true"></span>
+          <span class="tt-label">Dark</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- The banner is site-level chrome: every value below comes from
+         _config.yml's `author` block, not from the page. It lives here so it
+         renders as a sibling of .wrap -- inside .wrap it would be clamped to
+         the 1080px content column instead of spanning the viewport. -->
+    <header class="banner" id="top">
+      <div class="bg-banner" id="bgb" aria-hidden="true"></div>
+      <!-- Outside .banner-in on purpose: .banner-in is the centred 1080px
+           column, but the toggle should sit in the far corner of the band. -->
+      <button class="theme-toggle banner-toggle" type="button" aria-pressed="false"
+              title="Switch to dark mode">
+        <span class="tt-icon" aria-hidden="true"></span>
+        <span class="tt-label">Dark</span>
+      </button>
+      <div class="banner-in">
+        <img class="ava" src="{{ base }}/{{ author.avatar }}" alt="{{ author.name }}">
+        <div>
+          <p class="eyebrow">{{ author.bio }}</p>
+          <h1>{{ author.name }}<span class="cn">{{ author.name_cn }}</span></h1>
+          <p class="role">Ph.D. student at <em>The Hong Kong University of Science and Technology</em>, advised by Prof.&nbsp;Xiaomeng&nbsp;Li.</p>
+          <p class="affil">Visual semantic representation &middot; medical images &rarr; natural images &rarr; human vision</p>
+        </div>
+        <nav class="contact">
+          {% if author.googlescholar %}<a href="{{ author.googlescholar }}" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
+          {% if author.github %}<a href="https://github.com/{{ author.github }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
+          {% if author.twitter %}<a href="https://twitter.com/{{ author.twitter }}" target="_blank" rel="noopener">Twitter</a>{% endif %}
+          {% if author.orcid %}<a href="{{ author.orcid }}" target="_blank" rel="noopener">ORCID</a>{% endif %}
+          {% if author.email %}<a href="mailto:{{ author.email }}">Email</a>{% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <div class="wrap">
+      {{ content }}
+
+      <footer>
+        <span>{{ author.name }} &middot; {{ author.email }}</span>
+        <span>Hong Kong &middot; Last updated {{ site.time | date: "%Y" }}</span>
+      </footer>
+    </div>
+
+    <div id="toast">Copied</div>
+
+    <script src="{{ base }}/assets/js/home.js"></script>
+    <script src="{{ base }}/assets/js/home-background.js"></script>
+    <script src="{{ base }}/assets/js/home-theme.js"></script>
+
+    {% include analytics.html %}
+  </body>
+</html>
