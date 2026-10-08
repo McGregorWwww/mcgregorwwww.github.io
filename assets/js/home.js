@@ -43,11 +43,11 @@ const PUBS = [
   { id:'zebra', venue:'NeurIPS', year:2025, t:2025.80, dom:'hum', me:1, cats:['brain'], short:'ZEBRA',
     title:'ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding',
     authors:[['Haonan Wang',1],['Jingyu Lu',0],['Hongrui Li',0],['Xiaomeng Li',0]],
-    img:'ZEBRA.png', scholar:'KDNRnW0AAAAJ:KlAtU1dfN6UC', links:[['Paper','https://arxiv.org/abs/2510.27128'],['Code','https://github.com/xmed-lab/ZEBRA']] },
+    img:'ZEBRA.png', doi:'10.52202/085713-0038', pages:'1165--1186', scholar:'KDNRnW0AAAAJ:KlAtU1dfN6UC', links:[['Paper','https://arxiv.org/abs/2510.27128'],['Code','https://github.com/xmed-lab/ZEBRA']] },
   { id:'unieval', venue:'arXiv', year:2025, t:2025.42, dom:'nat', me:0, cats:['foundation'], short:'UniEval',
     title:'UniEval: Unified Holistic Evaluation for Unified Multimodal Understanding and Generation',
     authors:[['Yi Li',0],['Haonan Wang',1],['Qixiang Zhang',0],['Boyu Xiao',0],['Chenchang Hu',0],['Hualiang Wang',0],['Xiaomeng Li',0]],
-    img:'UniEval.png', scholar:'KDNRnW0AAAAJ:8k81kl-MbHgC', links:[['Paper','https://www.arxiv.org/abs/2505.10483'],['Code','https://github.com/xmed-lab/UniEval']] },
+    img:'UniEval.png', scholar:'KDNRnW0AAAAJ:8k81kl-MbHgC', links:[['Paper','https://arxiv.org/abs/2505.10483'],['Code','https://github.com/xmed-lab/UniEval']] },
   { id:'xmedgpt', venue:'arXiv', year:2025, t:2025.62, dom:'med', me:0, cats:['foundation','interpret'], short:'XMedGPT',
     title:'Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration',
     authors:[['Honglong Yang',0],['Shanshan Song',0],['Yi Qin',0],['Lehan Wang',0],['Haonan Wang',1],['Xinpeng Ding',0],['Qixiang Zhang',0],['Bodong Du',0],['Xiaomeng Li',0]],
@@ -63,11 +63,11 @@ const PUBS = [
   { id:'neurons', venue:'ICCV', year:2025, t:2025.50, dom:'hum', me:1, cats:['brain'], short:'Neurons',
     title:'Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction',
     authors:[['Haonan Wang',1,'†'],['Qixiang Zhang',0,'†'],['Lehan Wang',0],['Xuanqi Huang',0],['Xiaomeng Li',0]],
-    img:'Neurons.png', scholar:'KDNRnW0AAAAJ:Se3iqnhoufwC', links:[['Paper','https://arxiv.org/abs/2503.11167'],['Code','https://github.com/xmed-lab/NEURONS']] },
+    img:'Neurons.png', doi:'10.1109/ICCV51701.2025.01707', pages:'18367--18376', scholar:'KDNRnW0AAAAJ:Se3iqnhoufwC', links:[['Paper','https://arxiv.org/abs/2503.11167'],['Code','https://github.com/xmed-lab/NEURONS']] },
   { id:'tam', venue:'ICCV', year:2025, t:2025.58, dom:'nat', me:0, award:1, tag:'Oral 0.57%', cats:['foundation','interpret'], short:'TAM',
     title:'Token Activation Map to Visually Explain Multimodal LLMs',
     authors:[['Yi Li',0],['Hualiang Wang',0],['Xinpeng Ding',0],['Haonan Wang',1],['Xiaomeng Li',0]],
-    img:'TAM.png', scholar:'KDNRnW0AAAAJ:3fE2CSJIrl8C', links:[['Paper','https://arxiv.org/abs/2506.23270'],['Code','https://github.com/xmed-lab/TAM']] },
+    img:'TAM.png', doi:'10.1109/ICCV51701.2025.00012', pages:'48--58', scholar:'KDNRnW0AAAAJ:3fE2CSJIrl8C', links:[['Paper','https://arxiv.org/abs/2506.23270'],['Code','https://github.com/xmed-lab/TAM']] },
   { id:'medrega', venue:'ICLR', year:2025, t:2025.08, dom:'med', me:0, cats:['foundation','interpret'], short:'MedRegA',
     title:'Interpretable Bilingual Multimodal Large Language Model for Diverse Biomedical Tasks',
     authors:[['Lehan Wang',0],['Haonan Wang',1],['Honglong Yang',0],['Jiaji Mao',0],['Zehong Yang',0],['Jun Shen',0],['Xiaomeng Li',0]],
@@ -75,23 +75,23 @@ const PUBS = [
   { id:'snd', venue:'TMI', year:2025, t:2025.30, dom:'med', me:1, cats:['seg','label-efficient'], short:'S&D',
     title:'S&amp;D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation',
     authors:[['Qixiang Zhang',0,'†'],['Haonan Wang',1,'†'],['Xiaomeng Li',0]],
-    img:'SND.png', scholar:'KDNRnW0AAAAJ:MXK_kJrjxJIC', links:[['Paper','https://arxiv.org/abs/2407.07763'],['Code','https://github.com/xmed-lab/SD-Messenger']] },
+    img:'SND.png', doi:'10.1109/TMI.2025.3576163', vol:'44', num:'11', pages:'4487--4498', scholar:'KDNRnW0AAAAJ:MXK_kJrjxJIC', links:[['Paper','https://arxiv.org/abs/2407.07763'],['Code','https://github.com/xmed-lab/SD-Messenger']] },
   { id:'allspark', venue:'CVPR', year:2024, t:2024.15, dom:'nat', me:1, cats:['seg','label-efficient'], short:'AllSpark',
     title:'AllSpark: Reborn Labeled Features from Unlabeled in Transformer for Semi-Supervised Semantic Segmentation',
     authors:[['Haonan Wang',1,'†'],['Qixiang Zhang',0,'†'],['Yi Li',0],['Xiaomeng Li',0]],
-    img:'allspark.jpg', scholar:'KDNRnW0AAAAJ:YsMSGLbcyi4C', links:[['Paper','https://arxiv.org/abs/2403.01818'],['Code','https://github.com/xmed-lab/AllSpark']] },
+    img:'allspark.jpg', doi:'10.1109/CVPR52733.2024.00348', pages:'3627--3636', scholar:'KDNRnW0AAAAJ:YsMSGLbcyi4C', links:[['Paper','https://arxiv.org/abs/2403.01818'],['Code','https://github.com/xmed-lab/AllSpark']] },
   { id:'and', venue:'NeurIPS', year:2023, t:2023.72, dom:'med', me:1, cats:['seg','label-efficient'], short:'GenericSSL',
     title:'Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation',
     authors:[['Haonan Wang',1],['Xiaomeng Li',0]],
-    img:'AND.png', scholar:'KDNRnW0AAAAJ:Y0pCki6q_DkC', links:[['Paper','https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html'],['Code','https://github.com/xmed-lab/GenericSSL']] },
+    img:'AND.png', doi:'10.52202/075280-0088', pages:'1833--1848', scholar:'KDNRnW0AAAAJ:Y0pCki6q_DkC', links:[['Paper','https://proceedings.neurips.cc/paper_files/paper/2023/hash/05dc08730e32441edff52b0fa6caab5f-Abstract-Conference.html'],['Code','https://github.com/xmed-lab/GenericSSL']] },
   { id:'dhc', venue:'MICCAI', year:2023, t:2023.45, dom:'med', me:1, cats:['seg','label-efficient'], short:'DHC',
     title:'DHC: Dual-debiased Heterogeneous Co-training Framework for Class-imbalanced Semi-supervised Medical Image Segmentation',
     authors:[['Haonan Wang',1],['Xiaomeng Li',0]],
-    img:'DHC.png', scholar:'KDNRnW0AAAAJ:Tyk-4Ss8FVUC', links:[['Paper','https://arxiv.org/abs/2307.11960'],['Code','https://github.com/xmed-lab/DHC']] },
+    img:'DHC.png', doi:'10.1007/978-3-031-43898-1_56', pages:'582--591', scholar:'KDNRnW0AAAAJ:Tyk-4Ss8FVUC', links:[['Paper','https://arxiv.org/abs/2307.11960'],['Code','https://github.com/xmed-lab/DHC']] },
   { id:'uctransnet', venue:'AAAI', year:2022, t:2022.12, dom:'med', me:1, award:1, tag:'Top-1 Influential', cats:['seg'], short:'UCTransNet',
     title:'UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer',
     authors:[['Haonan Wang',1],['Peng Cao',0],['Jiaqi Wang',0],['Osmar R. Zaiane',0]],
-    img:'UCTransNet.png', scholar:'KDNRnW0AAAAJ:2osOgNQ5qMEC', links:[['Paper','https://ojs.aaai.org/index.php/AAAI/article/view/20144'],['Code','https://github.com/McGregorWwww/UCTransNet']] }
+    img:'UCTransNet.png', doi:'10.1609/aaai.v36i3.20144', vol:'36', num:'3', pages:'2441--2449', scholar:'KDNRnW0AAAAJ:2osOgNQ5qMEC', links:[['Paper','https://ojs.aaai.org/index.php/AAAI/article/view/20144'],['Code','https://github.com/McGregorWwww/UCTransNet']] }
 ];
 
 // Ideas that cross between domains — drawn as dashed chords on the map.
@@ -700,10 +700,16 @@ function bibtex(p){
   } else if (meta.type === 'article') {         // journal
     head = '@article';
     rows.push(['journal', '{' + meta.full + '}']);
+    if (p.vol)   rows.push(['volume', '{' + p.vol + '}']);
+    if (p.num)   rows.push(['number', '{' + p.num + '}']);
+    if (p.pages) rows.push(['pages',  '{' + p.pages + '}']);
+    if (p.doi)   rows.push(['doi',    '{' + p.doi + '}']);
     if (url) rows.push(['url', '{' + url + '}']);
   } else {                                      // conference
     head = '@inproceedings';
     rows.push(['booktitle', '{' + meta.full + '}']);
+    if (p.pages) rows.push(['pages', '{' + p.pages + '}']);
+    if (p.doi)   rows.push(['doi',   '{' + p.doi + '}']);
     if (url) rows.push(['url', '{' + url + '}']);
   }
 
