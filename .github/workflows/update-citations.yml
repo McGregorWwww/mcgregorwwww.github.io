@@ -1,0 +1,68 @@
+name: Update citation counts
+
+# Refreshes google-scholar-stats/citations.json from the public Scholar profile.
+#
+# Why this shape:
+#   * The JSON is served from the same origin as the site (GitHub Pages publishes
+#     google-scholar-stats/ as a static file), so the page needs no CORS dance and
+#     no third-party CDN. The previous setup pointed at
+#     cdn.jsdelivr.net/...@google-scholar-stats/... but that branch never existed,
+#     so every citation badge had been silently 404ing.
+#   * A plain crontab-style schedule with one job. The two earlier workflows
+#     (one monthly crawler, one daily no-op "health check") were deleted in
+#     5165783 and 691d7ad; this replaces both.
+#   * If Scholar rate-limits us the script exits non-zero and the workflow fails
+#     loudly instead of committing an empty file over good data.
+
+on:
+  schedule:
+    - cron: '17 6 1 * *' # 1st of the month, 06:17 UTC (off the hour to dodge the rush)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-citations
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # No third-party packages: the fetcher is stdlib-only on purpose.
+      # The old job installed `scholarly`, which pulls rotating proxies that
+      # break constantly and fail silently.
+      - name: Fetch citation counts
+        env:
+          GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # for repo star counts
+          OUT: ../google-scholar-stats/citations.json
+        working-directory: google_scholar_crawler
+        run: python fetch_citations.py
+
+      - name: Show the result
+        run: |
+          echo '--- google-scholar-stats/citations.json ---'
+          head -c 400 google-scholar-stats/citations.json
+          echo
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add google-scholar-stats/citations.json
+          if git diff --staged --quiet; then
+            echo "No change in citation counts."
+          else
+            git commit -m "Update Google Scholar citation counts"
+            git push
+          fi
