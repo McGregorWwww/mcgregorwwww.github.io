@@ -51,11 +51,15 @@ const PUBS = [
   { id:'xmedgpt', venue:'arXiv', year:2025, t:2025.62, dom:'med', me:0, cats:['foundation','interpret'], short:'XMedGPT',
     title:'Multi-Modal Explainable Medical AI Assistant for Trustworthy Human-AI Collaboration',
     authors:[['Honglong Yang',0],['Shanshan Song',0],['Yi Qin',0],['Lehan Wang',0],['Haonan Wang',1],['Xinpeng Ding',0],['Qixiang Zhang',0],['Bodong Du',0],['Xiaomeng Li',0]],
-    img:'xmedgpt.png', scholar:'KDNRnW0AAAAJ:5nxA0vEk-isC', links:[['Paper','https://arxiv.org/abs/2505.06898'],['Code','https://github.com/xmed-lab/RCMed']] },
-  { id:'rcmed', venue:'arXiv', year:2025, t:2025.45, dom:'med', me:1, cats:['foundation','seg'], short:'RCMed',
-    title:'Reinforced Correlation Between Vision and Language for Precise Medical AI Assistant',
+    // No Code link: the paper states "The code used in this study will be
+    // publicly released after the manuscript is published."
+    img:'xmedgpt.png', scholar:'KDNRnW0AAAAJ:5nxA0vEk-isC', links:[['Paper','https://arxiv.org/abs/2505.06898']] },
+  { id:'rcmed', venue:'arXiv', year:2025, t:2025.45, dom:'med', me:1, cats:['foundation','seg'], short:'SyRe',
+    // Renamed on arXiv; the old title was "Reinforced Correlation Between
+    // Vision and Language for Precise Medical AI Assistant".
+    title:'Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Tasks',
     authors:[['Haonan Wang',1],['Jiaji Mao',0],['Lehan Wang',0],['Qixiang Zhang',0],['Marawan Elbatel',0],['Yi Qin',0],['Huijun Hu',0],['Baoxun Li',0],['Wenhui Deng',0],['Weifeng Qin',0],['Hongrui Li',0],['Jialin Liang',0],['Jun Shen',0],['Xiaomeng Li',0]],
-    img:'RCMed.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/RCMed']] },
+    img:'RCMed.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/SyRe']] },
   { id:'neurons', venue:'ICCV', year:2025, t:2025.50, dom:'hum', me:1, cats:['brain'], short:'Neurons',
     title:'Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction',
     authors:[['Haonan Wang',1,'†'],['Qixiang Zhang',0,'†'],['Lehan Wang',0],['Xuanqi Huang',0],['Xiaomeng Li',0]],
@@ -647,18 +651,75 @@ function initNews(){
   }));
 }
 /* ============================================================================
-   BibTeX — built from the same data, copied to the clipboard
+   BibTeX — built from the same data, copied to the clipboard.
+
+   The entry type has to follow the venue. This used to emit @inproceedings
+   for everything, which meant an arXiv preprint was cited as a conference
+   paper that does not exist, and the TMI journal article was cited with a
+   booktitle instead of a journal. Preprints get @misc + eprint, journals get
+   @article + journal, conferences get @inproceedings + booktitle.
    ============================================================================ */
+const VENUES = {
+  TMI:     { type:'article',   full:'IEEE Transactions on Medical Imaging' },
+  AAAI:    { type:'inproceedings', full:'AAAI Conference on Artificial Intelligence' },
+  CVPR:    { type:'inproceedings', full:'IEEE/CVF Conference on Computer Vision and Pattern Recognition' },
+  ICCV:    { type:'inproceedings', full:'IEEE/CVF International Conference on Computer Vision' },
+  ICLR:    { type:'inproceedings', full:'International Conference on Learning Representations' },
+  NeurIPS: { type:'inproceedings', full:'Advances in Neural Information Processing Systems' },
+  MICCAI:  { type:'inproceedings', full:'Medical Image Computing and Computer Assisted Intervention' }
+  // arXiv is intentionally absent — it is a preprint, handled separately.
+};
+
+// LaTeX special characters. Order matters: decode the HTML entity first, then
+// escape, or "&amp;" would come out as "\&amp;".
+const tex = s => s.replace(/&amp;/g, '&')
+                 .replace(/([&%$#_])/g, '\\$1')
+                 .replace(/~/g, '\\textasciitilde{}');
+
+function bibtex(p){
+  const meta = VENUES[p.venue];
+  const url  = (p.links[0] || [])[1] || '';
+  const arx  = (url.match(/arxiv\.org\/abs\/([0-9.]+)/i) || [])[1];
+  const last = p.authors[0][0].split(' ').pop().toLowerCase().replace(/[^a-z]/g, '');
+  const key  = last + p.year + p.venue.replace(/[^A-Za-z]/g, '').toLowerCase();
+
+  const rows = [
+    ['title',  '{' + tex(p.title) + '}'],
+    ['author', '{' + p.authors.map(a => a[0]).join(' and ') + '}'],
+    ['year',   '{' + p.year + '}']
+  ];
+
+  let head;
+  if (!meta) {                                  // preprint
+    head = '@misc';
+    if (arx) {
+      rows.push(['eprint',        '{' + arx + '}']);
+      rows.push(['archivePrefix', '{arXiv}']);
+    }
+    if (url) rows.push(['url', '{' + url + '}']);
+  } else if (meta.type === 'article') {         // journal
+    head = '@article';
+    rows.push(['journal', '{' + meta.full + '}']);
+    if (url) rows.push(['url', '{' + url + '}']);
+  } else {                                      // conference
+    head = '@inproceedings';
+    rows.push(['booktitle', '{' + meta.full + '}']);
+    if (url) rows.push(['url', '{' + url + '}']);
+  }
+
+  // The dagger marks equal contribution on the page; carry it into the entry
+  // so a copy-paste keeps that information.
+  if (p.authors.some(a => a[2])) rows.push(['note', '{$^\\dagger$ Equal contribution}']);
+
+  const pad = Math.max(...rows.map(r => r[0].length));
+  return head + '{' + key + ',\n'
+    + rows.map(([k, v]) => '  ' + k.padEnd(pad) + ' = ' + v).join(',\n') + '\n}';
+}
+
 document.addEventListener('click', async e => {
   const btn = e.target.closest('[data-cite]');
   if (!btn) return;
-  const p = PUB[btn.dataset.cite];
-  const key = (p.authors[0][0].split(' ').pop() + p.venue.replace(/[^A-Za-z]/g, '') + p.year).toLowerCase();
-  const entry = '@inproceedings{' + key + ',\n'
-    + '  title     = {' + p.title.replace(/&amp;/g, '&') + '},\n'
-    + '  author    = {' + p.authors.map(a => a[0]).join(' and ') + '},\n'
-    + '  booktitle = {' + p.venue + '},\n'
-    + '  year      = {' + p.year + '}\n}';
+  const entry = bibtex(PUB[btn.dataset.cite]);
   try { await navigator.clipboard.writeText(entry); toast('BibTeX copied'); }
   catch (err) { window.prompt('Copy this BibTeX:', entry); }
 });
