@@ -16,6 +16,17 @@ Why not OpenAlex / Crossref / Semantic Scholar:
 So: one plain HTTPS GET of the public profile page, parsed with a regex.
 No browser, no proxy, no credentials. If Google ever serves a captcha the
 script exits non-zero and leaves the previous data untouched.
+
+Two modes, because the two halves of citations.json age at different rates
+and cost wildly different amounts to refresh:
+
+  python fetch_citations.py                # citations + stars
+  python fetch_citations.py --stars-only   # stars only, leaves Scholar alone
+
+The Scholar scrape is the fragile half -- run it on a short interval and the
+IP gets captcha'd, after which citation counts stop updating entirely. Star
+counts come from the GitHub REST API, which is cheap and rate-limit-generous
+(1000 requests/hour with the Actions token), so those can be refreshed often.
 """
 
 import json
@@ -121,7 +132,12 @@ HOME_JS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets
 
 def repos_from_home_js():
     """The publication list in assets/js/home.js is the single source of truth,
-    so read the GitHub repos straight out of its Code links."""
+    so read the GitHub repos straight out of its Code links.
+
+    The repo-name character class has to include '-' as well as word chars and
+    dots: without it a name like `SD-Messenger` never matches, the repo silently
+    drops out of the star map, and its badge just goes missing on the page.
+    """
     src = open(HOME_JS, encoding="utf-8").read()
     found = re.findall(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?['\"/#?]", src)
     return sorted({f"{owner}/{name}" for owner, name in found})
@@ -151,35 +167,57 @@ def fetch_stars(repos):
 
 
 def main():
+    stars_only = "--stars-only" in sys.argv[1:]
     uid = os.environ.get("GOOGLE_SCHOLAR_ID", "KDNRnW0AAAAJ")
-    html = fetch_with_retry(PROFILE.format(uid=uid))
-    total, pubs = parse(html)
-
-    if not pubs:
-        raise SystemExit(
-            "ERROR: parsed 0 publications. Scholar probably changed its markup "
-            "-- refusing to write an empty file over good data."
-        )
-
-    out = {
-        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-        "source": "scholar.google.com",
-        "profile": f"https://scholar.google.com/citations?user={uid}",
-        "citedby": total,
-        "publications": pubs,
-        "stars": fetch_stars(repos_from_home_js()),
-    }
-
     dest = os.environ.get("OUT", "results/citations.json")
+
+    stars = fetch_stars(repos_from_home_js())
+
+    if stars_only:
+        # Refresh only the star half, leaving the Scholar fields byte-identical
+        # so the committing job's `git diff` stays quiet when no count moved.
+        try:
+            with open(dest, encoding="utf-8") as f:
+                out = json.load(f)
+        except (OSError, ValueError) as e:
+            raise SystemExit(f"ERROR: cannot read {dest} for --stars-only ({e})")
+        if out.get("stars") == stars:
+            print("stars unchanged; nothing to do")
+            return
+        out["stars"] = stars
+        # `updated` tracks the Scholar scrape, so it is deliberately not touched
+        # here -- bumping it nightly would claim the citations were re-read.
+    else:
+        html = fetch_with_retry(PROFILE.format(uid=uid))
+        total, pubs = parse(html)
+
+        if not pubs:
+            raise SystemExit(
+                "ERROR: parsed 0 publications. Scholar probably changed its markup "
+                "-- refusing to write an empty file over good data."
+            )
+
+        out = {
+            "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+            "source": "scholar.google.com",
+            "profile": f"https://scholar.google.com/citations?user={uid}",
+            "citedby": total,
+            "publications": pubs,
+            "stars": stars,
+        }
+
     os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
     with open(dest, "w") as f:
         json.dump(out, f, indent=1, ensure_ascii=False, sort_keys=True)
 
-    print(f"total citations : {total}")
-    print(f"publications    : {len(pubs)}")
-    print(f"repos w/ stars  : {len(out['stars'])}")
+    if stars_only:
+        print(f"repos w/ stars  : {len(stars)}")
+    else:
+        print(f"total citations : {out['citedby']}")
+        print(f"publications    : {len(out['publications'])}")
+        print(f"repos w/ stars  : {len(stars)}")
+        print(f"updated         : {out['updated']}")
     print(f"wrote           : {dest}")
-    print(f"updated         : {out['updated']}")
 
 
 if __name__ == "__main__":

@@ -13,6 +13,10 @@ vendor/cache/
 # published site.
 _mockups/
 
+# Python
+__pycache__/
+*.py[cod]
+
 # OS / editor
 .DS_Store
 *.sublime-project
