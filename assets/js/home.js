@@ -358,7 +358,6 @@ function hoverPaper(id){
     L.path.classList.toggle('on', !!on);
     L.txt.classList.toggle('on', !!on);
   });
-  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('hot', c.dataset.id === id));
 
   if (!id) { hcard.classList.remove('live'); hcard.innerHTML = HINT; return; }
   const p = PUB[id], D = DOMAINS[p.dom];
@@ -382,21 +381,10 @@ function buildChapters(){
   Object.entries(DOMAINS).forEach(([k, d]) => {
     const c = document.createElement('div');
     c.className = 'chap'; c.dataset.dom = k; c.style.setProperty('--c', d.color);
-    const chips = byDom(k).slice().sort((a, b) => a.t - b.t)
-      .map(p => '<button class="chip" data-id="' + p.id + '" style="--c:' + d.color + '">' + p.short + '</button>').join('');
     c.innerHTML =
       '<p class="ck"><span>' + d.rn + ' · ' + d.name + '</span><span>' + d.years + '</span></p>'
-      + '<h3>' + d.title + '</h3><p>' + d.text + '</p><div class="chips">' + chips + '</div>';
-    c.addEventListener('click', e => {
-      const chip = e.target.closest('.chip');
-      if (chip) { e.stopPropagation(); jumpToPub(chip.dataset.id); return; }
-      setFocus(focus === k ? 'all' : k);
-    });
-    c.addEventListener('mouseover', e => {
-      const chip = e.target.closest('.chip');
-      if (chip) hoverPaper(chip.dataset.id);
-    });
-    c.addEventListener('mouseout', e => { if (e.target.closest('.chip')) hoverPaper(null); });
+      + '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    c.addEventListener('click', () => setFocus(focus === k ? 'all' : k));
     wrap.appendChild(c);
   });
 }

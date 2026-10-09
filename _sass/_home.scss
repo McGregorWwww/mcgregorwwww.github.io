@@ -904,18 +904,8 @@ html[data-tpl="home"] .chap p{
   font-size:13.8px;line-height:1.6;margin:0 0 11px;color:var(--body)
 }
 
-html[data-tpl="home"] .chap .chips{
-  display:flex;flex-wrap:wrap;gap:5px
-}
-
-html[data-tpl="home"] .chip{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;cursor:pointer;
-  background:var(--thumbbg);color:var(--body);border:1px solid var(--rule);
-  padding:1px 7px;transition:all .22s ease;
-}
-
-html[data-tpl="home"] .chip:hover, html[data-tpl="home"] .chip.hot{
-  border-color:var(--c);color:var(--on-accent);background:var(--c)
+html[data-tpl="home"] .chap p:last-child{
+  margin-bottom:0
 }
 
 html[data-tpl="home"] .thread-foot{
