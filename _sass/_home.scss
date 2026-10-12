@@ -43,6 +43,7 @@ html[data-tpl="home"]{
   --on-accent:#FFFFFF;        /* text on accent / core */
   --core-a:#2A4A80; --core-b:#1D3566;
   --core-hi:#DCE5F3; --core-sub:#C9D6EC;
+  --core-ink:#FFFFFF;         /* text on the core disc and the shared box */
   --thread-bg:linear-gradient(#FBFCFD,#F5F7FA);
 }
 
@@ -744,16 +745,8 @@ html[data-tpl="home"] .core-pulse.b{
 0%{transform:scale(.55);opacity:.55}100%{transform:scale(1.5);opacity:0}
 }
 
-html[data-tpl="home"] .core-txt{
-  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.2em;fill:var(--core-sub);text-anchor:middle
-}
-
 html[data-tpl="home"] .core-big{
-  font-family:var(--serif);font-size:27px;font-weight:400;letter-spacing:-.01em;fill:var(--on-accent);text-anchor:middle
-}
-
-html[data-tpl="home"] .core-big.it{
-  font-style:italic;fill:var(--core-hi)
+  font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:0;fill:var(--core-ink);text-anchor:middle
 }
 
 html[data-tpl="home"] .core-glow{
@@ -846,15 +839,21 @@ html[data-tpl="home"] .legend button:hover, html[data-tpl="home"] .legend button
   color:var(--accent)
 }
 
-/* chapter cards under the map */
+/* under the map: one window per domain (drawn by home-dive.js). Each window
+   dives into one image and back out; every level it reads drops a chip into
+   the tray, and each chip links down into the shared .vsr box. */
 html[data-tpl="home"] .chapters{
-  display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--rule);
   position:relative;z-index:3;background:rgba(var(--surface-rgb),.75);
+  /* drawn on top of the (always dark) images, so one light tone per palette */
+  --dv-hi-rgb:141,177,238;
 }
 
 html[data-tpl="home"] .chap{
-  padding:17px 22px 19px;border-right:1px solid var(--rule);cursor:pointer;
-  position:relative;transition:background .35s ease,opacity .45s ease;
+  padding:15px 18px 16px;cursor:pointer;
+  position:relative;transition:background .35s ease;
+  border-right:1px solid var(--rule);
 }
 
 html[data-tpl="home"] .chap:last-child{
@@ -862,69 +861,207 @@ html[data-tpl="home"] .chap:last-child{
 }
 
 html[data-tpl="home"] .chap::before{
-  content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--c);
-  transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease);
+  content:"";position:absolute;left:18px;right:18px;top:-1px;height:2px;background:var(--c);
+  transform:scaleX(0);transition:transform .6s var(--ease);
 }
 
 html[data-tpl="home"] .chap:hover{
-  background:var(--surface)
-}
-
-html[data-tpl="home"] .chap.on{
-  background:var(--surface)
+  background:rgba(var(--accent-rgb),.025)
 }
 
 html[data-tpl="home"] .chap.on::before{
   transform:scaleX(1)
 }
 
-html[data-tpl="home"] .chap.dim{
-  opacity:.42
+html[data-tpl="home"] .chap.dim > *{
+  opacity:.42;transition:opacity .45s ease
 }
 
 html[data-tpl="home"] .chap .ck{
   font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--c);margin:0 0 6px;
+  text-transform:uppercase;color:var(--c);margin:0 0 10px;
   display:flex;justify-content:space-between
+}
+
+html[data-tpl="home"] .chap .ck i{
+  font-style:normal
+}
+
+html[data-tpl="home"] .chap .ck .abbr{
+  display:none
 }
 
 html[data-tpl="home"] .chap .ck span:last-child{
   color:var(--muted)
 }
 
-html[data-tpl="home"] .chap h3{
-  font-weight:400;font-size:1.08rem;line-height:1.3;margin:0 0 7px;color:var(--ink)
+/* the window */
+html[data-tpl="home"] .dv-win{
+  position:relative;aspect-ratio:4/3;background:#000;overflow:hidden;
+  border:1px solid var(--rule)
 }
 
-html[data-tpl="home"] .chap h3 em{
-  font-style:italic
+html[data-tpl="home"] .dv-win canvas{
+  display:block;width:100%;height:100%
 }
 
-html[data-tpl="home"] .chap p{
-  font-size:13.8px;line-height:1.6;margin:0 0 11px;color:var(--body)
+html[data-tpl="home"] .dv-step{
+  position:absolute;left:0;right:0;top:0;margin:0;padding:6px 8px;
+  display:flex;justify-content:space-between;gap:8px;pointer-events:none;
+  font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  background:rgba(0,0,0,.62)
 }
 
-html[data-tpl="home"] .chap p:last-child{
-  margin-bottom:0
+html[data-tpl="home"] .dv-step .dv-d{
+  color:rgb(var(--dv-hi-rgb))
 }
 
-html[data-tpl="home"] .thread-foot{
-  display:flex;align-items:center;gap:14px;padding:11px 22px;border-top:1px solid var(--rule);
-  font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--muted);
-  background:rgba(var(--surface-rgb),.6);position:relative;z-index:3;
+/* what the current level reads */
+html[data-tpl="home"] .dv-cap{
+  margin:10px 0 0;min-height:2.7em;line-height:1.3
 }
 
-html[data-tpl="home"] .thread-foot b{
-  font-weight:500;color:var(--ink)
+html[data-tpl="home"] .dv-cap b{
+  display:block;font-weight:400;font-size:1.02rem;color:var(--ink)
 }
 
-html[data-tpl="home"] .thread-foot a{
-  margin-left:auto;color:var(--accent);text-decoration:none;
-  border-bottom:1px solid var(--accent-soft)
+html[data-tpl="home"] .dv-cap span{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;color:var(--muted);margin-top:2px
 }
 
-html[data-tpl="home"] .thread-foot a:hover{
-  border-color:var(--accent)
+html[data-tpl="home"] .chap.sem .dv-cap b{
+  font-style:italic;font-size:1.22rem;color:var(--c)
+}
+
+/* the tray: extracted features + their sum */
+html[data-tpl="home"] .dv-tray{
+  margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);
+  display:flex;flex-wrap:wrap;align-items:center;gap:5px 4px;min-height:24px
+}
+
+html[data-tpl="home"] .dv-chip{
+  font-family:var(--mono);font-size:9px;letter-spacing:.04em;white-space:nowrap;
+  padding:3px 6px;border:1px dashed var(--rule);border-radius:2px;color:var(--muted);
+  transition:color .35s ease,border-color .35s ease,background .35s ease
+}
+
+html[data-tpl="home"] .dv-chip.in{
+  border-style:solid;border-color:var(--c);color:var(--ink);background:rgba(var(--accent-rgb),.06)
+}
+
+html[data-tpl="home"] .dv-ghost{
+  position:absolute;z-index:4;pointer-events:none;
+  border:1px solid var(--accent);background:var(--surface);color:var(--ink);
+  box-shadow:0 4px 14px rgba(var(--ink-rgb),.18)
+}
+
+html[data-tpl="home"] .dv-plus{
+  font-style:normal;font-family:var(--mono);font-size:10px;color:var(--rule);transition:color .35s ease
+}
+
+html[data-tpl="home"] .dv-plus.in{
+  color:var(--muted)
+}
+
+/* the shared space: one box under all three windows, split into a low, mid
+   and high space. home-dive.js draws a line from every chip, as it lands in
+   its tray, into the space for that chip's level. */
+html[data-tpl="home"] .vsr{
+  position:relative;z-index:3;padding:40px 22px 18px;
+  background:rgba(var(--surface-rgb),.6);
+  display:flex;flex-direction:column;align-items:center
+}
+
+html[data-tpl="home"] .vsr-links{
+  position:absolute;left:0;top:0;z-index:4;pointer-events:none;overflow:visible
+}
+
+html[data-tpl="home"] .vsr-line{
+  fill:none;stroke-width:1.1;opacity:0;stroke-linecap:round
+}
+
+html[data-tpl="home"] .vsr-port{
+  opacity:0;stroke:var(--surface);stroke-width:1.2
+}
+
+/* same dark blue as the core disc on the map, light text on top */
+html[data-tpl="home"] .vsr-hub{
+  width:min(880px,100%);box-sizing:border-box;padding:12px 12px 12px;
+  border:1px solid var(--core-b);border-radius:3px;
+  background:radial-gradient(120% 140% at 50% 100%,var(--core-a),var(--core-b));
+  box-shadow:0 6px 16px rgba(var(--accent-rgb),.22);
+  transition:box-shadow .5s ease
+}
+
+html[data-tpl="home"] .vsr-hub.hit{
+  animation:vsr-hit .5s ease-out
+}
+
+@keyframes vsr-hit{
+from{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.22),0 6px 16px rgba(var(--accent-rgb),.22)}
+to{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0),0 6px 16px rgba(var(--accent-rgb),.22)}
+}
+
+html[data-tpl="home"] .vsr-hub.all-in{
+  box-shadow:0 8px 26px rgba(var(--accent-rgb),.34)
+}
+
+html[data-tpl="home"] .vsr-k{
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--core-sub)
+}
+
+html[data-tpl="home"] .vsr-t{
+  font-family:var(--serif);font-weight:400;font-size:1.18rem;line-height:1.2;color:var(--core-ink)
+}
+
+/* three spaces, one per level; each chip's line lands on the top edge of its
+   level's space, at that domain's port */
+html[data-tpl="home"] .vsr-lvls{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px
+}
+
+/* the level spaces are lighter panes set into the dark box */
+html[data-tpl="home"] .vsr-lvl{
+  position:relative;padding:9px 12px 10px;border:1px solid rgba(255,255,255,.16);
+  border-top:2px solid rgba(255,255,255,.22);border-radius:2px;
+  background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:3px;
+  transition:border-color .45s ease,background .45s ease
+}
+
+html[data-tpl="home"] .vsr-lvl.all-in{
+  border-top-color:var(--core-ink);background:rgba(255,255,255,.11)
+}
+
+html[data-tpl="home"] .vsr-lk{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--core-ink)
+}
+
+html[data-tpl="home"] .vsr-ls{
+  font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--core-sub)
+}
+
+/* which domains have linked in, in the same order as the ports above */
+html[data-tpl="home"] .vsr-marks{
+  display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px;justify-items:center
+}
+
+html[data-tpl="home"] .vsr-mark{
+  font-family:var(--mono);font-style:normal;font-size:8.5px;letter-spacing:.06em;line-height:1;
+  min-width:26px;text-align:center;padding:3px 4px;border:1px dashed rgba(255,255,255,.3);border-radius:2px;
+  color:var(--core-sub);opacity:.55;
+  transition:color .35s ease,border-color .35s ease,opacity .35s ease,background .35s ease
+}
+
+/* the domain blues are too close to the box colour, so an arrived mark goes
+   solid white; which domain it is reads from the numeral and the line above */
+html[data-tpl="home"] .vsr-mark.in{
+  border-style:solid;border-color:var(--core-ink);color:var(--core-ink);opacity:1;background:rgba(255,255,255,.14)
+}
+
+html[data-tpl="home"] .vsr-foot{
+  margin:10px 0 0;display:flex;align-items:baseline;justify-content:space-between;gap:6px 18px;flex-wrap:wrap
 }
 
 /* ==========================================================================
@@ -1294,20 +1431,41 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .hcard{
     height:auto;grid-column:1/-1
   }
+  /* narrow: windows stack, one per row */
   html[data-tpl="home"] .chapters{
     grid-template-columns:1fr
   }
   html[data-tpl="home"] .chap{
-    border-right:0;border-bottom:1px solid var(--rule)
+    border-right:0;border-bottom:1px solid var(--rule);padding:14px 16px 15px
   }
   html[data-tpl="home"] .chap:last-child{
     border-bottom:0
+  }
+  html[data-tpl="home"] .dv-win{
+    max-width:520px
+  }
+  /* stacked windows: no connecting lines, the box just sits underneath */
+  html[data-tpl="home"] .vsr{
+    padding-top:16px;border-top:1px solid var(--rule)
   }
 }
 
 @media(max-width:620px){
   html[data-tpl="home"] .wrap{
     padding:0 20px 80px
+  }
+  /* phone: the three level spaces stack as rows, label left, marks right */
+  html[data-tpl="home"] .vsr{
+    padding-left:0;padding-right:0
+  }
+  html[data-tpl="home"] .vsr-lvls{
+    grid-template-columns:1fr;gap:6px
+  }
+  html[data-tpl="home"] .vsr-lvl{
+    display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 10px
+  }
+  html[data-tpl="home"] .vsr-marks{
+    grid-row:1/3;grid-column:2;margin-top:0;gap:4px
   }
   html[data-tpl="home"] .banner-in{
     grid-template-columns:86px minmax(0,1fr);gap:0 18px;padding:30px 20px 26px
@@ -1474,18 +1632,11 @@ html[data-tpl="home"][data-theme="midnight"]{
   --accent:#8DB1EE; --accent-rgb:141,177,238; --accent-soft:rgba(141,177,238,.12);
   --d-med:#5B7BAE; --d-nat:#86A8E6; --d-hum:#C5D7FA;
   --core-a:#3A5A94; --core-b:#1E3360; --core-hi:#DCE7FB; --core-sub:#A9C0E8;
+  --core-ink:#F2F5FA;         /* the core stays light-on-dark in both themes */
   --on-accent:#0F1216;
   --thread-bg:linear-gradient(#141920,#11151B);
 }
 
-/* dark mode: things that sit ON the accent must flip, but the core disc stays light-on-dark */
-html[data-tpl="home"][data-theme="midnight"] .core-big, html[data-tpl="home"][data-theme="midnight"] .core-txt{
-  fill:#F2F5FA
-}
-
-html[data-tpl="home"][data-theme="midnight"] .core-big.it{
-  fill:var(--core-hi)
-}
 
 html[data-tpl="home"][data-theme="midnight"] .ava{
   filter:saturate(.9) brightness(.92)
@@ -1501,4 +1652,8 @@ html[data-tpl="home"][data-theme="midnight"] .tbtn.on{
 
 html[data-tpl="home"][data-theme="midnight"] #toast{
   background:var(--ink);color:var(--bg)
+}
+
+html[data-tpl="home"][data-theme="midnight"] .chapters{
+  --dv-hi-rgb:160,193,246
 }

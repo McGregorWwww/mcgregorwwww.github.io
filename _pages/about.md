@@ -94,9 +94,16 @@ redirect_from:
     </div>
 
     <div class="chapters" id="chapters"></div>
-    <div class="thread-foot" id="thread-foot">
-      <span>Same question, widening scope: <b>pixels with scarce labels</b> &rarr; <b>open-world semantics</b> &rarr; <b>cortical representation</b></span>
-      <a href="#pubs" id="foot-link">all 14 papers &darr;</a>
+    <div class="vsr" id="vsr">
+      <div class="vsr-hub" id="vsr-hub">
+        <div class="vsr-lvls" id="vsr-lvls">
+          <div class="vsr-lvl"><span class="vsr-lk">low-level</span><span class="vsr-ls">intensity &middot; colour &middot; edges</span></div>
+          <div class="vsr-lvl"><span class="vsr-lk">mid-level</span><span class="vsr-ls">texture &middot; contours</span></div>
+          <div class="vsr-lvl"><span class="vsr-lk">high-level</span><span class="vsr-ls">shape &middot; parts</span></div>
+        </div>
+        <p class="vsr-foot"><b class="vsr-t">Visual Semantic Representation</b>
+          <span class="vsr-k">shared space &middot; <span id="vsr-n">9 / 9</span> features</span></p>
+      </div>
     </div>
   </div>
 </section>

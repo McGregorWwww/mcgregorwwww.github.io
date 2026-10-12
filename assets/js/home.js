@@ -16,22 +16,21 @@ const CATS = {
 // The three chapters of the research thread. r = ring radius on the map.
 const DOMAINS = {
   med: { rn:'I',   name:'Medical Images', short:'Medical', color:'var(--d-med)', r:184, years:'2022 —',
-         sub:'scarce labels',
-         title:'Semantics from <em>scarce labels</em>',
-         text:'Started where pixel labels are most expensive: CT, MRI and pathology. Learned semantics that survive with few annotations, then grounded them in language for medical MLLMs.' },
+         sub:'scarce labels' },
   nat: { rn:'II',  name:'Natural Images', short:'Natural', color:'var(--d-nat)', r:276, years:'2024 —',
-         sub:'open world',
-         title:'Semantics in the <em>open world</em>',
-         text:'Carried the same question to natural scenes: regenerating labelled features from unlabelled ones, and asking which visual tokens a multimodal LLM actually relies on.' },
+         sub:'open world' },
   hum: { rn:'III', name:'Human Vision',   short:'Human',   color:'var(--d-hum)', r:368, years:'2025 —',
-         sub:'cortical code',
-         title:'Semantics in the <em>visual cortex</em>',
-         text:'Turned to the original visual system. Decoding what people see from fMRI and EEG — and doing it across subjects without per-person training.' }
+         sub:'cortical code' }
 };
 
 // t = fractional year that places the paper on the time axis.
 // me: 1 = first / co-first author, 0 = co-author.
 const PUBS = [
+  { id:'neuronspp', venue:'arXiv', year:2026, t:2026.77, dom:'hum', me:1, cats:['brain','interpret'], short:'Neurons++',
+    // Journal extension of Neurons (ICCV 2025): adds image reconstruction.
+    title:'Neurons++: A Unified Visual-Stream Framework for Image and Video Reconstruction from fMRI with Neural-to-Visual Interpretability',
+    authors:[['Haonan Wang',1],['Yuchen Wang',0],['Jingyu Lu',0],['Qixiang Zhang',0],['Lehan Wang',0],['Xuanqi Huang',0],['Xiaomeng Li',0]],
+    img:'NeuronsPP.jpg', links:[['Paper','https://arxiv.org/abs/2610.13763'],['Code','https://github.com/xmed-lab/NeuronsPlusPlus']] },
   { id:'semkey', venue:'arXiv', year:2026, t:2026.22, dom:'hum', me:0, cats:['brain'], short:'SemKey',
     title:'Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding',
     authors:[['Yuchen Wang',0],['Haonan Wang',1],['Yu Guo',0],['Honglong Yang',0],['Xiaomeng Li',0]],
@@ -101,7 +100,8 @@ const LINKS = [
   ['medrega','tam',    'interpretability'],
   ['rcmed','unieval',  'vision–language alignment'],
   ['tam','neurons',    'interpretable representation'],
-  ['zebra','vcflow',   'subject-agnostic decoding']
+  ['zebra','vcflow',   'subject-agnostic decoding'],
+  ['neurons','neuronspp', 'image + video'],
 ];
 
 const IMG_BASE = (window.HOME_CONFIG && window.HOME_CONFIG.imgBase) || '/images/';
@@ -121,10 +121,10 @@ const byDom = d => PUBS.filter(p => p.dom === d);
    MAP GEOMETRY — polar: angle = time (left → right), radius = domain ring
    ============================================================================ */
 const CX = 470, CY = 470, CORE = 92;
-const T0 = 2022.0, T1 = 2026.4;
+const T0 = 2022.0, T1 = 2026.9;
 
 // Piecewise time → angle. 2025 gets the widest slice because it is the densest year.
-const T_KNOTS = [[2022.0,178],[2023.0,150],[2024.0,124],[2025.0,99],[2026.0,28],[2026.4,8]];
+const T_KNOTS = [[2022.0,178],[2023.0,150],[2024.0,124],[2025.0,99],[2026.0,28],[2026.9,8]];
 function angleOf(t){
   for (let i = 1; i < T_KNOTS.length; i++) {
     const [t0,a0] = T_KNOTS[i-1], [t1,a1] = T_KNOTS[i];
@@ -137,7 +137,7 @@ const polar = (r, deg) => [CX + r * Math.cos(rad(deg)), CY - r * Math.sin(rad(de
 const f1 = n => Math.round(n * 10) / 10;
 
 // The main thread: radius over time. Holds on a ring, then swoops to the next.
-const R_KNOTS = [[2022.0,184],[2023.75,184],[2024.15,276],[2025.12,282],[2025.5,368],[2026.4,368]];
+const R_KNOTS = [[2022.0,184],[2023.75,184],[2024.15,276],[2025.12,282],[2025.5,368],[2026.9,368]];
 const smooth = x => x * x * (3 - 2 * x);
 function threadR(t){
   for (let i = 1; i < R_KNOTS.length; i++) {
@@ -151,7 +151,7 @@ function threadR(t){
 const LBL_SIDE = { uctransnet:'out', dhc:'out', and:'out', allspark:'out',
                    medrega:'in', snd:'in', rcmed:'in', xmedgpt:'in',
                    unieval:'in', tam:'in',
-                   neurons:'out', zebra:'out', vcflow:'out', semkey:'out' };
+                   neurons:'out', zebra:'out', vcflow:'out', semkey:'out', neuronspp:'out' };
 
 const NS = 'http://www.w3.org/2000/svg';
 function el(tag, attrs, parent){
@@ -305,8 +305,9 @@ function buildMap(){
   el('path', { d:half(CORE + 11), class:'core-ring', 'stroke-dasharray':'2 3', opacity:.7 }, core);
   el('path', { d:half(CORE) + 'Z', fill:'url(#core-grad)', class:'core-disc' }, core);
   el('path', { d:half(CORE - 7), class:'core-inner' }, core);
-  [['Visual', -58, 'core-big it'], ['Semantic', -31, 'core-big'], ['REPRESENTATION', -11, 'core-txt']].forEach(([s, dy, cls]) => {
-    el('text', { x:CX, y:CY + dy, class:cls }, core).textContent = s;
+  // one face for all three lines: same serif, size, weight and colour
+  [['Visual', -60], ['Semantic', -36], ['Representation', -12]].forEach(([s, dy]) => {
+    el('text', { x:CX, y:CY + dy, class:'core-big' }, core).textContent = s;
   });
 
   // sweep hand + travelling spark
@@ -346,7 +347,6 @@ function setFocus(k){
     c.classList.toggle('on', c.dataset.dom === k);
     c.classList.toggle('dim', k !== 'all' && c.dataset.dom !== k);
   });
-  updateFoot(k);
 }
 
 function hoverPaper(id){
@@ -373,26 +373,7 @@ function hoverPaper(id){
     + (related.length ? '<br>links to ' + related.join(', ') : '') + '</p>';
 }
 
-/* ============================================================================
-   CHAPTER CARDS
-   ============================================================================ */
-function buildChapters(){
-  const wrap = document.getElementById('chapters');
-  Object.entries(DOMAINS).forEach(([k, d]) => {
-    const c = document.createElement('div');
-    c.className = 'chap'; c.dataset.dom = k; c.style.setProperty('--c', d.color);
-    c.innerHTML =
-      '<p class="ck"><span>' + d.rn + ' · ' + d.name + '</span><span>' + d.years + '</span></p>'
-      + '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
-    c.addEventListener('click', () => setFocus(focus === k ? 'all' : k));
-    wrap.appendChild(c);
-  });
-}
-function updateFoot(k){
-  const a = document.getElementById('foot-link');
-  a.textContent = k === 'all' ? 'all ' + PUBS.length + ' papers ↓'
-                              : byDom(k).length + ' ' + DOMAINS[k].short.toLowerCase() + ' papers ↓';
-}
+// The cards under the map (one diving window per domain) live in home-dive.js.
 
 /* ============================================================================
    PLAY THE STORY — a sweep hand walks 2022 → now, drawing the thread
@@ -482,7 +463,6 @@ function idleFrame(now){
    ============================================================================ */
 function initThread(){
   buildMap();
-  buildChapters();
   hoverPaper(null);
   setFocus('all');
 
@@ -494,10 +474,6 @@ function initThread(){
     document.getElementById('links').classList.toggle('links-all', showAllLinks);
     e.target.classList.toggle('on', showAllLinks);
     e.target.textContent = showAllLinks ? 'hide shared ideas' : 'show shared ideas';
-  });
-  document.getElementById('foot-link').addEventListener('click', e => {
-    e.preventDefault();
-    setFilter(focus, { scroll:true });
   });
 
   const thread = document.getElementById('thread');
@@ -754,7 +730,7 @@ function initChrome(){
   }), { rootMargin:'-25% 0px -68% 0px' });
   navLinks.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s) spy.observe(s); });
 
-  document.querySelectorAll('a[href^="#"]:not(.jump):not(#foot-link)').forEach(a =>
+  document.querySelectorAll('a[href^="#"]:not(.jump)').forEach(a =>
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
       if (!t) return;
@@ -775,21 +751,43 @@ function initRail(){
   const links = [...rail.querySelectorAll('a')], fill = document.getElementById('rail-fill');
   const els = secs.map(([id]) => document.getElementById(id));
 
+  // A section becomes current when its top crosses 35% of the viewport. Each
+  // section gets the scroll position where that happens (clamped to what the
+  // page can actually scroll to, so the last one is reachable), and the fill
+  // runs dot to dot between those positions, so line and dots always agree.
+  // Biography and News share a row, so they share a position and light together.
+  const track = rail.querySelector('.rail-track');
+  const dotY = a => a.offsetTop + 8.5;        // centre of the a::before dot
+  function layoutTrack(){
+    const y0 = dotY(links[0]), y1 = dotY(links[links.length - 1]);
+    track.style.top = y0 + 'px'; track.style.bottom = 'auto'; track.style.height = (y1 - y0) + 'px';
+  }
   function update(){
-    const y = scrollY + innerHeight * .35;
+    const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    const tops = els.map(offsetTopOf);
+    const at = tops.map(t => Math.min(max, Math.max(0, t - innerHeight * .35)));
+    const y = Math.min(scrollY, max);
     let k = 0;
-    els.forEach((e, i) => { if (e.offsetTop <= y) k = i; });
-    links.forEach((a, i) => { a.classList.toggle('on', i === k); a.classList.toggle('past', i < k); });
-    const max = document.documentElement.scrollHeight - innerHeight;
-    fill.style.transform = 'scaleY(' + (max > 0 ? scrollY / max : 0) + ')';
+    at.forEach((s, i) => { if (y >= s - 1) k = i; });
+    links.forEach((a, i) => {
+      const on = tops[i] === tops[k];
+      a.classList.toggle('on', on); a.classList.toggle('past', !on && i < k);
+    });
+    // fill: position between dot k and dot k+1, in px along the track
+    const d = links.map(dotY), y0 = d[0], L = d[d.length - 1] - y0;
+    let f = d[k] - y0;
+    if (k < links.length - 1 && at[k + 1] > at[k]) f += (d[k + 1] - d[k]) * Math.min(1, (y - at[k]) / (at[k + 1] - at[k]));
+    fill.style.transform = 'scaleY(' + (L > 0 ? f / L : 0) + ')';
     rail.classList.toggle('show', scrollY > document.querySelector('.banner').offsetHeight * .6);
   }
   links.forEach(a => a.addEventListener('click', e => {
     e.preventDefault(); scrollToEl(document.getElementById(a.dataset.s), 58);
   }));
   addEventListener('scroll', update, { passive:true });
-  addEventListener('resize', update);
-  update();
+  addEventListener('resize', () => { layoutTrack(); update(); });
+  // section heights change after images, filters and reveals settle
+  new ResizeObserver(() => update()).observe(document.querySelector('.wrap'));
+  layoutTrack(); update();
 }
 
 /* ============================================================================
