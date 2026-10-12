@@ -456,21 +456,58 @@ function layoutLinks(){
   if (stacked || !T.width) return;
   lsvg.setAttribute('width', T.width); lsvg.setAttribute('height', T.height);
   lsvg.setAttribute('viewBox', '0 0 ' + T.width + ' ' + T.height);
+  // Windows are grouped by domain and the box by level, so the lines must swap
+  // order and some crossings are unavoidable. Route them orthogonally instead:
+  // up from the chip, along a lane of its own, up into its mark. Every crossing
+  // is then a right angle, and the lane order is chosen to make them fewest.
   const all = [];
-  KEYS.forEach(k => cards[k].chips.forEach((ch, i) => all.push([cards[k].links[i], ch.getBoundingClientRect()])));
-  all.forEach(([L, r]) => {
-    // from the top of the chip, up to the bottom edge of its level's space
-    const B = lvls[L.lvl].getBoundingClientRect(), M = L.mark.getBoundingClientRect(), y1 = B.bottom - T.top;
-    const x0 = r.left + r.width / 2 - T.left, y0 = r.top - T.top - 1;
-    const x1 = M.left + M.width / 2 - T.left;          // right below that domain's mark
-    const dy = Math.max(10, (y0 - y1) * .6);
-    L.path.setAttribute('d', 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' C' + x0.toFixed(1) + ' ' + (y0 - dy).toFixed(1)
-                        + ' ' + x1.toFixed(1) + ' ' + (y1 + dy).toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1));
+  KEYS.forEach(k => cards[k].chips.forEach((ch, i) => {
+    const L = cards[k].links[i], r = ch.getBoundingClientRect(), M = L.mark.getBoundingClientRect();
+    L.x0 = r.left + r.width / 2 - T.left; L.y0 = r.top - T.top - 1;
+    L.x1 = M.left + M.width / 2 - T.left; L.y1 = lvls[L.lvl].getBoundingClientRect().bottom - T.top;
+    all.push(L);
+  }));
+  const order = laneOrder(all), n = all.length;
+  const top = Math.max(...all.map(L => L.y1)) + 12, bot = Math.min(...all.map(L => L.y0)) - 12;
+  const step = n > 1 ? (bot - top) / (n - 1) : 0, R = Math.max(2, Math.min(7, step * .9));
+  order.forEach((L, j) => {
+    const y = top + step * j, s = Math.sign(L.x1 - L.x0), f = v => v.toFixed(1);
+    const r = Math.min(R, Math.abs(L.x1 - L.x0) / 2, L.y0 - y, y - L.y1);
+    L.path.setAttribute('d', s === 0 || r < .5
+      ? 'M' + f(L.x0) + ' ' + f(L.y0) + ' V' + f(y) + ' H' + f(L.x1) + ' V' + f(L.y1)
+      : 'M' + f(L.x0) + ' ' + f(L.y0) + ' V' + f(y + r) + ' Q' + f(L.x0) + ' ' + f(y) + ' ' + f(L.x0 + s * r) + ' ' + f(y)
+        + ' H' + f(L.x1 - s * r) + ' Q' + f(L.x1) + ' ' + f(y) + ' ' + f(L.x1) + ' ' + f(y - r) + ' V' + f(L.y1));
     L.len = L.path.getTotalLength();
     L.path.style.strokeDasharray = L.len;
-    L.dot.setAttribute('cx', x1.toFixed(1)); L.dot.setAttribute('cy', y1.toFixed(1));
+    L.dot.setAttribute('cx', f(L.x1)); L.dot.setAttribute('cy', f(L.y1));
   });
 }
+// Lanes top (nearest the box) to bottom. With A's lane above B's, A's run
+// crosses B's upper leg if B's mark lies within A's run, and B's run crosses
+// A's lower leg if A's chip lies within B's run. That cost only depends on the
+// pair's order, so the best order over all nine is a small DP over subsets.
+function laneOrder(Ls){
+  const n = Ls.length, inside = (x, L) => x > Math.min(L.x0, L.x1) && x < Math.max(L.x0, L.x1);
+  const above = Ls.map(A => Ls.map(B => A === B ? 0 : +inside(B.x1, A) + +inside(A.x0, B)));
+  const best = new Float64Array(1 << n).fill(Infinity), from = new Int8Array(1 << n);
+  best[0] = 0;
+  for (let S = 0; S < 1 << n; S++) {
+    if (best[S] === Infinity) continue;
+    for (let j = 0; j < n; j++) {
+      if (S & 1 << j) continue;
+      let c = best[S];
+      for (let i = 0; i < n; i++) if (S & 1 << i) c += above[i][j];
+      // tie-break: shorter runs nearer the box, so short hops stay out of the way
+      c += Math.abs(Ls[j].x1 - Ls[j].x0) * 1e-6 * (n - 1 - popcount(S));
+      const T2 = S | 1 << j;
+      if (c < best[T2]) { best[T2] = c; from[T2] = j; }
+    }
+  }
+  const out = [];
+  for (let S = (1 << n) - 1; S; S &= ~(1 << from[S])) out.unshift(Ls[from[S]]);
+  return out;
+}
+const popcount = x => { let c = 0; while (x) { x &= x - 1; c++; } return c; };
 function hubChrome(){
   const n = Object.values(cards).reduce((s, C) => s + C.links.filter(L => L.done).length, 0);
   if (n === nShown) return;

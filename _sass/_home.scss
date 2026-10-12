@@ -845,7 +845,7 @@ html[data-tpl="home"] .legend button:hover, html[data-tpl="home"] .legend button
    the tray, and each chip links down into the shared .vsr box. */
 html[data-tpl="home"] .chapters{
   display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--rule);margin-top:34px;     /* room for the links to climb */
+  border-top:1px solid var(--rule);margin-top:48px;     /* room for the link lanes */
   position:relative;z-index:3;background:rgba(var(--surface-rgb),.75);
   /* drawn on top of the (always dark) images, so one light tone per palette */
   --dv-hi-rgb:141,177,238;
