@@ -43,7 +43,8 @@ html[data-tpl="home"]{
   --on-accent:#FFFFFF;        /* text on accent / core */
   --core-a:#2A4A80; --core-b:#1D3566;
   --core-hi:#DCE5F3; --core-sub:#C9D6EC;
-  --core-ink:#FFFFFF;         /* text on the core disc and the shared box */
+  --core-ink:#FFFFFF;         /* text on the core disc */
+  --vsr-bg:#E9EEF6;           /* the light neck + box under the disc */
   --thread-bg:linear-gradient(#FBFCFD,#F5F7FA);
 }
 
@@ -844,7 +845,7 @@ html[data-tpl="home"] .legend button:hover, html[data-tpl="home"] .legend button
    the tray, and each chip links down into the shared .vsr box. */
 html[data-tpl="home"] .chapters{
   display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--rule);
+  border-top:1px solid var(--rule);margin-top:34px;     /* room for the links to climb */
   position:relative;z-index:3;background:rgba(var(--surface-rgb),.75);
   /* drawn on top of the (always dark) images, so one light tone per palette */
   --dv-hi-rgb:141,177,238;
@@ -935,8 +936,9 @@ html[data-tpl="home"] .chap.sem .dv-cap b{
 }
 
 /* the tray: extracted features + their sum */
+/* sits at the top of the card, so its links run straight up into the box */
 html[data-tpl="home"] .dv-tray{
-  margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);
+  margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--rule);
   display:flex;flex-wrap:wrap;align-items:center;gap:5px 4px;min-height:24px
 }
 
@@ -964,13 +966,12 @@ html[data-tpl="home"] .dv-plus.in{
   color:var(--muted)
 }
 
-/* the shared space: one box under all three windows, split into a low, mid
-   and high space. home-dive.js draws a line from every chip, as it lands in
-   its tray, into the space for that chip's level. */
+/* the shared space: the base of the map's core. The disc's neck (drawn in the
+   map svg) runs off the bottom of the map straight into this box, so the two
+   read as one shape. It holds a low, mid and high space; home-dive.js draws a
+   line up from every chip in the windows below into its level's space. */
 html[data-tpl="home"] .vsr{
-  position:relative;z-index:3;padding:40px 22px 18px;
-  background:rgba(var(--surface-rgb),.6);
-  display:flex;flex-direction:column;align-items:center
+  position:relative;z-index:2;display:flex;justify-content:center
 }
 
 html[data-tpl="home"] .vsr-links{
@@ -985,12 +986,17 @@ html[data-tpl="home"] .vsr-port{
   opacity:0;stroke:var(--surface);stroke-width:1.2
 }
 
-/* same dark blue as the core disc on the map, light text on top */
+/* only the disc is dark. The neck under it and this box share one light,
+   accent-tinted fill (--vsr-bg), so the three still read as one shape. */
+html[data-tpl="home"] .core-neck{
+  fill:var(--vsr-bg)
+}
+
 html[data-tpl="home"] .vsr-hub{
-  width:min(880px,100%);box-sizing:border-box;padding:12px 12px 12px;
-  border:1px solid var(--core-b);border-radius:3px;
-  background:radial-gradient(120% 140% at 50% 100%,var(--core-a),var(--core-b));
-  box-shadow:0 6px 16px rgba(var(--accent-rgb),.22);
+  width:min(780px,94%);box-sizing:border-box;padding:9px 12px 12px;
+  border-radius:0 0 4px 4px;background:var(--vsr-bg);
+  box-shadow:0 6px 18px rgba(var(--accent-rgb),.08);
+  display:flex;flex-direction:column;gap:8px;
   transition:box-shadow .5s ease
 }
 
@@ -999,21 +1005,32 @@ html[data-tpl="home"] .vsr-hub.hit{
 }
 
 @keyframes vsr-hit{
-from{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.22),0 6px 16px rgba(var(--accent-rgb),.22)}
-to{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0),0 6px 16px rgba(var(--accent-rgb),.22)}
+from{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.14),0 6px 18px rgba(var(--accent-rgb),.08)}
+to{box-shadow:0 0 0 0 rgba(var(--accent-rgb),0),0 6px 18px rgba(var(--accent-rgb),.08)}
 }
 
 html[data-tpl="home"] .vsr-hub.all-in{
-  box-shadow:0 8px 26px rgba(var(--accent-rgb),.34)
+  box-shadow:0 8px 24px rgba(var(--accent-rgb),.16)
 }
 
+/* sits right under the neck, reading on from the disc's own title */
 html[data-tpl="home"] .vsr-k{
-  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--core-sub)
+  align-self:center;font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent)
 }
 
-html[data-tpl="home"] .vsr-t{
-  font-family:var(--serif);font-weight:400;font-size:1.18rem;line-height:1.2;color:var(--core-ink)
+/* all nine features are in: the disc above answers with one ring */
+html[data-tpl="home"] .core-flash{
+  fill:none;stroke:var(--accent);stroke-width:2;opacity:0;pointer-events:none;
+  transform-box:fill-box;transform-origin:50% 100%
+}
+
+html[data-tpl="home"] .core-flash.go{
+  animation:core-flash 1.1s ease-out
+}
+
+@keyframes core-flash{
+0%{transform:scale(1);opacity:.9}100%{transform:scale(1.55);opacity:0}
 }
 
 /* three spaces, one per level; each chip's line lands on the top edge of its
@@ -1022,24 +1039,24 @@ html[data-tpl="home"] .vsr-lvls{
   display:grid;grid-template-columns:repeat(3,1fr);gap:10px
 }
 
-/* the level spaces are lighter panes set into the dark box */
+/* the level spaces are white panes set into the tinted box */
 html[data-tpl="home"] .vsr-lvl{
-  position:relative;padding:9px 12px 10px;border:1px solid rgba(255,255,255,.16);
-  border-top:2px solid rgba(255,255,255,.22);border-radius:2px;
-  background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:3px;
+  position:relative;padding:9px 12px 10px;border:1px solid rgba(var(--accent-rgb),.14);
+  border-top:2px solid rgba(var(--accent-rgb),.22);border-radius:2px;
+  background:var(--surface);display:flex;flex-direction:column;gap:3px;
   transition:border-color .45s ease,background .45s ease
 }
 
 html[data-tpl="home"] .vsr-lvl.all-in{
-  border-top-color:var(--core-ink);background:rgba(255,255,255,.11)
+  border-top-color:var(--accent)
 }
 
 html[data-tpl="home"] .vsr-lk{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--core-ink)
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)
 }
 
 html[data-tpl="home"] .vsr-ls{
-  font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--core-sub)
+  font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--muted)
 }
 
 /* which domains have linked in, in the same order as the ports above */
@@ -1047,21 +1064,20 @@ html[data-tpl="home"] .vsr-marks{
   display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px;justify-items:center
 }
 
+/* on the light box each mark can wear its own domain colour again */
 html[data-tpl="home"] .vsr-mark{
   font-family:var(--mono);font-style:normal;font-size:8.5px;letter-spacing:.06em;line-height:1;
-  min-width:26px;text-align:center;padding:3px 4px;border:1px dashed rgba(255,255,255,.3);border-radius:2px;
-  color:var(--core-sub);opacity:.55;
+  min-width:26px;text-align:center;padding:3px 4px;border:1px dashed var(--line-hi);border-radius:2px;
+  color:var(--muted);opacity:.6;cursor:pointer;      /* also a domain switch for the map above */
   transition:color .35s ease,border-color .35s ease,opacity .35s ease,background .35s ease
 }
 
-/* the domain blues are too close to the box colour, so an arrived mark goes
-   solid white; which domain it is reads from the numeral and the line above */
-html[data-tpl="home"] .vsr-mark.in{
-  border-style:solid;border-color:var(--core-ink);color:var(--core-ink);opacity:1;background:rgba(255,255,255,.14)
+html[data-tpl="home"] .vsr-mark.in, html[data-tpl="home"] .vsr-mark:hover, html[data-tpl="home"] .vsr-mark.on{
+  border-style:solid;border-color:var(--c);color:var(--c);opacity:1;background:rgba(var(--accent-rgb),.05)
 }
 
-html[data-tpl="home"] .vsr-foot{
-  margin:10px 0 0;display:flex;align-items:baseline;justify-content:space-between;gap:6px 18px;flex-wrap:wrap
+html[data-tpl="home"] .vsr-mark.dim{
+  opacity:.25
 }
 
 /* ==========================================================================
@@ -1444,28 +1460,15 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .dv-win{
     max-width:520px
   }
-  /* stacked windows: no connecting lines, the box just sits underneath */
-  html[data-tpl="home"] .vsr{
-    padding-top:16px;border-top:1px solid var(--rule)
+  /* stacked windows: no connecting lines, so no room needed for them */
+  html[data-tpl="home"] .chapters{
+    margin-top:0
   }
 }
 
 @media(max-width:620px){
   html[data-tpl="home"] .wrap{
     padding:0 20px 80px
-  }
-  /* phone: the three level spaces stack as rows, label left, marks right */
-  html[data-tpl="home"] .vsr{
-    padding-left:0;padding-right:0
-  }
-  html[data-tpl="home"] .vsr-lvls{
-    grid-template-columns:1fr;gap:6px
-  }
-  html[data-tpl="home"] .vsr-lvl{
-    display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 10px
-  }
-  html[data-tpl="home"] .vsr-marks{
-    grid-row:1/3;grid-column:2;margin-top:0;gap:4px
   }
   html[data-tpl="home"] .banner-in{
     grid-template-columns:86px minmax(0,1fr);gap:0 18px;padding:30px 20px 26px
@@ -1509,7 +1512,8 @@ html[data-tpl="home"] #toast.show{
     text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
     color:var(--muted);padding:2px 0 6px
   }
-  html[data-tpl="home"] #map{
+  /* the box is the core's base, so it scrolls sideways with the map */
+  html[data-tpl="home"] #map, html[data-tpl="home"] .vsr{
     min-width:620px
   }
   html[data-tpl="home"] .aside{
@@ -1633,6 +1637,7 @@ html[data-tpl="home"][data-theme="midnight"]{
   --d-med:#5B7BAE; --d-nat:#86A8E6; --d-hum:#C5D7FA;
   --core-a:#3A5A94; --core-b:#1E3360; --core-hi:#DCE7FB; --core-sub:#A9C0E8;
   --core-ink:#F2F5FA;         /* the core stays light-on-dark in both themes */
+  --vsr-bg:#1E2631;           /* a step lighter than the panel, not the disc's blue */
   --on-accent:#0F1216;
   --thread-bg:linear-gradient(#141920,#11151B);
 }

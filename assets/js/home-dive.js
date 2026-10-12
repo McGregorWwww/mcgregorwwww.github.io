@@ -380,14 +380,15 @@ Object.keys(SPEC).forEach(k => {
   prepTiles(S);
   const c = document.createElement('div');
   c.className = 'chap'; c.dataset.dom = k; c.style.setProperty('--c', D.color);
+  // the tray leads the card: its chips link straight up into the box above
   c.innerHTML =
-      '<p class="ck"><span>' + D.rn + ' · <i class="nm">' + D.name + '</i><i class="abbr">' + D.short + '</i></span>'
+      '<div class="dv-tray" aria-hidden="true">'
+    +   S.chips.map(s => '<span class="dv-chip">' + s + '</span>').join('<i class="dv-plus">+</i>') + '</div>'
+    + '<p class="ck"><span>' + D.rn + ' · <i class="nm">' + D.name + '</i><i class="abbr">' + D.short + '</i></span>'
     + '<span>' + D.years + '</span></p>'
     + '<div class="dv-win"><canvas role="img" aria-label="' + S.aria + '"></canvas>'
     +   '<p class="dv-step"><span class="dv-n"></span><span class="dv-d"></span></p></div>'
-    + '<p class="dv-cap"><b></b><span></span></p>'
-    + '<div class="dv-tray" aria-hidden="true">'
-    +   S.chips.map(s => '<span class="dv-chip">' + s + '</span>').join('<i class="dv-plus">+</i>') + '</div>';
+    + '<p class="dv-cap"><b></b><span></span></p>';
   c.addEventListener('click', () => setFocus(focus === k ? 'all' : k));
   wrap.appendChild(c);
   const img = new Image();
@@ -403,20 +404,22 @@ Object.keys(SPEC).forEach(k => {
 });
 
 /* ---------------- the shared space: every feature links into it ----------- */
-// The common Visual Semantic Representation box holds three spaces, one per
-// level. Each chip, as it lands in its tray, draws one line down into the space
-// for its level, so low/mid/high features from all three domains meet there.
-// Inside each space a domain has its own port (I, II, III left to right).
+// The common Visual Semantic Representation box is the base of the map's core,
+// directly above the windows. It holds three spaces, one per level. Each chip,
+// as it lands in its tray, draws one line up into the space for its level, so
+// low/mid/high features from all three domains meet there. Inside each space a
+// domain has its own port (I, II, III left to right).
 const SVGNS = 'http://www.w3.org/2000/svg', LINK_S = .55;
 const thread = document.getElementById('thread'), hub = document.getElementById('vsr-hub');
-const nEl = document.getElementById('vsr-n');
+const nEl = document.getElementById('vsr-n'), map = document.getElementById('map');
+const flash = map.querySelector('.core-flash');
 const lvls = [...document.querySelectorAll('#vsr-lvls .vsr-lvl')];
 const lsvg = document.createElementNS(SVGNS, 'svg');
 lsvg.setAttribute('class', 'vsr-links'); lsvg.setAttribute('aria-hidden', 'true');
 thread.appendChild(lsvg);
 const KEYS = Object.keys(cards);
 const NFEAT = KEYS.reduce((n, k) => n + cards[k].chips.length, 0);
-let nShown = -1;
+let nShown = -1, held = null;                  // held: the focus to restore after a hover
 // one mark per domain in each level space; it fills once that domain's link lands
 const marks = lvls.map(lv => {
   const row = document.createElement('span');
@@ -424,7 +427,13 @@ const marks = lvls.map(lv => {
   lv.appendChild(row);
   return KEYS.map(k => {
     const m = document.createElement('i');
-    m.className = 'vsr-mark'; m.textContent = DOMAINS[k].rn;
+    m.className = 'vsr-mark'; m.textContent = DOMAINS[k].rn; m.dataset.dom = k;
+    m.style.setProperty('--c', DOMAINS[k].color);
+    m.title = DOMAINS[k].name;
+    // hover a mark to light that domain's ring on the map; click to keep it
+    m.addEventListener('mouseenter', () => { held = focus; setFocus(k); });
+    m.addEventListener('mouseleave', () => { if (held !== null) setFocus(held); held = null; });
+    m.addEventListener('click', () => { const back = held === k ? 'all' : k; held = null; setFocus(back); });
     row.appendChild(m);
     return m;
   });
@@ -450,12 +459,13 @@ function layoutLinks(){
   const all = [];
   KEYS.forEach(k => cards[k].chips.forEach((ch, i) => all.push([cards[k].links[i], ch.getBoundingClientRect()])));
   all.forEach(([L, r]) => {
-    const B = lvls[L.lvl].getBoundingClientRect(), M = L.mark.getBoundingClientRect(), y1 = B.top - T.top;
-    const x0 = r.left + r.width / 2 - T.left, y0 = r.bottom - T.top + 1;
-    const x1 = M.left + M.width / 2 - T.left;          // right above that domain's mark
-    const dy = Math.max(10, (y1 - y0) * .6);
-    L.path.setAttribute('d', 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' C' + x0.toFixed(1) + ' ' + (y0 + dy).toFixed(1)
-                        + ' ' + x1.toFixed(1) + ' ' + (y1 - dy).toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1));
+    // from the top of the chip, up to the bottom edge of its level's space
+    const B = lvls[L.lvl].getBoundingClientRect(), M = L.mark.getBoundingClientRect(), y1 = B.bottom - T.top;
+    const x0 = r.left + r.width / 2 - T.left, y0 = r.top - T.top - 1;
+    const x1 = M.left + M.width / 2 - T.left;          // right below that domain's mark
+    const dy = Math.max(10, (y0 - y1) * .6);
+    L.path.setAttribute('d', 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' C' + x0.toFixed(1) + ' ' + (y0 - dy).toFixed(1)
+                        + ' ' + x1.toFixed(1) + ' ' + (y1 + dy).toFixed(1) + ' ' + x1.toFixed(1) + ' ' + y1.toFixed(1));
     L.len = L.path.getTotalLength();
     L.path.style.strokeDasharray = L.len;
     L.dot.setAttribute('cx', x1.toFixed(1)); L.dot.setAttribute('cy', y1.toFixed(1));
@@ -467,6 +477,8 @@ function hubChrome(){
   nShown = n;
   nEl.textContent = n + ' / ' + NFEAT;
   hub.classList.toggle('all-in', n === NFEAT);
+  // the last feature has arrived: the disc above answers once
+  if (n === NFEAT && on && flash) { flash.classList.remove('go'); void flash.getBoundingClientRect(); flash.classList.add('go'); }
   // a level space lights up once every domain has linked into it
   lvls.forEach((lv, i) => lv.classList.toggle('all-in', marks[i].every(m => m.classList.contains('in'))));
   hub.classList.remove('hit'); void hub.offsetWidth; if (n) hub.classList.add('hit');
@@ -577,6 +589,7 @@ new IntersectionObserver(en => en.forEach(e => e.isIntersecting ? start() : stop
 document.addEventListener('visibilitychange', () => document.hidden ? stop() : wrap.getBoundingClientRect().top < innerHeight && start());
 let rz = 0;
 addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { size(); draw(clock()); }, 80); });
+addEventListener('focuschange', () => draw(clock()));   // dim the other domains' links
 addEventListener('palettechange', () => {
   readTheme();
   const h = cards.hum; if (h.cont && h.cont.complete) tintContour(h.cont);

@@ -296,15 +296,23 @@ function buildMap(){
     nodeEls[p.id] = g;
   });
 
-  // core — a half iris on the baseline
-  const core = el('g', {}, svg);
+  // core — a half iris on the baseline. Under it, a light neck runs off the
+  // bottom of the map into the shared .vsr box (same light fill), so disc,
+  // neck and box read as one shape while only the disc is dark.
+  const core = el('g', { id:'map-core' }, svg);
   const half = r => `M${CX - r} ${CY} A${r} ${r} 0 0 1 ${CX + r} ${CY}`;
+  const BOT = +svg.getAttribute('viewBox').split(' ')[3] + 2, FIL = 14;   // 2 past the edge: no seam
+  const L = CX - CORE, R = CX + CORE;
+  el('path', { d:`M${L} ${CY}L${R} ${CY}L${R} ${BOT - FIL}Q${R} ${BOT} ${R + FIL} ${BOT}`
+               + `L${L - FIL} ${BOT}Q${L} ${BOT} ${L} ${BOT - FIL}Z`, class:'core-neck' }, core);
   el('path', { d:half(CORE + 40) + 'Z', class:'core-glow' }, core);
   el('path', { d:half(CORE + 26), class:'core-pulse' }, core);
   el('path', { d:half(CORE + 26), class:'core-pulse b' }, core);
   el('path', { d:half(CORE + 11), class:'core-ring', 'stroke-dasharray':'2 3', opacity:.7 }, core);
   el('path', { d:half(CORE) + 'Z', fill:'url(#core-grad)', class:'core-disc' }, core);
   el('path', { d:half(CORE - 7), class:'core-inner' }, core);
+  // flashes when all nine features have reached the box below (home-dive.js)
+  el('path', { d:half(CORE + 4), class:'core-flash' }, core);
   // one face for all three lines: same serif, size, weight and colour
   [['Visual', -60], ['Semantic', -36], ['Representation', -12]].forEach(([s, dy]) => {
     el('text', { x:CX, y:CY + dy, class:'core-big' }, core).textContent = s;
@@ -347,6 +355,11 @@ function setFocus(k){
     c.classList.toggle('on', c.dataset.dom === k);
     c.classList.toggle('dim', k !== 'all' && c.dataset.dom !== k);
   });
+  document.querySelectorAll('.vsr-mark').forEach(m => {
+    m.classList.toggle('on', m.dataset.dom === k);
+    m.classList.toggle('dim', k !== 'all' && m.dataset.dom !== k);
+  });
+  dispatchEvent(new Event('focuschange'));      // home-dive.js redraws its links
 }
 
 function hoverPaper(id){

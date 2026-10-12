@@ -79,8 +79,20 @@ redirect_from:
     </div>
 
     <div class="stage">
-      <div class="map-wrap"><svg id="map" viewBox="0 0 940 528" role="img"
-        aria-label="Research map: papers arranged by year (angle) and domain (ring), from medical images through natural images to human vision"></svg></div>
+      <div class="map-wrap"><svg id="map" viewBox="0 0 940 542" role="img"
+        aria-label="Research map: papers arranged by year (angle) and domain (ring), from medical images through natural images to human vision"></svg>
+        <!-- the core's base: the arch under the disc runs straight into this box -->
+        <div class="vsr" id="vsr">
+          <div class="vsr-hub" id="vsr-hub">
+            <span class="vsr-k">shared space &middot; <span id="vsr-n">9 / 9</span> features</span>
+            <div class="vsr-lvls" id="vsr-lvls">
+              <div class="vsr-lvl"><span class="vsr-lk">low-level</span><span class="vsr-ls">intensity &middot; colour &middot; edges</span></div>
+              <div class="vsr-lvl"><span class="vsr-lk">mid-level</span><span class="vsr-ls">texture &middot; contours</span></div>
+              <div class="vsr-lvl"><span class="vsr-lk">high-level</span><span class="vsr-ls">shape &middot; parts</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <aside class="aside">
         <div class="hcard" id="hcard"></div>
         <ul class="legend">
@@ -94,17 +106,6 @@ redirect_from:
     </div>
 
     <div class="chapters" id="chapters"></div>
-    <div class="vsr" id="vsr">
-      <div class="vsr-hub" id="vsr-hub">
-        <div class="vsr-lvls" id="vsr-lvls">
-          <div class="vsr-lvl"><span class="vsr-lk">low-level</span><span class="vsr-ls">intensity &middot; colour &middot; edges</span></div>
-          <div class="vsr-lvl"><span class="vsr-lk">mid-level</span><span class="vsr-ls">texture &middot; contours</span></div>
-          <div class="vsr-lvl"><span class="vsr-lk">high-level</span><span class="vsr-ls">shape &middot; parts</span></div>
-        </div>
-        <p class="vsr-foot"><b class="vsr-t">Visual Semantic Representation</b>
-          <span class="vsr-k">shared space &middot; <span id="vsr-n">9 / 9</span> features</span></p>
-      </div>
-    </div>
   </div>
 </section>
 
