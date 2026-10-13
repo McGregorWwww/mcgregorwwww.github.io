@@ -95,14 +95,25 @@ redirect_from:
       </div>
       <aside class="aside">
         <div class="hcard" id="hcard"></div>
-        <ul class="legend">
-          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>
-          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/></svg>co-author</li>
-          <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/><circle cx="11" cy="6" r="6.5" fill="none" class="lg-s" stroke-width=".8"/></svg>oral / award</li>
-          <li><svg width="22" height="12"><path d="M1 8 Q11 0 21 6" fill="none" class="lg-s" stroke-width="2"/></svg>my main thread</li>
-          <li><svg width="22" height="12"><path d="M1 6 H21" class="lg-s" stroke-width="1.1" stroke-dasharray="3 3"/></svg><button id="links-toggle">show shared ideas</button></li>
-        </ul>
+        <!-- why the three domains share one core: fills the column beside the VSR box -->
+        <div class="why">
+          <p class="why-k">Why one core</p>
+          <p class="why-p">Scans, photos and cortex: one problem.</p>
+          <ol>
+            <li><b>same hierarchy</b> low &rarr; mid &rarr; high</li>
+            <li><b>same bottleneck</b> scarce semantics</li>
+            <li><b>same goal</b> transfer + explain</li>
+          </ol>
+        </div>
       </aside>
+      <!-- parked in the empty top-left corner of the fan (static on narrow screens) -->
+      <ul class="legend">
+        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>
+        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/></svg>co-author</li>
+        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/><circle cx="11" cy="6" r="6.5" fill="none" class="lg-s" stroke-width=".8"/></svg>oral / award</li>
+        <li><svg width="22" height="12"><path d="M1 8 Q11 0 21 6" fill="none" class="lg-s" stroke-width="2"/></svg>my main thread</li>
+        <li><svg width="22" height="12"><path d="M1 6 H21" class="lg-s" stroke-width="1.1" stroke-dasharray="3 3"/></svg><button id="links-toggle">show shared ideas</button></li>
+      </ul>
     </div>
 
     <div class="chapters" id="chapters"></div>

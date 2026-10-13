@@ -120,6 +120,7 @@
       })
       .then(function (data) {
         if (!data || typeof data !== 'object') return;
+        HOME.metrics = data;      // the map's hover card reads it too (home.js)
         if (place(data)) root.setAttribute('data-cites', 'on');
       })
       .catch(function () {

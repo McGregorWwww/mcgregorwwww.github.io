@@ -330,7 +330,18 @@ const hcard = document.getElementById('hcard');
 const HINT = '<p class="hk">How to read this</p>'
   + '<p class="hint"><b>Angle is time</b>, 2022 on the left to today on the right. '
   + '<b>Rings are domains</b>: medical images inside, natural images in the middle, human vision outside.</p>'
-  + '<p class="hint" style="margin-top:8px">The coloured line is my own thread through them. Hover a dot for the paper; click to jump to it.</p>';
+  + '<p class="hint" style="margin-top:8px">The coloured line is my own thread through them. Hover a dot for the paper; click to jump to it.</p>'
+  // the card is now as tall as the map's upper half, so the idle state gets a
+  // per-ring count and a tally along its bottom edge
+  + '<ul class="hdoms">'
+  + Object.entries(DOMAINS).map(([k, D]) => '<li><i style="background:' + D.color + '"></i>'
+      + D.rn + ' · ' + D.name + '<b>' + byDom(k).length + '</b></li>').join('')
+  + '</ul>'
+  + '<div class="htally">'
+  + [[PUBS.length, 'papers'], [PUBS.filter(p => p.me).length, 'first-author'],
+     [PUBS.filter(p => p.award).length, 'oral / award']]
+      .map(([n, k]) => '<span><b>' + n + '</b>' + k + '</span>').join('')
+  + '</div>';
 
 function roleOf(p){
   const me = p.authors.find(a => a[0] === 'Haonan Wang');
@@ -377,13 +388,79 @@ function hoverPaper(id){
   nodeEls[id].classList.add('hot');
   const related = linkEls.filter(L => L.a === id || L.b === id)
     .map(L => PUB[L.a === id ? L.b : L.a].short);
+  // citation / star counts arrive later from citations.json (home-theme.js)
+  const M = (window.HOME && window.HOME.metrics) || {}, repo = repoOf(p);
+  const rec = p.scholar && M.publications && M.publications[p.scholar];
+  const stars = repo && M.stars && M.stars[repo];
+  const nums = [rec && rec.cites > 0 ? 'cited by <b>' + rec.cites + '</b>' : '',
+                typeof stars === 'number' ? '★ <b>' + stars + '</b>' : ''].filter(Boolean);
   hcard.classList.add('live');
   hcard.innerHTML =
     '<img class="himg" src="' + IMG_BASE + p.img + '" alt="" />'
     + '<p class="hk" style="color:' + D.color + '">' + D.rn + ' · ' + D.short + ' · ' + p.venue + ' ' + p.year + '</p>'
     + '<p class="ht">' + p.title + '</p>'
-    + '<p class="hm">' + roleOf(p) + (p.tag ? ' · ' + p.tag : '')
-    + (related.length ? '<br>links to ' + related.join(', ') : '') + '</p>';
+    + '<p class="ha">' + p.authors.map(authorHTML).join(', ') + '</p>'
+    + '<p class="hm">' + roleOf(p) + (p.tag ? ' · <span class="htag">' + p.tag + '</span>' : '')
+    + (related.length ? '<br>links to ' + related.join(', ') : '') + '</p>'
+    + '<div class="hcats">' + p.cats.map(c => '<span>' + CATS[c] + '</span>').join('') + '</div>'
+    + '<p class="hf"><span>' + nums.join(' · ') + '</span><span>click to read ↓</span></p>';
+  fitCard();
+}
+
+/* ============================================================================
+   CARD FIT — the card's height is fixed (it is a grid row in .stage), so the
+   two blocks that exist to be read -- the title and the author list -- have to
+   be told how many lines are left over for them. Measuring the laid-out card
+   does not work: once the content overflows, the flex column squeezes the rows
+   and the geometry stops meaning anything. So weigh the content in an offscreen
+   copy where nothing is clamped, then spend the room top down: title first, the
+   author list with what is left.
+   ============================================================================ */
+const TITLE_LH = 1.4, AUTH_LH = 1.42;      // keep in step with _home.scss
+
+function fitCard(){
+  const probe = hcard.cloneNode(true);
+  const ht = probe.querySelector('.ht'), ha = probe.querySelector('.ha');
+  if (!ht || !ha) return;
+  probe.setAttribute('aria-hidden', 'true');
+  probe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;height:auto;'
+    + 'width:' + hcard.getBoundingClientRect().width + 'px';
+  ht.style.webkitLineClamp = 'none';
+  ha.style.webkitLineClamp = 'none';
+  document.body.appendChild(probe);
+
+  const cs = getComputedStyle(hcard);
+  const inner = hcard.getBoundingClientRect().height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const titleSize = parseFloat(getComputedStyle(ht).fontSize);
+  const authSize = parseFloat(getComputedStyle(ha).fontSize);
+  const titleFull = ht.getBoundingClientRect().height;
+  const authFull = ha.getBoundingClientRect().height;
+  let fixed = 0;
+  for (const c of probe.children) {
+    if (c === ht || c === ha) continue;
+    const s = getComputedStyle(c);
+    fixed += c.getBoundingClientRect().height + parseFloat(s.marginTop) + parseFloat(s.marginBottom);
+  }
+  const titleLH = titleSize * TITLE_LH, authLH = authSize * AUTH_LH;
+  const titleLines = Math.max(1, Math.round(titleFull / titleLH));
+  const authLines = Math.max(1, Math.round(authFull / authLH));
+  // read the margins while the probe is still in the document: getComputedStyle
+  // on a detached node returns nothing, and NaN would sink the whole fit
+  const gap = parseFloat(getComputedStyle(ht).marginBottom) + parseFloat(getComputedStyle(ha).marginBottom);
+  probe.remove();
+  // four title lines are worth showing when the paper's title needs them; the
+  // author list is the elastic one, down to a single ellipsised line
+  const want = Math.min(titleLines, titleFull > 3 * titleLH ? 4 : 3);
+  for (let t = want; t >= 1; t--) {
+    const forAuth = inner - fixed - gap - t * titleLH;
+    const a = Math.min(authLines, Math.floor((forAuth + 1) / authLH));
+    if (a >= 1 || t === 1) {
+      // the card's own blocks, not the probe's
+      hcard.querySelector('.ht').style.webkitLineClamp = t;
+      hcard.querySelector('.ha').style.webkitLineClamp = Math.max(1, a);
+      return;
+    }
+  }
 }
 
 // The cards under the map (one diving window per domain) live in home-dive.js.
@@ -842,7 +919,34 @@ window.HOME = { PUBS: PUBS, PUB: PUB, DOMAINS: DOMAINS, jumpToPub: jumpToPub };
    BOOT
    ============================================================================ */
 buildPubs();
+/* ============================================================================
+   ASIDE ALIGNMENT — the hover card runs down to the core's baseline (the flat
+   edge of the half disc), and "why one core" sits at the bottom of the aside,
+   lifted so its top edge meets the top of the shared-space box beside it. Both
+   targets scale with the map's width, so they are measured, not hard-coded.
+   ============================================================================ */
+function alignAside(){
+  const why = document.querySelector('.why'), hub = document.getElementById('vsr-hub');
+  if (!why || !hub) return;
+  why.style.removeProperty('--why-lift');
+  hcard.style.removeProperty('--hcard-h');
+  if (matchMedia('(max-width:1000px)').matches) return;   // stacked: no box beside it
+  const sb = svg.getBoundingClientRect(), vbH = svg.viewBox.baseVal.height;
+  const h = sb.top + CY * sb.height / vbH - hcard.getBoundingClientRect().top;
+  if (h > 200) hcard.style.setProperty('--hcard-h', Math.round(h) + 'px');
+  const d = hub.getBoundingClientRect().top - why.getBoundingClientRect().top;
+  if (d < 0) why.style.setProperty('--why-lift', Math.round(d) + 'px');
+}
+
+function initAside(){
+  if (!document.querySelector('.why') || !document.getElementById('vsr-hub')) return;
+  alignAside();
+  new ResizeObserver(alignAside).observe(document.getElementById('thread'));
+  if (document.fonts) document.fonts.ready.then(alignAside);
+}
+
 initThread();
+initAside();
 initOrbs();
 initNews();
 initChrome();
