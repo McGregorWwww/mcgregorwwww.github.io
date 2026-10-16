@@ -1,110 +1,181 @@
 {
- "citedby": 2579,
+ "citedby": 2596,
  "profile": "https://scholar.google.com/citations?user=KDNRnW0AAAAJ",
  "publications": {
   "KDNRnW0AAAAJ:0EnyYjriUFMC": {
    "cites": 48,
+   "kind": "journal",
+   "lead": false,
    "title": "Collaborative learning of weakly-supervised domain adaptation for diabetic retinopathy grading on retinal images",
+   "venue": "Computers in Biology and Medicine 144, 105341, 2022",
    "year": 2022
   },
   "KDNRnW0AAAAJ:2osOgNQ5qMEC": {
-   "cites": 1662,
+   "cites": 1672,
+   "kind": "conference",
+   "lead": true,
    "title": "UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer",
+   "venue": "🏅 AAAI Conference on Artificial Intelligence (Most Influential Paper of AAAI …, 2022",
    "year": 2022
   },
   "KDNRnW0AAAAJ:3fE2CSJIrl8C": {
-   "cites": 41,
+   "cites": 42,
+   "kind": "conference",
+   "lead": false,
    "title": "Token Activation Map to Visually Explain Multimodal LLMs",
+   "venue": "🏅 International Conference on Computer Vision (ICCV Oral Presentation), 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:5nxA0vEk-isC": {
    "cites": 9,
+   "kind": "preprint",
+   "lead": false,
    "title": "Multi-modal explainable medical AI assistant for trustworthy human-AI collaboration",
+   "venue": "arXiv preprint arXiv:2505.06898, 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:8k81kl-MbHgC": {
-   "cites": 24,
+   "cites": 25,
+   "kind": "preprint",
+   "lead": false,
    "title": "Unieval: Unified holistic evaluation for unified multimodal understanding and generation",
+   "venue": "arXiv preprint arXiv:2505.10483, 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:KlAtU1dfN6UC": {
-   "cites": 9,
+   "cites": 11,
+   "kind": "conference",
+   "lead": true,
    "title": "ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding",
+   "venue": "Conference on Neural Information Processing Systems (NeurIPS), 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:LkGwnXOMwfcC": {
-   "cites": 65,
+   "cites": 66,
+   "kind": "conference",
+   "lead": false,
    "title": "Touchstone benchmark: Are we on the right way for evaluating AI algorithms for medical segmentation?",
+   "venue": "Conference on Neural Information Processing Systems (NeurIPS), 2024",
    "year": 2024
   },
   "KDNRnW0AAAAJ:MXK_kJrjxJIC": {
    "cites": 9,
+   "kind": "journal",
+   "lead": true,
    "title": "S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation",
+   "venue": "IEEE Transactions on Medical Imaging (TMI), 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:Se3iqnhoufwC": {
    "cites": 10,
+   "kind": "conference",
+   "lead": true,
    "title": "Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction",
+   "venue": "International Conference on Computer Vision (ICCV), 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:Tyk-4Ss8FVUC": {
    "cites": 115,
+   "kind": "conference",
+   "lead": true,
    "title": "DHC: Dual-debiased heterogeneous co-training framework for class-imbalanced semi-supervised medical image segmentation",
+   "venue": "Medical Image Computing and Computer Assisted Intervention (MICCAI), 2023",
    "year": 2023
   },
   "KDNRnW0AAAAJ:UebtZRa9Y70C": {
    "cites": 2,
+   "kind": "preprint",
+   "lead": true,
    "title": "Reinforced correlation between vision and language for precise medical ai assistant",
+   "venue": "arXiv preprint arXiv:2505.03380, 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:WF5omc3nYNoC": {
-   "cites": 185,
+   "cites": 187,
+   "kind": "journal",
+   "lead": true,
    "title": "Narrowing the semantic gaps in u-net with learnable skip connections: The case of medical image segmentation",
+   "venue": "Neural Networks 178, 106546, 2024",
    "year": 2024
   },
   "KDNRnW0AAAAJ:Y0pCki6q_DkC": {
    "cites": 100,
+   "kind": "conference",
+   "lead": true,
    "title": "Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation",
+   "venue": "Conference on Neural Information Processing Systems (NeurIPS), 2023",
    "year": 2023
   },
   "KDNRnW0AAAAJ:YOwf2qJgpHMC": {
    "cites": 1,
+   "kind": "preprint",
+   "lead": false,
    "title": "Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding",
+   "venue": "arXiv preprint arXiv:2603.03312, 2026",
    "year": 2026
   },
   "KDNRnW0AAAAJ:YsMSGLbcyi4C": {
    "cites": 123,
+   "kind": "conference",
+   "lead": true,
    "title": "AllSpark: Reborn Labeled Features from Unlabeled in Transformer for Semi-Supervised Semantic Segmentation",
+   "venue": "IEEE / CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2024",
    "year": 2024
   },
   "KDNRnW0AAAAJ:Zph67rFs4hoC": {
    "cites": 0,
+   "kind": "conference",
+   "lead": false,
    "title": "A Cognitive Process-Inspired Architecture for Subject-Agnostic Brain Visual Decoding",
+   "venue": "The Fourteenth International Conference on Learning Representations (ICLR), 2026",
    "year": 2026
   },
   "KDNRnW0AAAAJ:_FxGoFyzp5QC": {
    "cites": 39,
+   "kind": "conference",
+   "lead": false,
    "title": "Interpretable bilingual multimodal large language model for diverse biomedical tasks",
+   "venue": "The Thirteenth International Conference on Learning Representations (ICLR), 2024",
    "year": 2024
+  },
+  "KDNRnW0AAAAJ:_kc_bZDykSQC": {
+   "cites": 0,
+   "kind": "preprint",
+   "lead": true,
+   "title": "Neurons++: A Unified Visual-Stream Framework for Image and Video Reconstruction from fMRI with Neural-to-Visual Interpretability",
+   "venue": "arXiv preprint arXiv:2610.13763, 2026",
+   "year": 2026
   },
   "KDNRnW0AAAAJ:hqOjcs7Dif8C": {
    "cites": 46,
+   "kind": "journal",
+   "lead": true,
    "title": "MCA-UNet: multi-scale cross co-attentional U-Net for automatic medical image segmentation",
+   "venue": "Health information science and systems 11 (1), 10, 2023",
    "year": 2023
   },
   "KDNRnW0AAAAJ:kNdYIx-mwKoC": {
    "cites": 72,
+   "kind": "journal",
+   "lead": false,
    "title": "MS-SSD: Multi-scale single shot detector for ship detection in remote sensing images",
+   "venue": "Applied Intelligence 53 (2), 1586-1604, 2023",
    "year": 2023
   },
   "KDNRnW0AAAAJ:roLk4NBRz8UC": {
    "cites": 4,
+   "kind": "journal",
+   "lead": true,
    "title": "Artificial intelligence model for automatic 3-dimensional reconstruction of ossicular chain and bony labyrinth from high-resolution CT",
+   "venue": "Radiology Advances, 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:ufrVoPGSRksC": {
    "cites": 15,
+   "kind": "journal",
+   "lead": false,
    "title": "GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation",
+   "venue": "IEEE Transactions on Medical Imaging (TMI), 2024",
    "year": 2024
   }
  },
@@ -125,5 +196,12 @@
   "xmed-lab/VCFLOW": 5,
   "xmed-lab/ZEBRA": 12
  },
- "updated": "2026-10-08"
+ "summary": {
+  "conference": 10,
+  "journal": 7,
+  "lead": 12,
+  "papers": 22,
+  "preprint": 5
+ },
+ "updated": "2026-10-16"
 }

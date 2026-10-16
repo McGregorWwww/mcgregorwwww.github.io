@@ -337,11 +337,47 @@ const HINT = '<p class="hk">How to read this</p>'
   + Object.entries(DOMAINS).map(([k, D]) => '<li><i style="background:' + D.color + '"></i>'
       + D.rn + ' · ' + D.name + '<b>' + byDom(k).length + '</b></li>').join('')
   + '</ul>'
-  + '<div class="htally">'
-  + [[PUBS.length, 'papers'], [PUBS.filter(p => p.me).length, 'first-author'],
-     [PUBS.filter(p => p.award).length, 'oral / award']]
-      .map(([n, k]) => '<span><b>' + n + '</b>' + k + '</span>').join('')
-  + '</div>';
+  + '<div class="htally"></div>';
+
+// The tally is the whole record, not the map: the page only lists selected
+// papers, so the counts come from the full Scholar profile (citations.json,
+// classified by the crawler). Until that arrives -- or if it never does --
+// fall back to the selected list, and say so.
+function tallyHTML(){
+  const S = window.HOME && HOME.metrics && HOME.metrics.summary;
+  const cell = (n, k) => '<span><b>' + n + '</b>' + k + '</span>';
+  if (!S) return cell(PUBS.length, 'selected')
+    + cell(PUBS.filter(p => p.me).length, 'first / co-first');
+  return cell(S.papers, 'papers') + cell(S.lead, 'first / co-first')
+    + '<p class="hkinds">' + [[S.conference, 'conference'], [S.journal, 'journal'], [S.preprint, 'preprint']]
+        .map(([n, k]) => '<i><b>' + n + '</b>' + k + '</i>').join('') + '</p>';
+}
+
+function showHint(){
+  hcard.classList.remove('live');
+  hcard.innerHTML = HINT;
+  hcard.querySelector('.htally').innerHTML = tallyHTML();
+  fitHint();
+}
+
+// The card is only as tall as the map's upper half, which shrinks with the
+// viewport (down to ~270px at 900px wide) while the idle text does not. Shed
+// blocks until it fits, least useful first: the ring counts (the lane labels
+// under the map already say which ring is which), then the second paragraph.
+// The tally stays: it is the one thing on the card the page shows nowhere else.
+function fitHint(){
+  if (hcard.classList.contains('live')) return;
+  const drop = [hcard.querySelector('.hdoms'), hcard.querySelector('.hint + .hint')];
+  // inline display, not the `hidden` attribute: .hdoms is display:flex, which
+  // outranks the UA's [hidden] rule, so `hidden` would silently do nothing
+  drop.forEach(el => el && (el.style.display = ''));
+  for (const el of drop) {
+    if (hcard.scrollHeight <= hcard.clientHeight) return;
+    if (el) el.style.display = 'none';
+  }
+}
+// citations.json lands after the first paint; redraw the idle card if it is up
+addEventListener('metricsready', () => { if (!hcard.classList.contains('live')) showHint(); });
 
 function roleOf(p){
   const me = p.authors.find(a => a[0] === 'Haonan Wang');
@@ -383,7 +419,7 @@ function hoverPaper(id){
     L.txt.classList.toggle('on', !!on);
   });
 
-  if (!id) { hcard.classList.remove('live'); hcard.innerHTML = HINT; return; }
+  if (!id) { showHint(); return; }
   const p = PUB[id], D = DOMAINS[p.dom];
   nodeEls[id].classList.add('hot');
   const related = linkEls.filter(L => L.a === id || L.b === id)
@@ -930,12 +966,15 @@ function alignAside(){
   if (!why || !hub) return;
   why.style.removeProperty('--why-lift');
   hcard.style.removeProperty('--hcard-h');
-  if (matchMedia('(max-width:1000px)').matches) return;   // stacked: no box beside it
+  // must match the breakpoint where _home.scss stacks .stage (880px): between
+  // 881 and 1000px the card is still beside the map and needs the baseline
+  if (matchMedia('(max-width:880px)').matches) return;   // stacked: no box beside it
   const sb = svg.getBoundingClientRect(), vbH = svg.viewBox.baseVal.height;
   const h = sb.top + CY * sb.height / vbH - hcard.getBoundingClientRect().top;
   if (h > 200) hcard.style.setProperty('--hcard-h', Math.round(h) + 'px');
   const d = hub.getBoundingClientRect().top - why.getBoundingClientRect().top;
   if (d < 0) why.style.setProperty('--why-lift', Math.round(d) + 'px');
+  fitHint();      // the card's height just changed under the idle text
 }
 
 function initAside(){

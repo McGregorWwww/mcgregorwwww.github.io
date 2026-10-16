@@ -859,7 +859,7 @@ html[data-tpl="home"] .hcard .hf b{
 
 /* idle state: what is on the map, then the tally along the bottom */
 html[data-tpl="home"] .hcard .hdoms{
-  list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:5px
+  list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:5px
 }
 
 html[data-tpl="home"] .hcard .hdoms li{
@@ -876,15 +876,31 @@ html[data-tpl="home"] .hcard .hdoms b{
 }
 
 html[data-tpl="home"] .hcard .htally{
-  display:grid;grid-template-columns:repeat(3,1fr)
+  display:grid;grid-template-columns:repeat(2,1fr);align-content:start
 }
 
+/* number and label on one line: stacked, the second row no longer fit */
 html[data-tpl="home"] .hcard .htally span{
-  display:flex;flex-direction:column;gap:1px;white-space:nowrap
+  display:flex;align-items:baseline;gap:6px;white-space:nowrap
 }
 
 html[data-tpl="home"] .hcard .htally b{
   font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:0;color:var(--ink)
+}
+
+/* second row: the same whole record, split by venue type; spread across the
+   column rather than dot-separated, which ran wider than the card */
+html[data-tpl="home"] .hcard .htally .hkinds{
+  grid-column:1/-1;margin:6px 0 0;white-space:nowrap;letter-spacing:.02em;
+  display:flex;justify-content:space-between
+}
+
+html[data-tpl="home"] .hcard .htally .hkinds i{
+  font-style:normal
+}
+
+html[data-tpl="home"] .hcard .htally .hkinds b{
+  font-family:var(--mono);font-size:9px;font-weight:500;margin-right:4px
 }
 
 /* capped height: a full 16:9 plate at this column width would leave no room

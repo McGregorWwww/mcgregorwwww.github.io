@@ -98,33 +98,82 @@ def clean(s):
              .replace("&lt;", "<").replace("&gt;", ">")).strip()
 
 
+# How the profile owner appears in Scholar's author lines. Scholar marks equal
+# contribution with a trailing '*', so "H Wang*" anywhere means co-first.
+ME = os.environ.get("SCHOLAR_ME", "H Wang")
+
+# Venue line -> kind. Preprint first (an arXiv line can mention a conference),
+# and "Proceedings of the IEEE" / PNAS are journals despite the word.
+PREPRINT = re.compile(r"arxiv|biorxiv|medrxiv|preprint", re.I)
+NOT_CONF = re.compile(r"Proceedings of the (?:IEEE|National Academy)", re.I)
+CONF = re.compile(
+    r"conference|proceedings|symposium|workshop"
+    r"|\b(?:AAAI|CVPR|ICCV|ECCV|MICCAI|NeurIPS|ICLR|ICML|IJCAI|ACL|EMNLP|KDD|WACV|BMVC)\b",
+    re.I,
+)
+
+
+def kind_of(venue):
+    if not venue:
+        return None          # Scholar has no venue for it: counted, not classified
+    if PREPRINT.search(venue):
+        return "preprint"
+    if CONF.search(venue) and not NOT_CONF.search(venue):
+        return "conference"
+    return "journal"
+
+
+def is_lead(authors):
+    """First author, or any co-first ('*'). Scholar truncates long author lists
+    with '...', so a co-first mark past the cut-off would be missed -- in
+    practice equal-contribution authors sit at the front of the list."""
+    names = [n.strip() for n in authors.split(",")]
+    return bool(names) and (names[0].rstrip("*") == ME or f"{ME}*" in names)
+
+
 def parse(html):
-    """Return (total_citations, {citation_for_view_id: {title, cites, year}})."""
+    """Return (total_citations, {citation_for_view_id: {title, cites, year,
+    venue, kind, lead}})."""
     total = None
     m = re.search(r'gsc_rsb_std[^>]*>\s*(\d+)\s*<', html)
     if m:
         total = int(m.group(1))
 
     pubs = {}
-    # Each row: a title anchor carrying citation_for_view=<ID>, then title text,
-    # then a later cell holding the citation count.
-    row_re = re.compile(
-        r'citation_for_view=([\w:.-]+)"[^>]*>(?P<title>.*?)</a>'   # title anchor
-        r'.*?gsc_a_ac[^>]*>(?P<cites>\d*)<'                       # citation count cell
-        r'(?P<tail>.*?)</tr>',                                    # the year cell follows it
-        re.S,
-    )
-    for m in row_re.finditer(html):
-        pid = m.group(1)
-        cites = int(m.group("cites") or 0)
-        title = clean(m.group("title"))
-        yr = re.search(r"gsc_a_h[^>]*>\s*(\d{4})", m.group("tail"))
-        pubs[pid] = {
-            "title": title,
-            "cites": cites,
+    # One <tr class="gsc_a_tr"> per paper: a title anchor carrying
+    # citation_for_view=<ID>, two gs_gray lines (authors, then venue), the
+    # citation count cell and the year cell.
+    for row in re.findall(r'<tr class="gsc_a_tr">(.*?)</tr>', html, re.S):
+        a = re.search(r'citation_for_view=([\w:.-]+)"[^>]*>(.*?)</a>', row, re.S)
+        if not a:
+            continue
+        c = re.search(r'gsc_a_ac[^>]*>(\d*)<', row)
+        yr = re.search(r'gsc_a_h[^>]*>\s*(\d{4})', row)
+        gray = [clean(g) for g in re.findall(r'<div class="gs_gray">(.*?)</div>', row, re.S)]
+        authors = gray[0] if gray else ""
+        venue = gray[1] if len(gray) > 1 else ""
+        pubs[a.group(1)] = {
+            "title": clean(a.group(2)),
+            "cites": int(c.group(1) or 0) if c else 0,
             "year": int(yr.group(1)) if yr else None,
+            "venue": venue,
+            "kind": kind_of(venue),
+            "lead": is_lead(authors),
         }
     return total, pubs
+
+
+def summarize(pubs):
+    """Whole-record counts for the homepage. The page itself only lists
+    selected papers, so these must come from the full profile."""
+    kinds = [p["kind"] for p in pubs.values()]
+    return {
+        "papers": len(pubs),
+        "lead": sum(p["lead"] for p in pubs.values()),
+        "conference": kinds.count("conference"),
+        "journal": kinds.count("journal"),
+        "preprint": kinds.count("preprint"),
+    }
 
 
 HOME_JS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "js", "home.js")
@@ -203,6 +252,7 @@ def main():
             "profile": f"https://scholar.google.com/citations?user={uid}",
             "citedby": total,
             "publications": pubs,
+            "summary": summarize(pubs),
             "stars": stars,
         }
 
@@ -215,6 +265,7 @@ def main():
     else:
         print(f"total citations : {out['citedby']}")
         print(f"publications    : {len(out['publications'])}")
+        print(f"summary         : {out['summary']}")
         print(f"repos w/ stars  : {len(stars)}")
         print(f"updated         : {out['updated']}")
     print(f"wrote           : {dest}")
