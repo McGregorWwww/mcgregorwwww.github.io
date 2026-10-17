@@ -329,7 +329,7 @@ html[data-tpl="home"] .sec-head .count{
 
 /* ---------- row 1 : biography + news side by side ---------- */
 html[data-tpl="home"] .duo{
-  display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);gap:0 52px
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 52px
 }
 
 html[data-tpl="home"] .duo > section{
