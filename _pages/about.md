@@ -35,6 +35,8 @@ redirect_from:
     <div class="news-box" id="news-box">
       <div class="news-scroll" id="news-scroll">
         <ul class="news-list">
+          <li><span class="when">2026.10</span><span>Recognized as a <em>CVPR&nbsp;2026</em> Outstanding Reviewer.</span></li>
+          <li><span class="when">2026.05</span><span>Recognized as an <em>ICML&nbsp;2026</em> Gold Reviewer.</span></li>
           <li><span class="when">2026.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2026</em> &mdash; <a class="jump" href="#pub-vcflow">VCFLOW</a>.</span></li>
           <li><span class="when">2025.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2025</em>. We propose <a class="jump" href="#pub-zebra">ZEBRA</a>, the first zero-shot brain visual decoding framework that eliminates subject-specific adaptation.</span></li>
           <li><span class="when">2025.06</span><span><strong>2</strong> papers accepted by <em>ICCV&nbsp;2025</em> &mdash; <a class="jump" href="#pub-neurons">Neurons</a> &amp; <a class="jump" href="#pub-tam">TAM</a>.<span class="flag">TAM &middot; Oral</span></span></li>
@@ -49,7 +51,7 @@ redirect_from:
         </ul>
       </div>
       <div class="news-foot">
-        <span id="news-pos">1 / 11</span>
+        <span id="news-pos">1 / 13</span>
         <div class="news-meter"><i id="news-meter"></i></div>
         <button id="news-up" aria-label="scroll news up">&uarr;</button>
         <button id="news-down" aria-label="scroll news down">&darr;</button>
@@ -160,7 +162,7 @@ redirect_from:
     </div>
     <div>
       <p class="sub">Conference Reviews</p>
-      <ul><li>CVPR &middot; ICCV</li><li>ICML <em>(Gold Reviewer 2026)</em></li><li>ICLR &middot; NeurIPS</li><li>AAAI &middot; MICCAI</li></ul>
+      <ul><li>CVPR <em>(Outstanding Reviewer 2026)</em></li><li>ICML <em>(Gold Reviewer 2026)</em></li><li>ICCV &middot; ICLR &middot; NeurIPS</li><li>AAAI &middot; MICCAI</li></ul>
     </div>
   </div>
 </section>
