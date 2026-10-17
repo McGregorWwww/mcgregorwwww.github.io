@@ -1493,6 +1493,49 @@ html[data-tpl="home"] .empty{
 }
 
 /* ==========================================================================
+   HONORS + AWARDS — one ruled row per award: year, title, granting body.
+   Same type and rules as the Education list below, so the two read as a pair.
+   ========================================================================== */
+/* fills down the left column first, so the list reads newest to oldest the
+   way the DOM (and the one-column phone layout) does. Rows = ceil(items / 2):
+   bump it when the list grows past six. */
+html[data-tpl="home"] .awards{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;
+  grid-template-rows:repeat(3,auto);grid-auto-flow:column
+}
+
+html[data-tpl="home"] .awards .what a:not(.jump){
+  color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule)
+}
+
+html[data-tpl="home"] .awards .what a:not(.jump):hover{
+  color:var(--accent)
+}
+
+html[data-tpl="home"] .awards li{
+  display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  font-size:14.5px;padding:8px 0;color:var(--body);border-bottom:1px solid var(--rule-soft);
+  transition:color .2s ease,padding-left .28s var(--ease)
+}
+
+html[data-tpl="home"] .awards li:hover{
+  color:var(--ink);padding-left:5px
+}
+
+html[data-tpl="home"] .awards .when, html[data-tpl="home"] .awards .by{
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--muted);white-space:nowrap
+}
+
+html[data-tpl="home"] .awards .by a{
+  color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule)
+}
+
+html[data-tpl="home"] .awards .by a:hover{
+  color:var(--accent)
+}
+
+/* ==========================================================================
    EDUCATION + SERVICE — three columns
    ========================================================================== */
 html[data-tpl="home"] .trio{
@@ -1685,6 +1728,16 @@ html[data-tpl="home"] #toast.show{
   }
   html[data-tpl="home"] .trio{
     grid-template-columns:1fr;gap:24px
+  }
+  /* phone: one column, and the granting body drops under the title */
+  html[data-tpl="home"] .awards{
+    grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row
+  }
+  html[data-tpl="home"] .awards li{
+    grid-template-columns:56px minmax(0,1fr)
+  }
+  html[data-tpl="home"] .awards .by{
+    grid-column:2
   }
 }
 

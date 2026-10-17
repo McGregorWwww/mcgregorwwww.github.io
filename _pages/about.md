@@ -36,9 +36,12 @@ redirect_from:
       <div class="news-scroll" id="news-scroll">
         <ul class="news-list">
           <li><span class="when">2026.10</span><span>Recognized as a <em>CVPR&nbsp;2026</em> Outstanding Reviewer.</span></li>
+          <li><span class="when">2026.08</span><span>Awarded the HKUST <em>Young Scientists Program Scholarship</em> 2025/26.</span></li>
+          <li><span class="when">2026.05</span><span>Received the HKUST <em>RedBird Academic Excellence Award</em> for the second time (2025&ndash;26).</span></li>
           <li><span class="when">2026.05</span><span>Recognized as an <em>ICML&nbsp;2026</em> Gold Reviewer.</span></li>
           <li><span class="when">2026.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2026</em> &mdash; <a class="jump" href="#pub-vcflow">VCFLOW</a>.</span></li>
           <li><span class="when">2025.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2025</em>. We propose <a class="jump" href="#pub-zebra">ZEBRA</a>, the first zero-shot brain visual decoding framework that eliminates subject-specific adaptation.</span></li>
+          <li><span class="when">2025.07</span><span>Received the HKUST <em>RedBird Academic Excellence Award</em> (2024&ndash;25).</span></li>
           <li><span class="when">2025.06</span><span><strong>2</strong> papers accepted by <em>ICCV&nbsp;2025</em> &mdash; <a class="jump" href="#pub-neurons">Neurons</a> &amp; <a class="jump" href="#pub-tam">TAM</a>.<span class="flag">TAM &middot; Oral</span></span></li>
           <li><span class="when">2025.05</span><span><strong>1</strong> co-authored paper accepted by <em>TMI&nbsp;2025</em> &mdash; <a class="jump" href="#pub-snd">S&amp;D Messenger</a>.</span></li>
           <li><span class="when">2025.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2025</em> &mdash; <a class="jump" href="#pub-medrega">MedRegA</a>.</span></li>
@@ -51,7 +54,7 @@ redirect_from:
         </ul>
       </div>
       <div class="news-foot">
-        <span id="news-pos">1 / 13</span>
+        <span id="news-pos">1 / 16</span>
         <div class="news-meter"><i id="news-meter"></i></div>
         <button id="news-up" aria-label="scroll news up">&uarr;</button>
         <button id="news-down" aria-label="scroll news down">&darr;</button>
@@ -144,9 +147,23 @@ redirect_from:
   <p class="empty" id="empty">No papers match this filter.</p>
 </section>
 
-<!-- ============ 05 · education + service ============ -->
+<!-- ============ 05 · honors & awards ============ -->
+<section id="awards" class="rv">
+  <div class="sec-head"><span class="num">05</span><h2>Honors &amp; Awards</h2></div>
+  <ul class="awards">
+    <li><span class="when">2026</span><span class="what">Outstanding Reviewer</span><span class="by">CVPR 2026</span></li>
+    <li><span class="when">2025&ndash;26</span><span class="what">Young Scientists Program Scholarship</span><span class="by">HKUST</span></li>
+    <li><span class="when">2025&ndash;26</span><span class="what">RedBird Academic Excellence Award</span><span class="by">HKUST</span></li>
+    <li><span class="when">2026</span><span class="what">Gold Reviewer</span><span class="by">ICML 2026</span></li>
+    <li><span class="when">2024&ndash;25</span><span class="what">RedBird Academic Excellence Award</span><span class="by">HKUST</span></li>
+    <!-- ranked by Paper Digest; the title links to their certificate -->
+    <li><span class="when">2022</span><span class="what"><a href="https://www.paperdigest.org/certificate/c8752cdcbba1c809/pdf" target="_blank" rel="noopener">No.&nbsp;1 Most Influential Paper</a> &mdash; <a class="jump" href="#pub-uctransnet">UCTransNet</a></span><span class="by">AAAI 2022</span></li>
+  </ul>
+</section>
+
+<!-- ============ 06 · education + service ============ -->
 <section id="service" class="rv">
-  <div class="sec-head"><span class="num">05</span><h2>Education &amp; Service</h2></div>
+  <div class="sec-head"><span class="num">06</span><h2>Education &amp; Service</h2></div>
   <div class="trio">
     <div>
       <p class="sub">Education</p>

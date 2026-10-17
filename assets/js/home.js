@@ -870,7 +870,7 @@ function initChrome(){
    ============================================================================ */
 function initRail(){
   const rail = document.getElementById('rail');
-  const secs = [['bio','Biography'],['news','News'],['research','Research'],['pubs','Publications'],['service','Service']];
+  const secs = [['bio','Biography'],['news','News'],['research','Research'],['pubs','Publications'],['awards','Awards'],['service','Service']];
   rail.innerHTML = '<span class="rail-k">§</span>'
     + '<div class="rail-track"><i id="rail-fill"></i></div>'
     + secs.map(([id, nm], i) => '<a href="#' + id + '" data-s="' + id + '"><b>0' + (i + 1) + '</b><span>' + nm + '</span></a>').join('');
