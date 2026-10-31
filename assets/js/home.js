@@ -385,7 +385,10 @@ function roleOf(p){
   return p.authors[0][0] === 'Haonan Wang' ? 'first author' : 'co-author';
 }
 
-function setFocus(k){
+// `mapOnly`: the story's sweep moves the focus ring to ring, but that is about
+// the map. The windows and the shared box below run all three domains in step,
+// so they stay at full strength instead of fading in one domain at a time.
+function setFocus(k, mapOnly){
   focus = k;
   document.querySelectorAll('#thread-ctrl .tbtn[data-focus]').forEach(b =>
     b.classList.toggle('on', b.dataset.focus === k));
@@ -398,15 +401,15 @@ function setFocus(k){
   });
   Object.entries(laneEls).forEach(([d, l]) => l.classList.toggle('dimmed', k !== 'all' && d !== k));
   Object.entries(rayEls).forEach(([id, r]) => r.classList.toggle('on', k !== 'all' && PUB[id].dom === k));
+  const below = mapOnly ? 'all' : k;
   document.querySelectorAll('.chap').forEach(c => {
-    c.classList.toggle('on', c.dataset.dom === k);
-    c.classList.toggle('dim', k !== 'all' && c.dataset.dom !== k);
+    c.classList.toggle('on', c.dataset.dom === below);
+    c.classList.toggle('dim', below !== 'all' && c.dataset.dom !== below);
   });
-  document.querySelectorAll('.vsr-mark').forEach(m => {
-    m.classList.toggle('on', m.dataset.dom === k);
-    m.classList.toggle('dim', k !== 'all' && m.dataset.dom !== k);
+  document.querySelectorAll('.vsr-cell, .vsr-col').forEach(m => {
+    m.classList.toggle('on', m.dataset.dom === below);
+    m.classList.toggle('dim', below !== 'all' && m.dataset.dom !== below);
   });
-  dispatchEvent(new Event('focuschange'));      // home-dive.js redraws its links
 }
 
 function hoverPaper(id){
@@ -548,7 +551,7 @@ function playFrame(now){
     if (p.t <= t && n.classList.contains('pend')) { n.classList.remove('pend'); n.classList.add('pop'); }
   });
   const d = domAtRadius(threadR(t));
-  if (focus !== d) setFocus(d);
+  if (focus !== d) setFocus(d, true);
 
   if (u < 1 && playing) rafId = requestAnimationFrame(playFrame);
   else finishPlay();
@@ -957,28 +960,21 @@ window.HOME = { PUBS: PUBS, PUB: PUB, DOMAINS: DOMAINS, jumpToPub: jumpToPub };
 buildPubs();
 /* ============================================================================
    ASIDE ALIGNMENT — the hover card runs down to the core's baseline (the flat
-   edge of the half disc), and "why one core" sits at the bottom of the aside,
-   lifted so its top edge meets the top of the shared-space box beside it. Both
-   targets scale with the map's width, so they are measured, not hard-coded.
+   edge of the half disc). The baseline scales with the map's width, so it is
+   measured, not hard-coded.
    ============================================================================ */
 function alignAside(){
-  const why = document.querySelector('.why'), hub = document.getElementById('vsr-hub');
-  if (!why || !hub) return;
-  why.style.removeProperty('--why-lift');
   hcard.style.removeProperty('--hcard-h');
   // must match the breakpoint where _home.scss stacks .stage (880px): between
   // 881 and 1000px the card is still beside the map and needs the baseline
-  if (matchMedia('(max-width:880px)').matches) return;   // stacked: no box beside it
+  if (matchMedia('(max-width:880px)').matches) return;   // stacked: no map beside it
   const sb = svg.getBoundingClientRect(), vbH = svg.viewBox.baseVal.height;
   const h = sb.top + CY * sb.height / vbH - hcard.getBoundingClientRect().top;
   if (h > 200) hcard.style.setProperty('--hcard-h', Math.round(h) + 'px');
-  const d = hub.getBoundingClientRect().top - why.getBoundingClientRect().top;
-  if (d < 0) why.style.setProperty('--why-lift', Math.round(d) + 'px');
   fitHint();      // the card's height just changed under the idle text
 }
 
 function initAside(){
-  if (!document.querySelector('.why') || !document.getElementById('vsr-hub')) return;
   alignAside();
   new ResizeObserver(alignAside).observe(document.getElementById('thread'));
   if (document.fonts) document.fonts.ready.then(alignAside);

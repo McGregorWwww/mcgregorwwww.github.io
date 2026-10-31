@@ -87,31 +87,21 @@ redirect_from:
     <div class="stage">
       <div class="map-wrap"><svg id="map" viewBox="0 0 940 542" role="img"
         aria-label="Research map: papers arranged by year (angle) and domain (ring), from medical images through natural images to human vision"></svg>
-        <!-- the core's base: the arch under the disc runs straight into this box -->
-        <div class="vsr" id="vsr">
-          <div class="vsr-hub" id="vsr-hub">
-            <span class="vsr-k">shared space &middot; <span id="vsr-n">9 / 9</span> features</span>
-            <div class="vsr-lvls" id="vsr-lvls">
-              <div class="vsr-lvl"><span class="vsr-lk">low-level</span><span class="vsr-ls">intensity &middot; colour &middot; edges</span></div>
-              <div class="vsr-lvl"><span class="vsr-lk">mid-level</span><span class="vsr-ls">texture &middot; contours</span></div>
-              <div class="vsr-lvl"><span class="vsr-lk">high-level</span><span class="vsr-ls">shape &middot; parts</span></div>
-            </div>
-          </div>
-        </div>
       </div>
       <aside class="aside">
         <div class="hcard" id="hcard"></div>
-        <!-- why the three domains share one core: fills the column beside the VSR box -->
-        <div class="why">
-          <p class="why-k">Why one core</p>
-          <p class="why-p">Scans, photos and cortex: one problem.</p>
-          <ol>
-            <li><b>same hierarchy</b> low &rarr; mid &rarr; high</li>
-            <li><b>same bottleneck</b> scarce semantics</li>
-            <li><b>same goal</b> transfer + explain</li>
-          </ol>
-        </div>
       </aside>
+      <!-- the core's base: the arch under the disc runs straight into this box.
+           It spans the whole stage, so its three columns stand exactly over the
+           three windows below; one row per level, high at the top (nearest the
+           disc). home-dive.js fills the cells from the windows' own captions
+           and lights each row as the windows read that level. -->
+      <div class="vsr" id="vsr">
+        <div class="vsr-hub" id="vsr-hub">
+          <span class="vsr-k">shared space &middot; <span id="vsr-n">9 / 9</span> features</span>
+          <div class="vsr-grid" id="vsr-grid"></div>
+        </div>
+      </div>
       <!-- parked in the empty top-left corner of the fan (static on narrow screens) -->
       <ul class="legend">
         <li><svg width="22" height="12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>

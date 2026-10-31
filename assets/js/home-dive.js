@@ -1,15 +1,16 @@
 /* ============================================================================
    UNDER THE MAP — one window per domain, one hierarchy
    ----------------------------------------------------------------------------
-   Each window dives into one image and climbs back out, pulling one feature
-   out per level and dropping it into the tray underneath:
+   Each window dives into one image and climbs back out, reading one feature
+   per level:
      I   CT slice     -> pixels: intensity (HU) -> texture tiles -> shape + location
      II  photograph   -> pixels: RGB            -> fur texture   -> part layout
      III retina       -> V1: orientation        -> V2/V4 contours -> IT: parts
-   Each feature, once in its tray, draws a line into the shared Visual Semantic
-   Representation box under all three windows, which holds one space per level
-   (low / mid / high); every domain's low-level feature lands in the low space,
-   and so on. One clock drives all three windows so the levels line up.
+   Above the windows, the shared Visual Semantic Representation box is one grid:
+   a row per level (high on top, under the map's core) and a column per domain,
+   in the same I / II / III order as the windows. As a level is read its cell
+   lights, so the features climb from the images into the core, and one clock
+   drives all three windows so a whole row lights together.
 
    images/dive/: ct.png is a synthetic abdominal slice (soft-tissue window,
    L40/W400); retina.png is the cat photo with foveated blur; ret-v4.png is a
@@ -45,7 +46,6 @@ const TL = {
   agg:12.5,               // the three features combine
   fade:[16.4, 17.2], cycle:17.4
 };
-const FLY = [TL.low[1] - .95, TL.mid[1] - .95, TL.high[1] - .95], FLY_S = .7;
 const STEPS = ['input', 'low-level', 'mid-level', 'high-level', 'visual semantic'];
 const stageAt = t => t < TL.zin[0] ? 0 : t < TL.z1[0] ? 1 : t < TL.z2[0] ? 2 : t < TL.agg ? 3 : 4;
 
@@ -79,7 +79,6 @@ const SPEC = {
           ['mid-level', 'texture', 'liver ≈ spleen'],
           ['high-level', 'shape · location', 'right upper abdomen'],
           ['visual semantic', 'Liver', 'intensity + texture + shape']],
-    chips:['intensity', 'texture', 'shape · loc'],
     tiles:{ rows:DATA.ctTex, P:8 }, pill:[118, 132, 'liver'],
     aria:'An abdominal CT slice. The view zooms into single pixels and reads their intensity in Hounsfield units, '
        + 'zooms out to find tiles with the same texture, then outlines the liver by shape and location: the visual semantic "liver".'
@@ -92,7 +91,6 @@ const SPEC = {
           ['mid-level', 'texture', 'striped fur'],
           ['high-level', 'parts · layout', 'ears, eyes, nose'],
           ['visual semantic', 'Cat', 'colour + texture + parts']],
-    chips:['colour', 'texture', 'parts'],
     tiles:{ rows:DATA.catTex, P:12 }, pill:[218, 182, 'cat'],
     aria:'A photograph of a cat. The view zooms into single pixels and reads their RGB values, zooms out to the striped '
        + 'fur texture, then links ears, eyes and nose into one layout: the visual semantic "cat".'
@@ -105,7 +103,6 @@ const SPEC = {
           ['mid-level', 'V2 / V4 · contours', 'curvature, shape'],
           ['high-level', 'IT · object parts', 'eyes, nose, face'],
           ['visual semantic', 'Cat', 'orientation + contour + parts']],
-    chips:['V1 edges', 'V4 contours', 'IT parts'],
     pill:[218, 182, 'cat'],
     aria:'The same cat as the retina samples it. The view zooms into V1-sized patches and shows their preferred edge '
        + 'orientation, zooms out to V2/V4 contours, then to IT responses on the eyes and nose: the visual semantic "cat".'
@@ -380,11 +377,10 @@ Object.keys(SPEC).forEach(k => {
   prepTiles(S);
   const c = document.createElement('div');
   c.className = 'chap'; c.dataset.dom = k; c.style.setProperty('--c', D.color);
-  // the tray leads the card: its chips link straight up into the box above
+  // no tray any more: each level's read-out now lights its cell in the shared
+  // grid directly above this window, so the window needs only its own caption
   c.innerHTML =
-      '<div class="dv-tray" aria-hidden="true">'
-    +   S.chips.map(s => '<span class="dv-chip">' + s + '</span>').join('<i class="dv-plus">+</i>') + '</div>'
-    + '<p class="ck"><span>' + D.rn + ' · <i class="nm">' + D.name + '</i><i class="abbr">' + D.short + '</i></span>'
+      '<p class="ck"><span>' + D.rn + ' · <i class="nm">' + D.name + '</i><i class="abbr">' + D.short + '</i></span>'
     + '<span>' + D.years + '</span></p>'
     + '<div class="dv-win"><canvas role="img" aria-label="' + S.aria + '"></canvas>'
     +   '<p class="dv-step"><span class="dv-n"></span><span class="dv-d"></span></p></div>'
@@ -399,125 +395,69 @@ Object.keys(SPEC).forEach(k => {
   cards[k] = { el:c, S, img, cont, cv:c.querySelector('canvas'), ready:false,
                n:c.querySelector('.dv-n'), d:c.querySelector('.dv-d'),
                capB:c.querySelector('.dv-cap b'), capS:c.querySelector('.dv-cap span'),
-               chips:[...c.querySelectorAll('.dv-chip')],
-               plus:[...c.querySelectorAll('.dv-plus')], stage:-1, flown:[] };
+               stage:-1 };
 });
 
-/* ---------------- the shared space: every feature links into it ----------- */
+/* ---------------- the shared space: one grid, levels x domains ------------ */
 // The common Visual Semantic Representation box is the base of the map's core,
-// directly above the windows. It holds three spaces, one per level. Each chip,
-// as it lands in its tray, draws one line up into the space for its level, so
-// low/mid/high features from all three domains meet there. Inside each space a
-// domain has its own port (I, II, III left to right).
-const SVGNS = 'http://www.w3.org/2000/svg', LINK_S = .55;
+// directly above the windows. It is one grid: a row per level, high at the top
+// (nearest the disc) and low at the bottom (nearest the images), and a column
+// per domain standing exactly over that domain's window (the CSS gives the
+// grid the windows' own widths). As the windows read a level, that row lights,
+// so information visibly climbs from the images into the core, and a whole row
+// lit at once says "this level is shared by all three domains". The cell text
+// is the window's own caption for that level, so the two can never disagree.
 const thread = document.getElementById('thread'), hub = document.getElementById('vsr-hub');
 const nEl = document.getElementById('vsr-n'), map = document.getElementById('map');
 const flash = map.querySelector('.core-flash');
-const lvls = [...document.querySelectorAll('#vsr-lvls .vsr-lvl')];
-const lsvg = document.createElementNS(SVGNS, 'svg');
-lsvg.setAttribute('class', 'vsr-links'); lsvg.setAttribute('aria-hidden', 'true');
-thread.appendChild(lsvg);
+const grid = document.getElementById('vsr-grid');
 const KEYS = Object.keys(cards);
-const NFEAT = KEYS.reduce((n, k) => n + cards[k].chips.length, 0);
+const LEVELS = [3, 2, 1];                      // caps[] index of high, mid, low: top row first
+const NFEAT = KEYS.length * LEVELS.length;
 let nShown = -1, held = null;                  // held: the focus to restore after a hover
-// one mark per domain in each level space; it fills once that domain's link lands
-const marks = lvls.map(lv => {
-  const row = document.createElement('span');
-  row.className = 'vsr-marks';
-  lv.appendChild(row);
-  return KEYS.map(k => {
-    const m = document.createElement('i');
-    m.className = 'vsr-mark'; m.textContent = DOMAINS[k].rn; m.dataset.dom = k;
-    m.style.setProperty('--c', DOMAINS[k].color);
-    m.title = DOMAINS[k].name;
-    // hover a mark to light that domain's ring on the map; click to keep it
-    m.addEventListener('mouseenter', () => { held = focus; setFocus(k); });
-    m.addEventListener('mouseleave', () => { if (held !== null) setFocus(held); held = null; });
-    m.addEventListener('click', () => { const back = held === k ? 'all' : k; held = null; setFocus(back); });
-    row.appendChild(m);
-    return m;
-  });
+// --o: the phone layout's order (one column, grouped by domain like the
+// stacked windows). Only that media query reads it; the 3-column grid keeps
+// DOM order, which is row by row.
+KEYS.forEach((k, d) => {                       // column heads: one per domain
+  const h = document.createElement('span');
+  h.className = 'vsr-col'; h.dataset.dom = k; h.style.setProperty('--c', DOMAINS[k].color);
+  h.style.setProperty('--o', d * 10);
+  h.innerHTML = '<b>' + DOMAINS[k].rn + '</b> ' + DOMAINS[k].short;
+  grid.appendChild(h);
 });
-KEYS.forEach((k, d) => {
-  const C = cards[k], D = DOMAINS[k];
-  C.links = C.chips.map((_, i) => {
-    const path = document.createElementNS(SVGNS, 'path'), dot = document.createElementNS(SVGNS, 'circle');
-    path.setAttribute('class', 'vsr-line'); dot.setAttribute('class', 'vsr-port'); dot.setAttribute('r', 2.6);
-    path.style.stroke = D.color; dot.style.fill = D.color;
-    lsvg.append(path, dot);
-    return { path, dot, len:0, done:false, lvl:i, d, mark:marks[i] && marks[i][d] };
+const rows = LEVELS.map((st, r) => ({ st, cells: KEYS.map((k, d) => {
+  const [lvl, what, val] = cards[k].S.caps[st];
+  const c = document.createElement('span');
+  c.className = 'vsr-cell'; c.dataset.dom = k; c.style.setProperty('--c', DOMAINS[k].color);
+  c.style.setProperty('--o', d * 10 + r + 1);
+  c.title = DOMAINS[k].name + ' · ' + lvl;
+  // the level leads; what is read there and its value sit under it, quietly
+  c.innerHTML = '<em>' + lvl + '</em><b>' + what + '</b><i>' + val + '</i>';
+  // hover a cell to light that domain's ring on the map; click to keep it
+  c.addEventListener('mouseenter', () => { held = focus; setFocus(k); });
+  c.addEventListener('mouseleave', () => { if (held !== null) setFocus(held); held = null; });
+  c.addEventListener('click', () => { const back = held === k ? 'all' : k; held = null; setFocus(back); });
+  grid.appendChild(c);
+  return c;
+}) }));
+// A row lights the moment the windows switch to that level (the same instant
+// their step label reads "01 / 04 low-level"), so the box and the windows
+// change together; cells stay lit as the read climbs, until the closing fade.
+const READ = { 1: TL.zin[0], 2: TL.z1[0], 3: TL.z2[0] };
+const lit = (st, t) => t >= READ[st] && t < TL.fade[0];
+function hubChrome(t){
+  let n = 0;
+  rows.forEach(R => {
+    const on = lit(R.st, t);
+    R.cells.forEach(c => c.classList.toggle('in', on));
+    if (on) n += R.cells.length;
   });
-});
-function layoutLinks(){
-  const T = thread.getBoundingClientRect();
-  // stacked (one window per row): the lines would cross the other windows
-  const stacked = getComputedStyle(wrap).gridTemplateColumns.trim().split(/\s+/).length < 2;
-  lsvg.style.display = stacked ? 'none' : '';
-  if (stacked || !T.width) return;
-  lsvg.setAttribute('width', T.width); lsvg.setAttribute('height', T.height);
-  lsvg.setAttribute('viewBox', '0 0 ' + T.width + ' ' + T.height);
-  // Windows are grouped by domain and the box by level, so the lines must swap
-  // order and some crossings are unavoidable. Route them orthogonally instead:
-  // up from the chip, along a lane of its own, up into its mark. Every crossing
-  // is then a right angle, and the lane order is chosen to make them fewest.
-  const all = [];
-  KEYS.forEach(k => cards[k].chips.forEach((ch, i) => {
-    const L = cards[k].links[i], r = ch.getBoundingClientRect(), M = L.mark.getBoundingClientRect();
-    L.x0 = r.left + r.width / 2 - T.left; L.y0 = r.top - T.top - 1;
-    L.x1 = M.left + M.width / 2 - T.left; L.y1 = lvls[L.lvl].getBoundingClientRect().bottom - T.top;
-    all.push(L);
-  }));
-  const order = laneOrder(all), n = all.length;
-  const top = Math.max(...all.map(L => L.y1)) + 12, bot = Math.min(...all.map(L => L.y0)) - 12;
-  const step = n > 1 ? (bot - top) / (n - 1) : 0, R = Math.max(2, Math.min(7, step * .9));
-  order.forEach((L, j) => {
-    const y = top + step * j, s = Math.sign(L.x1 - L.x0), f = v => v.toFixed(1);
-    const r = Math.min(R, Math.abs(L.x1 - L.x0) / 2, L.y0 - y, y - L.y1);
-    L.path.setAttribute('d', s === 0 || r < .5
-      ? 'M' + f(L.x0) + ' ' + f(L.y0) + ' V' + f(y) + ' H' + f(L.x1) + ' V' + f(L.y1)
-      : 'M' + f(L.x0) + ' ' + f(L.y0) + ' V' + f(y + r) + ' Q' + f(L.x0) + ' ' + f(y) + ' ' + f(L.x0 + s * r) + ' ' + f(y)
-        + ' H' + f(L.x1 - s * r) + ' Q' + f(L.x1) + ' ' + f(y) + ' ' + f(L.x1) + ' ' + f(y - r) + ' V' + f(L.y1));
-    L.len = L.path.getTotalLength();
-    L.path.style.strokeDasharray = L.len;
-    L.dot.setAttribute('cx', f(L.x1)); L.dot.setAttribute('cy', f(L.y1));
-  });
-}
-// Lanes top (nearest the box) to bottom. With A's lane above B's, A's run
-// crosses B's upper leg if B's mark lies within A's run, and B's run crosses
-// A's lower leg if A's chip lies within B's run. That cost only depends on the
-// pair's order, so the best order over all nine is a small DP over subsets.
-function laneOrder(Ls){
-  const n = Ls.length, inside = (x, L) => x > Math.min(L.x0, L.x1) && x < Math.max(L.x0, L.x1);
-  const above = Ls.map(A => Ls.map(B => A === B ? 0 : +inside(B.x1, A) + +inside(A.x0, B)));
-  const best = new Float64Array(1 << n).fill(Infinity), from = new Int8Array(1 << n);
-  best[0] = 0;
-  for (let S = 0; S < 1 << n; S++) {
-    if (best[S] === Infinity) continue;
-    for (let j = 0; j < n; j++) {
-      if (S & 1 << j) continue;
-      let c = best[S];
-      for (let i = 0; i < n; i++) if (S & 1 << i) c += above[i][j];
-      // tie-break: shorter runs nearer the box, so short hops stay out of the way
-      c += Math.abs(Ls[j].x1 - Ls[j].x0) * 1e-6 * (n - 1 - popcount(S));
-      const T2 = S | 1 << j;
-      if (c < best[T2]) { best[T2] = c; from[T2] = j; }
-    }
-  }
-  const out = [];
-  for (let S = (1 << n) - 1; S; S &= ~(1 << from[S])) out.unshift(Ls[from[S]]);
-  return out;
-}
-const popcount = x => { let c = 0; while (x) { x &= x - 1; c++; } return c; };
-function hubChrome(){
-  const n = Object.values(cards).reduce((s, C) => s + C.links.filter(L => L.done).length, 0);
   if (n === nShown) return;
   nShown = n;
   nEl.textContent = n + ' / ' + NFEAT;
   hub.classList.toggle('all-in', n === NFEAT);
-  // the last feature has arrived: the disc above answers once
+  // the last level has arrived: the disc above answers once
   if (n === NFEAT && on && flash) { flash.classList.remove('go'); void flash.getBoundingClientRect(); flash.classList.add('go'); }
-  // a level space lights up once every domain has linked into it
-  lvls.forEach((lv, i) => lv.classList.toggle('all-in', marks[i].every(m => m.classList.contains('in'))));
   hub.classList.remove('hit'); void hub.offsetWidth; if (n) hub.classList.add('hit');
 }
 
@@ -530,7 +470,6 @@ function size(){
     W = r.width; H = r.height;
     C.cv.width = Math.round(W * DPR); C.cv.height = Math.round(H * DPR);
   });
-  layoutLinks();
 }
 
 function frame(C, t){
@@ -564,69 +503,34 @@ function chrome(C, t){
     C.capB.textContent = b; C.capS.textContent = s;
     C.el.classList.toggle('sem', st === 4);
   }
-  // chips: each feature lands in the tray once its level has been read
-  C.chips.forEach((ch, i) => ch.classList.toggle('in', t >= FLY[i] + FLY_S && t < TL.fade[0]));
-  C.plus.forEach((p, i) => p.classList.toggle('in', t >= FLY[i + 1] + FLY_S && t < TL.fade[0]));
-  // and each one, once in the tray, draws its link down into its level's space
-  C.links.forEach((L, i) => {
-    const t1 = FLY[i] + FLY_S, u = t >= t1 ? cubic(clamp01((t - t1) / LINK_S)) : 0;
-    const a = (1 - ramp(t, [TL.fade[0], TL.fade[0] + .4])) * (C.el.classList.contains('dim') ? .3 : 1);
-    L.path.style.strokeDashoffset = L.len * (1 - u);
-    L.path.style.opacity = u > 0 ? a : 0;
-    L.dot.style.opacity = u >= 1 ? a : 0;
-    L.done = u >= 1 && t < TL.fade[0];
-    if (L.mark) L.mark.classList.toggle('in', L.done);
-  });
-  // and fly there from the window, as a ghost
-  FLY.forEach((f0, i) => {
-    const u = (t - f0) / FLY_S;
-    if (u >= 0 && u < 1 && !C.flown[i]) { C.flown[i] = true; fly(C, i); }
-    if (t < f0) C.flown[i] = false;
-  });
-}
-
-function fly(C, i){
-  if (REDUCED) return;
-  const ch = C.chips[i], win = C.cv.getBoundingClientRect(), to = ch.getBoundingClientRect(), box = C.el.getBoundingClientRect();
-  const g = document.createElement('span');
-  g.className = 'dv-chip dv-ghost'; g.textContent = ch.textContent;
-  C.el.appendChild(g);
-  const x0 = win.left + win.width / 2 - box.left, y0 = win.top + win.height * .5 - box.top;
-  const x1 = to.left + to.width / 2 - box.left, y1 = to.top + to.height / 2 - box.top;
-  g.style.left = x0 + 'px'; g.style.top = y0 + 'px';
-  g.animate([{ transform:'translate(-50%,-50%) scale(1.25)', opacity:0 },
-             { transform:'translate(-50%,-50%) scale(1.25)', opacity:1, offset:.18 },
-             { transform:'translate(calc(-50% + ' + (x1 - x0) + 'px),calc(-50% + ' + (y1 - y0) + 'px)) scale(1)', opacity:1 }],
-            { duration:FLY_S * 1000, easing:'cubic-bezier(.5,0,.3,1)' }).onfinish = () => g.remove();
 }
 
 function draw(t){
   if (!W) size();
   Object.values(cards).forEach(C => { frame(C, t); chrome(C, t); });
-  hubChrome();
+  hubChrome(t);
 }
 
 /* ---------------- clock: runs only while on screen ------------------------ */
 const REST = TL.agg + 1.6;                     // the still frame: everything combined
 let t0 = 0, raf = 0, on = false;
-const clock = () => REDUCED || !on ? REST : ((performance.now() - t0) / 1000) % TL.cycle;
+// SPEED > 1 plays faster. TL stays in "story seconds", so every step, and the
+// grid that lights in step with them, scales together.
+const SPEED = 1.15;
+const clock = () => REDUCED || !on ? REST : ((performance.now() - t0) / 1000 * SPEED) % TL.cycle;
 function loop(){ draw(clock()); raf = requestAnimationFrame(loop); }
 function start(){
   if (on || REDUCED) return;
   on = true; t0 = performance.now();
-  Object.values(cards).forEach(C => { C.flown = []; });
   raf = requestAnimationFrame(loop);
 }
 function stop(){ on = false; cancelAnimationFrame(raf); draw(REST); }
 
 readTheme(); size(); draw(REST);
-if (window.ResizeObserver) new ResizeObserver(() => { layoutLinks(); draw(clock()); }).observe(thread);
-if (document.fonts) document.fonts.ready.then(() => { layoutLinks(); draw(clock()); });
 new IntersectionObserver(en => en.forEach(e => e.isIntersecting ? start() : stop()), { threshold:.3 }).observe(wrap);
 document.addEventListener('visibilitychange', () => document.hidden ? stop() : wrap.getBoundingClientRect().top < innerHeight && start());
 let rz = 0;
 addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { size(); draw(clock()); }, 80); });
-addEventListener('focuschange', () => draw(clock()));   // dim the other domains' links
 addEventListener('palettechange', () => {
   readTheme();
   const h = cards.hum; if (h.cont && h.cont.complete) tintContour(h.cont);

@@ -948,50 +948,12 @@ html[data-tpl="home"] .legend button:hover, html[data-tpl="home"] .legend button
   color:var(--accent)
 }
 
-/* "why one core": the case for the three domains sharing the VSR, set in the
-   aside's empty lower half, level with the shared-space box */
-html[data-tpl="home"] .why{
-  margin-top:auto;padding-top:5px;border-top:1px solid var(--rule);
-  /* home.js lifts it so its top rule lines up with the shared-space box */
-  position:relative;top:var(--why-lift,0px)
-}
-
-html[data-tpl="home"] .why-k{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--accent);margin:0 0 1px
-}
-
-html[data-tpl="home"] .why-p{
-  font-size:12px;line-height:1.38;color:var(--body);margin:0 0 3px
-}
-
-html[data-tpl="home"] .why ol{
-  list-style:none;margin:0;padding:0;counter-reset:why;
-  display:flex;flex-direction:column;gap:0
-}
-
-html[data-tpl="home"] .why li{
-  counter-increment:why;position:relative;padding-left:17px;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;line-height:1.42;
-  color:var(--muted);white-space:nowrap
-}
-
-html[data-tpl="home"] .why li::before{
-  content:counter(why,decimal-leading-zero);position:absolute;left:0;top:1px;
-  font-family:var(--mono);font-size:8.5px;color:var(--muted)
-}
-
-html[data-tpl="home"] .why li b{
-  font-family:var(--serif);font-size:12px;letter-spacing:0;font-style:italic;
-  font-weight:400;color:var(--ink);margin-right:5px
-}
-
 /* under the map: one window per domain (drawn by home-dive.js). Each window
-   dives into one image and back out; every level it reads drops a chip into
-   the tray, and each chip links down into the shared .vsr box. */
+   dives into one image and back out; every level it reads lights that
+   domain's cell in the shared .vsr grid above. */
 html[data-tpl="home"] .chapters{
   display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--rule);margin-top:48px;     /* room for the link lanes */
+  border-top:1px solid var(--rule);margin-top:18px;
   position:relative;z-index:3;background:rgba(var(--surface-rgb),.75);
   /* drawn on top of the (always dark) images, so one light tone per palette */
   --dv-hi-rgb:141,177,238;
@@ -1081,55 +1043,16 @@ html[data-tpl="home"] .chap.sem .dv-cap b{
   font-style:italic;font-size:1.22rem;color:var(--c)
 }
 
-/* the tray: extracted features + their sum */
-/* sits at the top of the card, so its links run straight up into the box */
-html[data-tpl="home"] .dv-tray{
-  margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--rule);
-  display:flex;flex-wrap:wrap;align-items:center;gap:5px 4px;min-height:24px
-}
-
-html[data-tpl="home"] .dv-chip{
-  font-family:var(--mono);font-size:9px;letter-spacing:.04em;white-space:nowrap;
-  padding:3px 6px;border:1px dashed var(--rule);border-radius:2px;color:var(--muted);
-  transition:color .35s ease,border-color .35s ease,background .35s ease
-}
-
-html[data-tpl="home"] .dv-chip.in{
-  border-style:solid;border-color:var(--c);color:var(--ink);background:rgba(var(--accent-rgb),.06)
-}
-
-html[data-tpl="home"] .dv-ghost{
-  position:absolute;z-index:4;pointer-events:none;
-  border:1px solid var(--accent);background:var(--surface);color:var(--ink);
-  box-shadow:0 4px 14px rgba(var(--ink-rgb),.18)
-}
-
-html[data-tpl="home"] .dv-plus{
-  font-style:normal;font-family:var(--mono);font-size:10px;color:var(--rule);transition:color .35s ease
-}
-
-html[data-tpl="home"] .dv-plus.in{
-  color:var(--muted)
-}
-
 /* the shared space: the base of the map's core. The disc's neck (drawn in the
    map svg) runs off the bottom of the map straight into this box, so the two
-   read as one shape. It holds a low, mid and high space; home-dive.js draws a
-   line up from every chip in the windows below into its level's space. */
+   read as one shape. Inside is one grid -- a row per level, high on top, and a
+   column per domain in the windows' order -- which home-dive.js lights cell by
+   cell as each window reads that level. */
+/* A second row of .stage, under both the map and the aside, pulled out over
+   the stage's side padding so it is exactly as wide as .chapters below. */
 html[data-tpl="home"] .vsr{
-  position:relative;z-index:2;display:flex;justify-content:center
-}
-
-html[data-tpl="home"] .vsr-links{
-  position:absolute;left:0;top:0;z-index:4;pointer-events:none;overflow:visible
-}
-
-html[data-tpl="home"] .vsr-line{
-  fill:none;stroke-width:1.1;opacity:0;stroke-linecap:round
-}
-
-html[data-tpl="home"] .vsr-port{
-  opacity:0;stroke:var(--surface);stroke-width:1.2
+  grid-column:1/-1;grid-row:2;margin:0 -22px 0 -8px;
+  position:relative;z-index:2
 }
 
 /* only the disc is dark. The neck under it and this box share one light,
@@ -1139,10 +1062,10 @@ html[data-tpl="home"] .core-neck{
 }
 
 html[data-tpl="home"] .vsr-hub{
-  width:min(780px,94%);box-sizing:border-box;padding:9px 12px 12px;
+  box-sizing:border-box;padding:6px 0 9px;
   border-radius:0 0 4px 4px;background:var(--vsr-bg);
   box-shadow:0 6px 18px rgba(var(--accent-rgb),.08);
-  display:flex;flex-direction:column;gap:8px;
+  display:flex;flex-direction:column;gap:5px;
   transition:box-shadow .5s ease
 }
 
@@ -1179,50 +1102,70 @@ html[data-tpl="home"] .core-flash.go{
 0%{transform:scale(1);opacity:.9}100%{transform:scale(1.55);opacity:0}
 }
 
-/* three spaces, one per level; each chip's line lands on the top edge of its
-   level's space, at that domain's port */
-html[data-tpl="home"] .vsr-lvls{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:10px
+/* One column per window, the same width and in the same place: each .chap is a
+   third of the row with an 18px inset, so 18px side padding plus 36px gaps
+   puts every cell edge exactly on its window's edge. Keep in step with .chap. */
+html[data-tpl="home"] .vsr-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px 36px;
+  padding:0 18px;align-items:stretch
 }
 
-/* the level spaces are white panes set into the tinted box */
-html[data-tpl="home"] .vsr-lvl{
-  position:relative;padding:9px 12px 10px;border:1px solid rgba(var(--accent-rgb),.14);
-  border-top:2px solid rgba(var(--accent-rgb),.22);border-radius:2px;
-  background:var(--surface);display:flex;flex-direction:column;gap:3px;
-  transition:border-color .45s ease,background .45s ease
+html[data-tpl="home"] .vsr-col{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--c);text-align:center;padding-bottom:0
 }
 
-html[data-tpl="home"] .vsr-lvl.all-in{
-  border-top-color:var(--accent)
+html[data-tpl="home"] .vsr-col b{
+  font-weight:500
 }
 
-html[data-tpl="home"] .vsr-lk{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)
+html[data-tpl="home"] .vsr-col.dim{
+  opacity:.35
 }
 
-html[data-tpl="home"] .vsr-ls{
-  font-family:var(--mono);font-size:9px;letter-spacing:.03em;color:var(--muted)
+/* a cell: what this domain reads at this level, and the value it got */
+/* one line per cell: the level, then what is read there and its value */
+html[data-tpl="home"] .vsr-cell{
+  display:flex;align-items:baseline;gap:8px;min-width:0;cursor:pointer;
+  padding:3px 8px 4px 10px;border:1px dashed var(--line-hi);border-radius:2px;
+  background:var(--surface);opacity:.5;
+  transition:opacity .4s ease,border-color .4s ease,box-shadow .4s ease,background .4s ease
 }
 
-/* which domains have linked in, in the same order as the ports above */
-html[data-tpl="home"] .vsr-marks{
-  display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px;justify-items:center
+/* The level is the headline: it is what the three columns have in common.
+   Under it, quietly, what this domain reads there and the value it got. The
+   arrow says which way the information flows: up, into the core. */
+html[data-tpl="home"] .vsr-cell em{
+  flex:none;font-style:normal;font-family:var(--serif);font-size:13px;line-height:1.3;
+  color:var(--ink);white-space:nowrap
 }
 
-/* on the light box each mark can wear its own domain colour again */
-html[data-tpl="home"] .vsr-mark{
-  font-family:var(--mono);font-style:normal;font-size:8.5px;letter-spacing:.06em;line-height:1;
-  min-width:26px;text-align:center;padding:3px 4px;border:1px dashed var(--line-hi);border-radius:2px;
-  color:var(--muted);opacity:.6;cursor:pointer;      /* also a domain switch for the map above */
-  transition:color .35s ease,border-color .35s ease,opacity .35s ease,background .35s ease
+html[data-tpl="home"] .vsr-cell em::after{
+  content:" \2191";font-family:var(--mono);font-size:10px;color:var(--c);opacity:.8
 }
 
-html[data-tpl="home"] .vsr-mark.in, html[data-tpl="home"] .vsr-mark:hover, html[data-tpl="home"] .vsr-mark.on{
-  border-style:solid;border-color:var(--c);color:var(--c);opacity:1;background:rgba(var(--accent-rgb),.05)
+html[data-tpl="home"] .vsr-cell b, html[data-tpl="home"] .vsr-cell i{
+  font-weight:400;font-style:normal;font-family:var(--mono);font-size:8.5px;line-height:1.3;
+  letter-spacing:.02em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis
 }
 
-html[data-tpl="home"] .vsr-mark.dim{
+html[data-tpl="home"] .vsr-cell b{
+  flex:none;max-width:60%
+}
+
+html[data-tpl="home"] .vsr-cell i{
+  flex:1 1 0;min-width:0;opacity:.7
+}
+
+/* lit = this level has been read. Map focus (.on / .dim) only dims the other
+   columns: if it lit cells too, a focused column would look fully read while
+   the counter above still says 0 / 9. */
+html[data-tpl="home"] .vsr-cell.in, html[data-tpl="home"] .vsr-cell:hover{
+  opacity:1;border-style:solid;border-color:var(--c);
+  box-shadow:inset 3px 0 0 var(--c)
+}
+
+html[data-tpl="home"] .vsr-cell.dim{
   opacity:.25
 }
 
@@ -1605,6 +1548,17 @@ html[data-tpl="home"] #toast.show{
   }
 }
 
+/* three columns that are too narrow for one line: the value drops under the
+   level. (Phones go back to one line: each cell is a full-width row there.) */
+@media(min-width:621px) and (max-width:1000px){
+  html[data-tpl="home"] .vsr-cell{
+    flex-wrap:wrap;column-gap:8px;row-gap:0
+  }
+  html[data-tpl="home"] .vsr-cell i{
+    flex-basis:100%
+  }
+}
+
 @media(max-width:880px){
   html[data-tpl="home"] .banner-in{
     grid-template-columns:110px minmax(0,1fr)
@@ -1636,9 +1590,6 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .hcard{
     height:auto;grid-column:1/-1
   }
-  html[data-tpl="home"] .why{
-    grid-column:1/-1;margin-top:0;top:0
-  }
   html[data-tpl="home"] .legend{
     position:static;margin-top:14px
   }
@@ -1655,9 +1606,24 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .dv-win{
     max-width:520px
   }
-  /* stacked windows: no connecting lines, so no room needed for them */
+  /* stacked windows: nothing between them and the grid above */
   html[data-tpl="home"] .chapters{
     margin-top:0
+  }
+  /* The box is a stage row again, but it now sits under the aside (the
+     stage is one column here), so it is ordered back up to meet the map's
+     neck, and pulled over this breakpoint's 14px stage padding. */
+  html[data-tpl="home"] .vsr{
+    grid-row:auto;order:1;margin:0 -14px
+  }
+  html[data-tpl="home"] .map-wrap{
+    order:0
+  }
+  html[data-tpl="home"] .aside{
+    order:2
+  }
+  html[data-tpl="home"] .legend{
+    order:3
   }
 }
 
@@ -1707,9 +1673,20 @@ html[data-tpl="home"] #toast.show{
     text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
     color:var(--muted);padding:2px 0 6px
   }
-  /* the box is the core's base, so it scrolls sideways with the map */
-  html[data-tpl="home"] #map, html[data-tpl="home"] .vsr{
+  html[data-tpl="home"] #map{
     min-width:620px
+  }
+  /* The box is no longer inside the sideways-scrolling map, and three columns
+     of cells do not fit a phone: one column, grouped by domain under its
+     heading, in the same order as the stacked windows (--o, set in JS). */
+  html[data-tpl="home"] .vsr-grid{
+    grid-template-columns:1fr;padding:0 14px;gap:5px
+  }
+  html[data-tpl="home"] .vsr-col, html[data-tpl="home"] .vsr-cell{
+    order:var(--o)
+  }
+  html[data-tpl="home"] .vsr-col{
+    text-align:left;margin-top:6px
   }
   html[data-tpl="home"] .aside{
     grid-template-columns:1fr
