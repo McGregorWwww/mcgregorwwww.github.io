@@ -53,10 +53,12 @@ const PUBS = [
     // No Code link: the paper states "The code used in this study will be
     // publicly released after the manuscript is published."
     img:'xmedgpt.png', scholar:'KDNRnW0AAAAJ:5nxA0vEk-isC', links:[['Paper','https://arxiv.org/abs/2505.06898']] },
-  { id:'rcmed', venue:'arXiv', year:2025, t:2025.45, dom:'med', me:1, cats:['foundation','seg'], short:'SyRe',
+  { id:'rcmed', venue:'Nature Cancer', year:2026, t:2025.45, dom:'med', me:1, tag:'Accepted in Principle', note:'Accepted in principle', cats:['foundation','seg'], short:'SyRe',
     // Renamed on arXiv; the old title was "Reinforced Correlation Between
-    // Vision and Language for Precise Medical AI Assistant".
-    title:'Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Tasks',
+    // Vision and Language for Precise Medical AI Assistant". Accepted in
+    // principle by Nature Cancer on 2026-11-05 (NATCANCER-A21239C); no DOI or
+    // volume until it is published. t stays at the arXiv date.
+    title:'Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Imaging Tasks',
     authors:[['Haonan Wang',1],['Jiaji Mao',0],['Lehan Wang',0],['Qixiang Zhang',0],['Marawan Elbatel',0],['Yi Qin',0],['Huijun Hu',0],['Baoxun Li',0],['Wenhui Deng',0],['Weifeng Qin',0],['Hongrui Li',0],['Jialin Liang',0],['Jun Shen',0],['Xiaomeng Li',0]],
     img:'RCMed.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/SyRe']] },
   { id:'neurons', venue:'ICCV', year:2025, t:2025.50, dom:'hum', me:1, cats:['brain'], short:'Neurons',
@@ -754,6 +756,7 @@ function initNews(){
    ============================================================================ */
 const VENUES = {
   TMI:     { type:'article',   full:'IEEE Transactions on Medical Imaging' },
+  'Nature Cancer': { type:'article', full:'Nature Cancer' },
   AAAI:    { type:'inproceedings', full:'AAAI Conference on Artificial Intelligence' },
   CVPR:    { type:'inproceedings', full:'IEEE/CVF Conference on Computer Vision and Pattern Recognition' },
   ICCV:    { type:'inproceedings', full:'IEEE/CVF International Conference on Computer Vision' },
@@ -808,7 +811,11 @@ function bibtex(p){
 
   // The dagger marks equal contribution on the page; carry it into the entry
   // so a copy-paste keeps that information.
-  if (p.authors.some(a => a[2])) rows.push(['note', '{$^\\dagger$ Equal contribution}']);
+  // p.note carries publication status, e.g. "Accepted in principle".
+  const notes = [];
+  if (p.note) notes.push(p.note);
+  if (p.authors.some(a => a[2])) notes.push('$^\\dagger$ Equal contribution');
+  if (notes.length) rows.push(['note', '{' + notes.join('; ') + '}']);
 
   const pad = Math.max(...rows.map(r => r[0].length));
   return head + '{' + key + ',\n'
