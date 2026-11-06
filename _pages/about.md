@@ -35,7 +35,7 @@ redirect_from:
     <div class="news-box" id="news-box">
       <div class="news-scroll" id="news-scroll">
         <ul class="news-list">
-          <li><span class="when">2026.11</span><span><strong>1</strong> paper accepted in principle by <em>Nature&nbsp;Cancer</em> &mdash; <a class="jump" href="#pub-rcmed">SyRe</a>, synergistic vision-language reinforcement for scalable on-demand analysis across diverse clinical imaging tasks.</span></li>
+          <li><span class="when">2026.11</span><span><strong>1</strong> paper accepted in principle by <em>Nature&nbsp;Cancer</em> &mdash; <a class="jump" href="#pub-rcmed">SyRe</a>.</span></li>
           <li><span class="when">2026.10</span><span>Recognized as a <em>CVPR&nbsp;2026</em> Outstanding Reviewer.</span></li>
           <li><span class="when">2026.10</span><span><a class="jump" href="#pub-neuronspp">Neurons++</a>, the extended version of <a class="jump" href="#pub-neurons">Neurons</a> (ICCV&nbsp;2025), is now on <em>arXiv</em>: one visual-stream framework for both image and video reconstruction from fMRI, with neural-to-visual interpretability.</span></li>
           <li><span class="when">2026.08</span><span>Awarded the HKUST <em>Young Scientists Program Scholarship</em> 2025/26.</span></li>
