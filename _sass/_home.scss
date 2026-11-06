@@ -416,8 +416,12 @@ html[data-tpl="home"] .news-list .when{
   color:var(--muted);padding-top:3px
 }
 
+/* highlighter stripe under the lower half: colour alone was too quiet, and a
+   solid chip read as a clickable tag */
 html[data-tpl="home"] .news-list em{
-  font-style:italic;font-weight:600;color:var(--accent)
+  font-style:italic;font-weight:600;color:var(--accent);padding:0 1px;
+  background:linear-gradient(transparent 58%,rgba(var(--accent-rgb),.18) 58%);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone
 }
 
 html[data-tpl="home"] .news-list strong{

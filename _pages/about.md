@@ -36,11 +36,11 @@ redirect_from:
       <div class="news-scroll" id="news-scroll">
         <ul class="news-list">
           <li><span class="when">2026.11</span><span><strong>1</strong> paper accepted in principle by <em>Nature&nbsp;Cancer</em> &mdash; <a class="jump" href="#pub-rcmed">SyRe</a>.</span></li>
-          <li><span class="when">2026.10</span><span>Recognized as a <em>CVPR&nbsp;2026</em> Outstanding Reviewer.</span></li>
-          <li><span class="when">2026.10</span><span><a class="jump" href="#pub-neuronspp">Neurons++</a>, the extended version of <a class="jump" href="#pub-neurons">Neurons</a> (ICCV&nbsp;2025), is now on <em>arXiv</em>: one visual-stream framework for both image and video reconstruction from fMRI, with neural-to-visual interpretability.</span></li>
+          <li><span class="when">2026.10</span><span>Recognized as a CVPR&nbsp;2026 <em>Outstanding Reviewer</em>.</span></li>
+          <li><span class="when">2026.10</span><span><a class="jump" href="#pub-neuronspp">Neurons++</a>, the extended version of <a class="jump" href="#pub-neurons">Neurons</a> (ICCV&nbsp;2025), is now on arXiv: one visual-stream framework for both image and video reconstruction from fMRI, with neural-to-visual interpretability.</span></li>
           <li><span class="when">2026.08</span><span>Awarded the HKUST <em>Young Scientists Program Scholarship</em> 2025/26.</span></li>
           <li><span class="when">2026.05</span><span>Received the HKUST <em>RedBird Academic Excellence Award</em> for the second time (2025&ndash;26).</span></li>
-          <li><span class="when">2026.05</span><span>Recognized as an <em>ICML&nbsp;2026</em> Gold Reviewer.</span></li>
+          <li><span class="when">2026.05</span><span>Recognized as an ICML&nbsp;2026 <em>Gold Reviewer</em>.</span></li>
           <li><span class="when">2026.01</span><span><strong>1</strong> co-authored paper accepted by <em>ICLR&nbsp;2026</em> &mdash; <a class="jump" href="#pub-vcflow">VCFLOW</a>.</span></li>
           <li><span class="when">2025.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2025</em>. We propose <a class="jump" href="#pub-zebra">ZEBRA</a>, the first zero-shot brain visual decoding framework that eliminates subject-specific adaptation.</span></li>
           <li><span class="when">2025.07</span><span>Received the HKUST <em>RedBird Academic Excellence Award</em> (2024&ndash;25).</span></li>
