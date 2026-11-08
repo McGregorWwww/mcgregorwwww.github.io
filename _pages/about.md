@@ -16,8 +16,8 @@ redirect_from:
   <section id="bio" class="rv">
     <div class="sec-head"><span class="num">01</span><h2>Biography</h2></div>
     <p class="lede">I am a Ph.D. student supervised by <a href="https://xmengli.github.io/" target="_blank" rel="noopener">Prof. Xiaomeng Li</a> at <a href="https://hkust.edu.hk/" target="_blank" rel="noopener">The Hong Kong University of Science and Technology</a>.</p>
-    <p>My research follows one question &mdash; <em>how are visual semantics represented?</em> &mdash; across three settings: medical scans where labels are scarce, natural images in the open world, and finally the human visual cortex itself. <a href="#research">See how the pieces connect &darr;</a></p>
     <p>Before that, I received my Master's degree from <a href="https://www.hku.hk/" target="_blank" rel="noopener">The University of Hong Kong</a> and my B.Eng. degree from <a href="http://www.neu.edu.cn/" target="_blank" rel="noopener">Northeastern University</a>, supervised by <a href="https://scholar.google.com/citations?user=0OfgZSsAAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Peng Cao</a>.</p>
+    <p>My research follows one question &mdash; <em>how are visual semantics represented?</em> &mdash; across three settings: medical scans where labels are scarce, natural images in the open world, and finally the human visual cortex itself. <a href="#research">See how the pieces connect &darr;</a></p>
     <p class="interests">
       <i>Interests</i>
       <span>Deep Learning</span><span class="dot">&middot;</span>

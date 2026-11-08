@@ -264,11 +264,6 @@ html[data-tpl="home"] .role em{
   font-style:italic;color:var(--ink)
 }
 
-html[data-tpl="home"] .affil{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
-  color:var(--muted);margin:0;line-height:1.85
-}
-
 html[data-tpl="home"] .contact{
   display:flex;flex-direction:column;gap:6px;align-items:flex-end;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
@@ -329,7 +324,7 @@ html[data-tpl="home"] .sec-head .count{
 
 /* ---------- row 1 : biography + news side by side ---------- */
 html[data-tpl="home"] .duo{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 52px
+  display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:0 48px
 }
 
 html[data-tpl="home"] .duo > section{
@@ -403,7 +398,7 @@ html[data-tpl="home"] .news-list{
 }
 
 html[data-tpl="home"] .news-list li{
-  display:grid;grid-template-columns:62px 1fr;gap:14px;padding:10px 0;
+  display:grid;grid-template-columns:62px 1fr;gap:14px;padding:6px 0;
   border-bottom:1px solid var(--rule-soft);font-size:14.5px;line-height:1.58;
 }
 
