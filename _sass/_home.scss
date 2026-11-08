@@ -324,7 +324,7 @@ html[data-tpl="home"] .sec-head .count{
 
 /* ---------- row 1 : biography + news side by side ---------- */
 html[data-tpl="home"] .duo{
-  display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:0 48px
+  display:grid;grid-template-columns:minmax(0,.958fr) minmax(0,1.042fr);gap:0 48px
 }
 
 html[data-tpl="home"] .duo > section{
