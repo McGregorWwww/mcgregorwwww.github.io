@@ -626,7 +626,7 @@ const publist = document.getElementById('publist');
 const authorHTML = a => (a[1] ? '<b>' + a[0] + '</b>' : a[0]) + (a[2] ? '<sup>' + a[2] + '</sup>' : '');
 
 function buildPubs(){
-  PUBS.forEach(p => {
+  PUBS.forEach((p, i) => {
     const D = DOMAINS[p.dom], href = p.links[0][1];
     const el = document.createElement('article');
     el.className = 'pub rv'; el.id = 'pub-' + p.id; el.style.setProperty('--c', D.color);
@@ -634,16 +634,42 @@ function buildPubs(){
     // the same target, so listing "Paper" again there was a duplicate.
     const extra = p.links.slice(1);
     const repo = repoOf(p);
+    // The citation line between title and authors. VENUES is keyed by the
+    // acronym, so "(ICCV)" comes from the key itself -- no second list to keep
+    // in sync. The acronym is what a reader recognises, so it carries the
+    // weight on an otherwise italic line. Nature Cancer is its own acronym, so
+    // the guard marks the whole name instead of writing it twice. A preprint
+    // is not a venue, so arXiv stays plain.
+    const vmeta = VENUES[p.venue];
+    const vkey = s => '<span class="vkey">' + s + '</span>';
+    const venueLong = vmeta
+      ? (vmeta.full === p.venue
+          ? vkey(vmeta.full)
+          : vmeta.full + ' (' + vkey(p.venue) + ')')
+      : (p.venue === 'arXiv' ? 'arXiv preprint' : vkey(p.venue));
     el.innerHTML =
-      '<a class="thumb" href="' + href + '" target="_blank" rel="noopener">'
-      + '<img src="' + IMG_BASE + p.img + '" alt="" loading="lazy" /></a>'
+      // The taxonomy caps the figure column, above the venue plate and image.
+      '<div class="pub-fig">'
+      + '<p class="taxo">'
+      + '<button class="dom" data-f="' + p.dom + '" style="--c:' + D.color + '">' + D.short + '</button>'
+      + '<span class="cats">' + p.cats.map(c => '<span class="cat" data-f="' + c + '">' + CATS[c] + '</span>').join('') + '</span>'
+      + '</p>'
+      + '<span class="fig-bar"><span class="ven-plate">' + p.venue + ' ' + p.year + '</span>'
+      + '<span class="fig-idx">' + String(i + 1).padStart(2, '0') + '</span></span>'
+      + '<a class="thumb" href="' + href + '" target="_blank" rel="noopener">'
+      + '<img src="' + IMG_BASE + p.img + '" alt="" loading="lazy" />'
+      + '<span class="tick tl"></span><span class="tick br"></span></a></div>'
       + '<div class="pub-body">'
-      + '<p class="venue"><span class="ven">' + p.venue + ' ' + p.year + '</span>'
-      + (p.tag ? '<span class="ven-tag">' + p.tag + '</span>' : '')
-      + '<button class="dom" data-f="' + p.dom + '" style="--c:' + D.color + '">' + D.short + '</button></p>'
+      // home-theme.js appends the "Cited by" metric to .venue, so this empty
+      // line is the metric's host. Its height is reserved in CSS even when it
+      // stays empty, so an uncited paper does not pull its title up and
+      // stagger it against the cited paper beside it in the two-up grid.
+      + '<p class="venue"></p>'
       + '<h3><a href="' + href + '" target="_blank" rel="noopener">' + p.title + '</a></h3>'
+      + '<p class="pubinfo"><span class="pub-venue">' + venueLong + ', ' + p.year + '</span>'
+      + (p.tag ? '<span class="ven-tag' + (p.award ? ' award' : '') + '">' + p.tag + '</span>' : '')
+      + '</p>'
       + '<p class="auth">' + p.authors.map(authorHTML).join(', ') + '</p>'
-      + '<div class="cats">' + p.cats.map(c => '<span class="cat" data-f="' + c + '">' + CATS[c] + '</span>').join('') + '</div>'
       + '<div class="plinks"' + (repo ? ' data-repo="' + repo + '"' : '') + '>'
       + extra.map(l => '<a href="' + l[1] + '" target="_blank" rel="noopener">' + l[0] + ' ↗</a>').join('')
       + '<button data-cite="' + p.id + '">BibTeX</button></div></div>';

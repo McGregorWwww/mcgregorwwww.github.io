@@ -50,13 +50,12 @@ redirect_from:
           <li><span class="when">2024.10</span><span><strong>1</strong> co-authored paper accepted by <em>TMI&nbsp;2024</em>.</span></li>
           <li><span class="when">2024.02</span><span><strong>1</strong> paper accepted by <em>CVPR&nbsp;2024</em> &mdash; <a class="jump" href="#pub-allspark">AllSpark</a>.</span></li>
           <li><span class="when">2023.09</span><span><strong>1</strong> paper accepted by <em>NeurIPS&nbsp;2023</em> &mdash; <a class="jump" href="#pub-and">GenericSSL</a>.</span></li>
-          <li><span class="when">2023.08</span><span>Joined <a href="https://xmengli.github.io/" target="_blank" rel="noopener">Prof. Xiaomeng Li</a>'s lab at HKUST to pursue my Ph.D.</span></li>
           <li><span class="when">2023.06</span><span><strong>1</strong> paper accepted by <em>MICCAI&nbsp;2023</em> &mdash; <a class="jump" href="#pub-dhc">DHC</a>.</span></li>
           <li><span class="when">2022.02</span><span><strong>1</strong> paper accepted by <em>AAAI&nbsp;2022</em> &mdash; <a class="jump" href="#pub-uctransnet">UCTransNet</a>.<span class="flag">Top-1 Influential</span></span></li>
         </ul>
       </div>
       <div class="news-foot">
-        <span id="news-pos">1 / 18</span>
+        <span id="news-pos">1 / 17</span>
         <div class="news-meter"><i id="news-meter"></i></div>
         <button id="news-up" aria-label="scroll news up">&uarr;</button>
         <button id="news-down" aria-label="scroll news down">&darr;</button>

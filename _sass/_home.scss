@@ -1174,30 +1174,31 @@ html[data-tpl="home"] .vsr-cell.dim{
 html[data-tpl="home"] .filterbar{
   position:sticky;top:50px;z-index:120;background:rgba(var(--surface-rgb),.94);
   backdrop-filter:saturate(180%) blur(10px);-webkit-backdrop-filter:saturate(180%) blur(10px);
-  display:flex;flex-wrap:wrap;gap:6px 7px;align-items:center;
+  display:flex;flex-wrap:wrap;gap:6px 5px;align-items:center;
   padding:10px 0 11px;margin-bottom:4px;border-bottom:1px solid var(--rule);
 }
 
 html[data-tpl="home"] .fgrp{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);margin:0 3px 0 0
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:0 2px 0 0;white-space:nowrap
 }
 
 html[data-tpl="home"] .fgrp.b{
-  margin-left:14px;padding-left:16px;border-left:1px solid var(--rule)
+  margin-left:9px;padding-left:10px;border-left:1px solid var(--rule)
 }
 
-/* Topic has five tags behind it, so it starts its own row rather than
-   wrapping mid-group and leaving an orphaned label. */
+/* Topic used to start its own row. It now runs inline with its tags: the
+   whole bar fits one line, and the bar is sticky, so every row it costs is
+   permanently subtracted from the reading area below. */
 html[data-tpl="home"] .fgrp.b.brk{
-  flex-basis:100%;margin-left:0;padding-left:0;border-left:0;
-  margin-top:6px;margin-bottom:-2px
+  margin-left:9px;padding-left:10px
 }
 
+/* tightened so all nine filters plus both group labels fit one sticky row */
 html[data-tpl="home"] .fbtn{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;cursor:pointer;
-  background:transparent;color:var(--muted);border:1px solid var(--rule);padding:3px 9px;
-  transition:all .25s ease;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0;cursor:pointer;
+  background:transparent;color:var(--muted);border:1px solid var(--rule);padding:3px 6px;
+  transition:all .25s ease;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;
 }
 
 html[data-tpl="home"] .fbtn i{
@@ -1217,7 +1218,7 @@ html[data-tpl="home"] .fbtn .n{
 }
 
 html[data-tpl="home"] .fbtn-reset{
-  margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;
   color:var(--muted);background:none;border:0;cursor:pointer;padding:3px 0;
   text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule)
 }
@@ -1231,7 +1232,7 @@ html[data-tpl="home"] .publist{
 }
 
 html[data-tpl="home"] .pub{
-  display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:start;
+  display:grid;grid-template-columns:186px minmax(0,1fr);gap:20px;align-items:start;
   padding:21px 0;border-bottom:1px solid var(--rule);position:relative;
   transition:opacity .34s ease,transform .34s ease;
 }
@@ -1243,6 +1244,19 @@ html[data-tpl="home"] .pub::before{
 
 html[data-tpl="home"] .pub:hover::before{
   transform:scaleY(1)
+}
+
+/* hover wash — bled past the text box so the row lights up as one object, not
+   a boxed card. Behind the content, and on ::after so .flash keeps the
+   .pub background to itself. */
+html[data-tpl="home"] .pub::after{
+  content:"";position:absolute;left:-14px;right:-14px;top:8px;bottom:8px;z-index:-1;
+  background:linear-gradient(90deg,var(--accent-soft),transparent 72%);
+  opacity:0;transition:opacity .34s var(--ease);pointer-events:none
+}
+
+html[data-tpl="home"] .pub:hover::after{
+  opacity:1
 }
 
 html[data-tpl="home"] .pub.hide{
@@ -1261,9 +1275,66 @@ html[data-tpl="home"] .pub.flash{
   animation:flash 1.8s ease-out
 }
 
+/* figure column: a spec bar caps the figure, the way a drawing sheet's title
+   block captions a plate. The venue sits outside the image so it can never
+   cover the figure's own top-left corner, and the bar spans the full figure
+   width so the plate and the index read as one ruled strip. */
+html[data-tpl="home"] .pub-fig{
+  min-width:0
+}
+
+html[data-tpl="home"] .fig-bar{
+  display:flex;align-items:stretch;justify-content:space-between;
+  border:1px solid var(--rule);border-bottom:0;background:var(--band);
+  transition:border-color .3s ease
+}
+
+/* sized so the longest venue ("NATURE CANCER 2026") still fits beside the
+   index inside the 164px figure column, rather than ellipsing away the year */
+html[data-tpl="home"] .ven-plate{
+  font-family:var(--mono);font-size:9px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  background:var(--accent);color:var(--on-accent);padding:3px 7px;line-height:1.55;
+  min-width:0;white-space:nowrap
+}
+
+/* the running number, like a plate number on a drawing sheet */
+html[data-tpl="home"] .fig-idx{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:var(--muted);
+  padding:3px 6px;align-self:center;font-variant-numeric:tabular-nums;
+  transition:color .3s ease
+}
+
+html[data-tpl="home"] .pub:hover .fig-idx{
+  color:var(--accent)
+}
+
 html[data-tpl="home"] .thumb{
-  display:block;overflow:hidden;background:var(--thumbbg);border:1px solid var(--rule);
-  aspect-ratio:4/3;transition:border-color .3s ease
+  display:block;position:relative;overflow:hidden;background:var(--thumbbg);
+  border:1px solid var(--rule);aspect-ratio:4/3;transition:border-color .3s ease
+}
+
+/* registration ticks — the same drafting mark the background grid uses.
+   They sit inside the frame and only register on hover. */
+html[data-tpl="home"] .tick{
+  position:absolute;width:9px;height:9px;opacity:0;pointer-events:none;
+  transition:opacity .34s var(--ease)
+}
+
+html[data-tpl="home"] .tick.tl{
+  top:5px;left:5px;border-top:1px solid var(--accent);border-left:1px solid var(--accent)
+}
+
+html[data-tpl="home"] .tick.br{
+  bottom:5px;right:5px;border-bottom:1px solid var(--accent);border-right:1px solid var(--accent)
+}
+
+html[data-tpl="home"] .pub:hover .tick{
+  opacity:.75
+}
+
+html[data-tpl="home"] .pub:hover .fig-bar{
+  border-color:var(--line-hi)
 }
 
 html[data-tpl="home"] .thumb img{
@@ -1283,20 +1354,48 @@ html[data-tpl="home"] .pub-body{
   min-width:0
 }
 
-html[data-tpl="home"] .venue{
+/* taxonomy, capping the figure column: domain tag, then the topics under it */
+html[data-tpl="home"] .taxo{
   font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);margin:0 0 7px;display:flex;align-items:center;gap:9px;flex-wrap:wrap
+  color:var(--accent);margin:0 0 7px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:5px
 }
 
-/* the venue is the thing a reader scans for, so it gets a solid accent plate;
-   the domain tag that follows it stays quiet */
-html[data-tpl="home"] .ven{
-  font-size:10.5px;font-weight:500;letter-spacing:.11em;
-  background:var(--accent);color:var(--on-accent);padding:1px 7px;line-height:1.65
+/* citation line at the top of the body column -- the metric's host. The line
+   is reserved even when empty: an uncited paper would otherwise pull its title
+   up and stagger it against the cited paper beside it in the two-up grid. */
+html[data-tpl="home"] .venue{
+  margin:0 0 5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  min-height:14px
+}
+
+/* the citation line between title and authors: spelled-out venue, then the
+   distinctions (Oral, Top-1 Influential, accepted-in-principle) as chips. */
+html[data-tpl="home"] .pubinfo{
+  margin:0 0 7px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  font-size:12.5px;line-height:1.5;color:var(--muted)
+}
+
+html[data-tpl="home"] .pub-venue{
+  font-style:italic;color:var(--ink)
+}
+
+/* the venue acronym: the one token a reader scans for, so it carries the
+   weight on a line that is otherwise all italic */
+html[data-tpl="home"] .vkey{
+  font-weight:700;color:var(--ink)
 }
 
 html[data-tpl="home"] .ven-tag{
-  font-size:8.5px;letter-spacing:.08em;border:1px solid var(--accent);padding:0 5px;line-height:1.6
+  font-family:var(--mono);font-style:normal;font-size:8.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent);
+  border:1px solid var(--accent);padding:0 5px;line-height:1.6
+}
+
+/* real distinctions (Oral, Top-1 Influential) read louder than a status note */
+html[data-tpl="home"] .ven-tag.award{
+  background:var(--accent);color:var(--on-accent);
+  box-shadow:0 0 0 2px var(--accent-soft)
 }
 
 /* live metrics, appended by home-theme.js: "Cited by 41" on the venue line,
@@ -1309,8 +1408,10 @@ html[data-tpl="home"] .metric{
 html[data-tpl="home"] .metric b{
   font-weight:500;font-size:10.5px;color:var(--ink)
 }
+/* back in the body column: pushed to the right end of its own line, clear of
+   the title that follows it */
 html[data-tpl="home"] .venue .metric{
-  margin-left:auto;padding-left:9px;border-left:1px solid var(--rule)
+  margin-left:auto
 }
 html[data-tpl="home"] .metric.star{
   padding:0 0 1px;border-bottom:1px solid transparent
@@ -1399,8 +1500,9 @@ html[data-tpl="home"] .auth sup{
   font-size:.72em
 }
 
+/* the topics sit under the domain tag, above the figure */
 html[data-tpl="home"] .cats{
-  display:flex;flex-wrap:wrap;gap:5px;margin:0 0 8px
+  display:flex;flex-wrap:wrap;gap:5px;margin:0
 }
 
 html[data-tpl="home"] .cat{
@@ -1693,8 +1795,11 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .pub{
     grid-template-columns:1fr;gap:13px
   }
+  html[data-tpl="home"] .pub-fig, html[data-tpl="home"] .thumb{
+    max-width:260px
+  }
   html[data-tpl="home"] .thumb{
-    max-width:260px;aspect-ratio:auto
+    aspect-ratio:auto
   }
   html[data-tpl="home"] .thumb img{
     height:auto
