@@ -80,12 +80,20 @@ redirect_from:
         <button class="tbtn" data-focus="med"><i style="background:var(--d-med)"></i>I &middot; Medical</button>
         <button class="tbtn" data-focus="nat"><i style="background:var(--d-nat)"></i>II &middot; Natural</button>
         <button class="tbtn" data-focus="hum"><i style="background:var(--d-hum)"></i>III &middot; Human</button>
-        <button class="tbtn play" id="play">&#9654; Play the story</button>
+        <button class="tbtn play" id="play" aria-label="Play the story">&#9654; Play</button>
       </div>
     </div>
 
     <div class="stage">
-      <div class="map-wrap"><svg id="map" viewBox="0 0 940 542" role="img"
+      <!-- The map is a half-disc: the core sits on the baseline at y=470 and
+           the outermost ring has r=368, so nothing is drawn above y=80 (the
+           arc apex at 102, less the 22 half-width a focused band grows to).
+           The frame therefore starts at y=72 rather than 0, which takes 72
+           units of empty sky off the panel's height without moving a single
+           coordinate. Width and the baseline stay where they were. The 8 units
+           left above the apex are for the paper labels, which are set outside
+           their dots and so reach a little past the band. -->
+      <div class="map-wrap"><svg id="map" viewBox="0 72 940 470" role="img"
         aria-label="Research map: papers arranged by year (angle) and domain (ring), from medical images through natural images to human vision"></svg>
       </div>
       <aside class="aside">
@@ -104,11 +112,11 @@ redirect_from:
       </div>
       <!-- parked in the empty top-left corner of the fan (static on narrow screens) -->
       <ul class="legend">
-        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>
-        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/></svg>co-author</li>
-        <li><svg width="22" height="12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/><circle cx="11" cy="6" r="6.5" fill="none" class="lg-s" stroke-width=".8"/></svg>oral / award</li>
-        <li><svg width="22" height="12"><path d="M1 8 Q11 0 21 6" fill="none" class="lg-s" stroke-width="2"/></svg>my main thread</li>
-        <li><svg width="22" height="12"><path d="M1 6 H21" class="lg-s" stroke-width="1.1" stroke-dasharray="3 3"/></svg><button id="links-toggle">show shared ideas</button></li>
+        <li><svg width="22" height="12" viewBox="0 0 22 12"><circle cx="11" cy="6" r="4.5" style="fill:var(--accent)"/></svg>first / co-first author</li>
+        <li><svg width="22" height="12" viewBox="0 0 22 12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/></svg>co-author</li>
+        <li><svg width="22" height="12" viewBox="0 0 22 12"><circle cx="11" cy="6" r="4" style="fill:var(--surface)" class="lg-s" stroke-width="1.6"/><circle cx="11" cy="6" r="6.5" fill="none" class="lg-s" stroke-width=".8"/></svg>oral / award</li>
+        <li><svg width="22" height="12" viewBox="0 0 22 12"><path d="M1 8 Q11 0 21 6" fill="none" class="lg-s" stroke-width="2"/></svg>my main thread</li>
+        <li><svg width="22" height="12" viewBox="0 0 22 12"><path d="M1 6 H21" class="lg-s" stroke-width="1.1" stroke-dasharray="3 3"/></svg><button id="links-toggle">show shared ideas</button></li>
       </ul>
     </div>
 

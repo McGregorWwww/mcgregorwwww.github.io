@@ -7,7 +7,15 @@
    ============================================================================ */
 (function(){
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const MINOR = 24, MAJOR = 96;
+  /* 16px minor, 6 to a major. The grid used to be 24/96 (4 to a major), which
+     at the opacities this layer can afford read as a few stray lines rather
+     than as a field. A denser minor gives it texture; the major stays at 96 so
+     it still lands on the content column's edges and the footer scale bar. */
+  const MINOR = 16, MAJOR = 96, SUB = MAJOR / MINOR;
+  /* How fast the gutter grid tracks the scroll. Below 1 it lags the content,
+     which reads as depth. Kept at 1 when the user asked for less motion:
+     parallax is exactly the kind of movement that setting is about. */
+  const PARALLAX = REDUCED ? 1 : .55;
   let INK = '42,74,128';                        // --accent-rgb, refreshed on palette change
   const readInk = () => (getComputedStyle(root).getPropertyValue('--accent-rgb').trim() || '42,74,128');
   const root = document.documentElement;
@@ -38,22 +46,29 @@
     const g = L.gctx, W = L.W, H = L.H + (extraH || 0);
     g.clearRect(0, 0, W, H);
     for (let x = L.ox - MAJOR; x <= W; x += MINOR) {
-      const major = Math.round((x - L.ox) / MINOR) % 4 === 0;
-      g.fillStyle = `rgba(${INK},${major ? .085 : .038})`;
+      const major = Math.round((x - L.ox) / MINOR) % SUB === 0;
+      g.fillStyle = `rgba(${INK},${major ? .2 : .085})`;
       g.fillRect(Math.round(x), 0, 1, H);
     }
     for (let y = 0; y <= H; y += MINOR) {
-      const major = Math.round(y / MINOR) % 4 === 0;
-      g.fillStyle = `rgba(${INK},${major ? .085 : .038})`;
+      const major = Math.round(y / MINOR) % SUB === 0;
+      g.fillStyle = `rgba(${INK},${major ? .2 : .085})`;
       g.fillRect(0, Math.round(y), W, 1);
     }
-    // small registration crosses on every major intersection
-    g.fillStyle = `rgba(${INK},.16)`;
+    // registration crosses on every major intersection
+    g.fillStyle = `rgba(${INK},.34)`;
     for (let x = L.ox; x <= W; x += MAJOR)
       for (let y = 0; y <= H; y += MAJOR) {
-        g.fillRect(Math.round(x) - 3, Math.round(y), 7, 1);
-        g.fillRect(Math.round(x), Math.round(y) - 3, 1, 7);
+        g.fillRect(Math.round(x) - 4, Math.round(y), 9, 1);
+        g.fillRect(Math.round(x), Math.round(y) - 4, 1, 9);
       }
+    // a dot at every minor intersection: it gives the field a texture at
+    // reading distance that lines alone do not, without adding more lines
+    g.fillStyle = `rgba(${INK},.17)`;
+    for (let x = L.ox; x <= W; x += MINOR)
+      for (let y = 0; y <= H; y += MINOR)
+        if (Math.round((x - L.ox) / MINOR) % SUB || Math.round(y / MINOR) % SUB)
+          g.fillRect(Math.round(x), Math.round(y), 1, 1);
   }
 
   // lit nodes: { x, y, t0 } — set when the scan band crosses a major node
@@ -145,19 +160,27 @@
       }
     }
 
-    /* page gutters — grid is pinned to the document, so it scrolls with content */
+    /* Page gutters. The grid tracks the document at PARALLAX rather than 1:1,
+       so the board appears to lie behind the sheet instead of being glued to
+       it. The ruler below stays at 1:1 on purpose: it is a measuring scale
+       against the content, and a scale that drifts is a broken scale. */
     const c = P.ctx, W = P.W, H = P.H;
-    const oy = scrollY % MAJOR;
+    const oy = (scrollY * PARALLAX) % MAJOR;
     c.clearRect(0, 0, W, H);
     c.drawImage(P.grid, 0, -oy, W, H + MAJOR);
 
-    // ruler ticks just outside each column edge, numbered every MAJOR in document space
+    /* Ruler ticks just outside each column edge, numbered every MAJOR in
+       document space. The ruler has its own 1:1 origin: it measures the
+       content, so a tick labelled 07 has to sit where 07 actually is. Stepping
+       it from the grid's parallax origin would have drifted the labels away
+       from their own ticks as the page scrolled. */
     const g = Math.max(0, (W - colW()) / 2);
     if (g > 40) {
       c.font = '8.5px "IBM Plex Mono", monospace';
       c.textBaseline = 'middle';
-      for (let y = -oy; y < H + MINOR; y += MINOR) {
-        const major = Math.round((y + scrollY) / MINOR) % 4 === 0;
+      const tick0 = -(scrollY % MAJOR);
+      for (let y = tick0; y < H + MINOR; y += MINOR) {
+        const major = Math.round((y + scrollY) / MINOR) % SUB === 0;
         const len = major ? 9 : 4;
         c.fillStyle = `rgba(${INK},${major ? .4 : .22})`;
         c.fillRect(Math.round(g - 14 - len), Math.round(y), len, 1);
@@ -188,9 +211,10 @@
           for (let x = P.ox; x <= W; x += MAJOR) pNodes.push({ x:Math.round(x), y:Math.round(y), t0:now, sy:scrollY });
       }
       lastPY = by;
-      // nodes stay pinned to the document while they fade
+      // A lit node belongs to the grid it was struck on, so while it fades it
+      // travels with that grid -- at PARALLAX, not at the scroll's own rate.
       c.save();
-      pNodes.forEach(n => { n.y += n.sy - scrollY; n.sy = scrollY; });
+      pNodes.forEach(n => { n.y += (n.sy - scrollY) * PARALLAX; n.sy = scrollY; });
       glowNodes(c, pNodes, now);
       c.restore();
     }

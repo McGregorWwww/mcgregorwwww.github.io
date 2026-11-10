@@ -303,7 +303,12 @@ function buildMap(){
   // neck and box read as one shape while only the disc is dark.
   const core = el('g', { id:'map-core' }, svg);
   const half = r => `M${CX - r} ${CY} A${r} ${r} 0 0 1 ${CX + r} ${CY}`;
-  const BOT = +svg.getAttribute('viewBox').split(' ')[3] + 2, FIL = 14;   // 2 past the edge: no seam
+  // The frame's bottom edge in user space = its y origin + its height. It is
+  // not just the height: the viewBox starts below y=0 (see about.md), so
+  // reading the 4th value alone would have put the neck 72 units short of the
+  // edge and left a gap between the map and the .vsr box under it.
+  const vb = svg.getAttribute('viewBox').split(/\s+/).map(Number);
+  const BOT = vb[1] + vb[3] + 2, FIL = 14;   // 2 past the edge: no seam
   const L = CX - CORE, R = CX + CORE;
   el('path', { d:`M${L} ${CY}L${R} ${CY}L${R} ${BOT - FIL}Q${R} ${BOT} ${R + FIL} ${BOT}`
                + `L${L - FIL} ${BOT}Q${L} ${BOT} ${L} ${BOT - FIL}Z`, class:'core-neck' }, core);
@@ -522,8 +527,10 @@ function domAtRadius(r){ return r < 230 ? 'med' : r < 322 ? 'nat' : 'hum'; }
 function startPlay(){
   cancelAnimationFrame(rafId);
   playing = true; played = true;
-  document.getElementById('play').classList.add('running');
-  document.getElementById('play').textContent = '■ Stop';
+  const pb = document.getElementById('play');
+  pb.classList.add('running');
+  pb.textContent = '■ Stop';
+  pb.setAttribute('aria-label', 'Stop the story');
   Object.values(nodeEls).forEach(n => { n.classList.add('pend'); n.classList.remove('pop'); });
   threadPath.style.strokeDashoffset = threadLen;
   sweep.classList.add('on');
@@ -563,7 +570,11 @@ function finishPlay(){
   playing = false;
   cancelAnimationFrame(rafId);
   const b = document.getElementById('play');
-  b.classList.remove('running'); b.textContent = '▶ Play the story';
+  // Short label, long aria-label: the five controls have to share one row with
+  // the question (see .thread-head), and "Play the story" was the token that
+  // pushed them onto a second line. The accessible name stays the full phrase.
+  b.classList.remove('running'); b.textContent = '▶ Play';
+  b.setAttribute('aria-label', 'Play the story');
   Object.values(nodeEls).forEach(n => n.classList.remove('pend'));
   threadPath.style.strokeDashoffset = 0;
   sweep.classList.remove('on');
@@ -658,10 +669,22 @@ const VENUE_TIER = {
 };
 const tierOf = p => VENUE_TIER[p.venue] || 90;
 
-/* 'default' ranks by venue standing, then my own role, then recency. Role is
-   the second key, not the first: it lifts a paper over its equals at the same
-   venue rather than over a stronger venue, so a first-author preprint cannot
-   outrank a co-authored ICCV paper. p.me is already 1 for first / co-first.
+/* PINNED overrides the venue ranking for named papers in the default order:
+   the value is the position the paper should hold (1 = first). It exists for
+   the case the tier table cannot express -- a paper whose standing comes from
+   its reception rather than from where it appeared. UCTransNet is pinned to
+   second: it is an AAAI paper, which the table puts behind the vision
+   conferences, but it is the most cited work here (Top-1 Influential at the
+   venue), so it belongs next to the Nature Cancer paper rather than seventh.
+   Keep this table short: anything long enough to need maintaining belongs in
+   VENUE_TIER instead. */
+const PINNED = { uctransnet:2 };
+
+/* 'default' ranks pinned papers first, then by venue standing, then by my own
+   role, then recency. Role is below venue, not above it: it lifts a paper over
+   its equals at the same venue rather than over a stronger venue, so a
+   first-author preprint cannot outrank a co-authored ICCV paper. p.me is
+   already 1 for first / co-first.
 
    'new' / 'old' sort on p.year, not p.t. The two part company on purpose:
    p.t is the arXiv date, which is where the paper belongs on the research map,
@@ -676,7 +699,20 @@ function sortedPubs(){
     new:     (a, b) => b.year - a.year || b.t - a.t,
     old:     (a, b) => a.year - b.year || a.t - b.t
   }[order];
-  return [...PUBS].sort(by);
+
+  // The time orders are a plain sort: a pin is a statement about standing, so
+  // it has no business reshuffling a chronology.
+  if (order !== 'default') return [...PUBS].sort(by);
+
+  // A pin is a destination index, not a sort key, so it cannot be folded into
+  // the comparator: rank the unpinned papers first, then splice each pinned
+  // one into the seat it asked for. Ascending by seat, so an earlier pin is
+  // already in place and does not shift a later one.
+  const pinned = PUBS.filter(p => PINNED[p.id])
+                     .sort((a, b) => PINNED[a.id] - PINNED[b.id]);
+  const out = PUBS.filter(p => !PINNED[p.id]).sort(by);
+  pinned.forEach(p => out.splice(Math.min(PINNED[p.id] - 1, out.length), 0, p));
+  return out;
 }
 
 /* Reorder in place. The rows are kept (so the citation counts, stars and
@@ -1194,8 +1230,13 @@ function alignAside(){
   // must match the breakpoint where _home.scss stacks .stage (880px): between
   // 881 and 1000px the card is still beside the map and needs the baseline
   if (matchMedia('(max-width:880px)').matches) return;   // stacked: no map beside it
-  const sb = svg.getBoundingClientRect(), vbH = svg.viewBox.baseVal.height;
-  const h = sb.top + CY * sb.height / vbH - hcard.getBoundingClientRect().top;
+  // CY is in user space, so it has to be measured from the viewBox's own
+  // origin before it is scaled into screen pixels. The origin is not 0 (see
+  // about.md), and ignoring it would have aimed the card's baseline 72 units
+  // of map below the core's.
+  const sb = svg.getBoundingClientRect();
+  const vbY = svg.viewBox.baseVal.y, vbH = svg.viewBox.baseVal.height;
+  const h = sb.top + (CY - vbY) * sb.height / vbH - hcard.getBoundingClientRect().top;
   if (h > 200) hcard.style.setProperty('--hcard-h', Math.round(h) + 'px');
   fitHint();      // the card's height just changed under the idle text
 }
