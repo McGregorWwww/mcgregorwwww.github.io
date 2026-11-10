@@ -109,6 +109,24 @@ layout: compress
 
     <div id="toast">Copied</div>
 
+    <!-- Figure viewer. Empty until a thumbnail is pressed; home.js fills in the
+         image and caption. It sits outside .wrap so the backdrop covers the
+         viewport rather than the 1080px content column. -->
+    <div id="lightbox" class="lb" hidden role="dialog" aria-modal="true"
+         aria-labelledby="lb-title">
+      <button class="lb-close" type="button" aria-label="Close the figure">&times;</button>
+      <figure class="lb-fig">
+        <!-- No src attribute: an empty one resolves against the document URL,
+             so the browser would request this page's own HTML as an image on
+             every load. home.js sets src when the viewer opens. -->
+        <img id="lb-img" alt="">
+        <figcaption class="lb-cap">
+          <span class="lb-plate" id="lb-plate"></span>
+          <span class="lb-title" id="lb-title"></span>
+        </figcaption>
+      </figure>
+    </div>
+
     <script src="{{ base }}/assets/js/home.js"></script>
     <script src="{{ base }}/assets/js/home-dive.js"></script>
     <script src="{{ base }}/assets/js/home-background.js"></script>

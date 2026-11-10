@@ -60,7 +60,7 @@ const PUBS = [
     // volume until it is published. t stays at the arXiv date.
     title:'Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Imaging Tasks',
     authors:[['Haonan Wang',1],['Jiaji Mao',0],['Lehan Wang',0],['Qixiang Zhang',0],['Marawan Elbatel',0],['Yi Qin',0],['Huijun Hu',0],['Baoxun Li',0],['Wenhui Deng',0],['Weifeng Qin',0],['Hongrui Li',0],['Jialin Liang',0],['Jun Shen',0],['Xiaomeng Li',0]],
-    img:'RCMed.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/SyRe']] },
+    img:'SyRe.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/SyRe']] },
   { id:'neurons', venue:'ICCV', year:2025, t:2025.50, dom:'hum', me:1, cats:['brain'], short:'Neurons',
     title:'Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction',
     authors:[['Haonan Wang',1,'†'],['Qixiang Zhang',0,'†'],['Lehan Wang',0],['Xuanqi Huang',0],['Xiaomeng Li',0]],
@@ -625,8 +625,116 @@ function initThread(){
 const publist = document.getElementById('publist');
 const authorHTML = a => (a[1] ? '<b>' + a[0] + '</b>' : a[0]) + (a[2] ? '<sup>' + a[2] + '</sup>' : '');
 
+/* The title and short-name fields above are authored as HTML fragments, not as
+   plain text -- "S&D Messenger" is stored as "S&amp;D Messenger" because it
+   goes into innerHTML. Anywhere the same string reaches a plain-text sink
+   (textContent, an alt or aria-label attribute) that has to be undone, or the
+   reader sees the entity spelled out.
+
+   attrEsc goes the other way, for raw text being spliced into an attribute:
+   p.short holds "S&D" with a bare ampersand. */
+const txtEsc = document.createElement('textarea');
+function plain(html){
+  txtEsc.innerHTML = html;                    // decodes entities, runs nothing:
+  return txtEsc.value;                        // <textarea> content is plain text
+}
+const attrEsc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                              .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* ---------------------------------------------------------------------------
+   ORDER — two orders over the same rows: standing (the default) and time.
+   Sorting is done on PUBS and then replayed onto the DOM, so the filter keeps
+   working on .hide alone and never has to know about the order.
+
+   VENUE_TIER is a hand-kept ranking, lower = stronger. It is a judgement call
+   about standing in this field, not a metric: the journal with a clinical
+   readership leads, then the vision conferences, then the specialist venues,
+   and a preprint is not a venue at all, so arXiv sits last by construction.
+   A venue missing from the table lands just above arXiv rather than at the
+   top, so forgetting to add one can never silently promote a paper.
+   --------------------------------------------------------------------------- */
+const VENUE_TIER = {
+  'Nature Cancer':1, CVPR:2, NeurIPS:3, ICCV:4, AAAI:5, ICLR:6, TMI:7, MICCAI:8, arXiv:99
+};
+const tierOf = p => VENUE_TIER[p.venue] || 90;
+
+/* 'default' ranks by venue standing, then my own role, then recency. Role is
+   the second key, not the first: it lifts a paper over its equals at the same
+   venue rather than over a stronger venue, so a first-author preprint cannot
+   outrank a co-authored ICCV paper. p.me is already 1 for first / co-first.
+
+   'new' / 'old' sort on p.year, not p.t. The two part company on purpose:
+   p.t is the arXiv date, which is where the paper belongs on the research map,
+   while p.year is the year printed on the card. Sorting by t would have shown
+   "Nature Cancer, 2026" sitting between two 2025 papers. Within a year t is
+   the tie-break, so the finer ordering survives. */
+let order = 'default';
+
+function sortedPubs(){
+  const by = {
+    default: (a, b) => tierOf(a) - tierOf(b) || b.me - a.me || b.t - a.t,
+    new:     (a, b) => b.year - a.year || b.t - a.t,
+    old:     (a, b) => a.year - b.year || a.t - b.t
+  }[order];
+  return [...PUBS].sort(by);
+}
+
+/* Reorder in place. The rows are kept (so the citation counts, stars and
+   reveal state that other scripts wrote into them survive) and only moved,
+   then the plate numbers are rewritten to match the new reading order. */
+function applyOrder(o){
+  if (o === order) return;
+  order = o;
+  sortedPubs().forEach((p, i) => {
+    const row = document.getElementById('pub-' + p.id);
+    if (!row) return;
+    publist.appendChild(row);                       // appending moves it
+    const idx = row.querySelector('.fig-idx');
+    if (idx) idx.textContent = String(i + 1).padStart(2, '0');
+  });
+  // Two buttons, three orders: 'new' and 'old' are both the Year button lit,
+  // and the arrow is what tells them apart.
+  document.querySelectorAll('.obtn').forEach(b => {
+    const on = b.dataset.o === 'default' ? order === 'default' : order !== 'default';
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  const yr = document.querySelector('.obtn[data-o="time"]');
+  if (yr) {
+    yr.querySelector('.arrow').textContent = order === 'old' ? '↑' : '↓';
+    // The arrow is aria-hidden, so the direction has to reach a screen reader
+    // through the label instead.
+    yr.setAttribute('aria-label', order === 'old' ? 'Year, oldest first' : 'Year, newest first');
+  }
+
+  // Replay the stagger so the new order reads as a deliberate reshuffle.
+  // '.in' goes on with it, as in setFilter: reordering can carry a row that
+  // the reveal observer has not reached yet up into view, and .rv holds those
+  // at opacity 0, so without it the row would land blank.
+  if (!REDUCED) {
+    const shown = [...publist.children].filter(r => !r.classList.contains('hide'));
+    shown.forEach(r => { r.classList.add('out', 'in'); void r.offsetWidth; });
+    requestAnimationFrame(() =>
+      shown.forEach((r, i) => setTimeout(() => r.classList.remove('out'), i * 35)));
+  }
+}
+
+function initOrder(){
+  const bar = document.getElementById('orderbar');
+  if (!bar) return;
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('.obtn');
+    if (!b) return;
+    // The time button is a toggle: press it again to flip the direction.
+    applyOrder(b.dataset.o === 'time'
+      ? (order === 'new' ? 'old' : 'new')
+      : 'default');
+  });
+}
+
 function buildPubs(){
-  PUBS.forEach((p, i) => {
+  // Built in the current order, so the first paint already needs no reshuffle.
+  sortedPubs().forEach((p, i) => {
     const D = DOMAINS[p.dom], href = p.links[0][1];
     const el = document.createElement('article');
     el.className = 'pub rv'; el.id = 'pub-' + p.id; el.style.setProperty('--c', D.color);
@@ -656,9 +764,17 @@ function buildPubs(){
       + '</p>'
       + '<span class="fig-bar"><span class="ven-plate">' + p.venue + ' ' + p.year + '</span>'
       + '<span class="fig-idx">' + String(i + 1).padStart(2, '0') + '</span></span>'
-      + '<a class="thumb" href="' + href + '" target="_blank" rel="noopener">'
+      // The figure opens itself, it does not open the paper. The thumbnail is
+      // 164px wide and most of these figures are dense pipeline diagrams, so
+      // the one thing a reader wants from it is a closer look; the title and
+      // the Paper link above already go to arXiv. alt stays empty: the image
+      // is decorative at this size and the button carries the label.
+      + '<button class="thumb" type="button" data-zoom="' + p.id + '"'
+      + ' aria-label="Enlarge the figure for '
+      + attrEsc(p.short || p.venue + ' ' + p.year) + '">'
       + '<img src="' + IMG_BASE + p.img + '" alt="" loading="lazy" />'
-      + '<span class="tick tl"></span><span class="tick br"></span></a></div>'
+      + '<span class="tick tl"></span><span class="tick br"></span>'
+      + '<span class="thumb-zoom" aria-hidden="true">+</span></button></div>'
       + '<div class="pub-body">'
       // home-theme.js appends the "Cited by" metric to .venue, so this empty
       // line is the metric's host. Its height is reserved in CSS even when it
@@ -865,6 +981,82 @@ function toast(msg){
 }
 
 /* ============================================================================
+   FIGURE VIEWER — the thumbnail opens the figure, not the paper.
+
+   One viewer is reused for every card: a modal dialog whose image src is
+   swapped on open. The caption repeats the venue plate and the short name so
+   the figure is still identifiable once the card it came from is covered.
+   ============================================================================ */
+function initLightbox(){
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  const img   = document.getElementById('lb-img');
+  const plate = document.getElementById('lb-plate');
+  const title = document.getElementById('lb-title');
+  // Where to send focus back on close. Without this, closing the viewer drops
+  // focus to the top of the page and a keyboard reader loses its place in the
+  // list.
+  let opener = null;
+
+  function open(id, btn){
+    const p = PUB[id];
+    if (!p) return;
+    opener = btn || null;
+    img.src = IMG_BASE + p.img;
+    // The figure is the subject of the dialog now, not decoration, so unlike
+    // the thumbnail it gets a real alt. Both sinks here are plain text, so the
+    // title has to come back through plain() -- see the note on txtEsc.
+    const t = plain(p.title);
+    img.alt = 'Figure from "' + t + '"';
+    plate.textContent = p.venue + ' ' + p.year;
+    title.textContent = t;
+    lb.hidden = false;
+    // Two frames: the first paints the dialog at its hidden start state, the
+    // second adds .on so the transition has something to run from. One frame
+    // is not enough -- removing [hidden] and adding the class in the same frame
+    // makes the browser skip straight to the end state.
+    requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('on')));
+    document.documentElement.classList.add('lb-open');
+    lb.querySelector('.lb-close').focus();
+  }
+
+  function close(){
+    if (lb.hidden) return;
+    lb.classList.remove('on');
+    document.documentElement.classList.remove('lb-open');
+    const done = () => {
+      lb.hidden = true;
+      // Drop the image only once it is out of sight, so the fade-out does not
+      // flash an empty frame. removeAttribute, not src = '': an empty src
+      // resolves against the document URL, so the browser would go and fetch
+      // the page's own HTML as an image.
+      img.removeAttribute('src');
+      img.alt = '';                  // emptied, not removed: alt is required
+      if (opener && document.body.contains(opener)) opener.focus();
+      opener = null;
+    };
+    if (REDUCED) { done(); return; }
+    setTimeout(done, 260);                       // matches the CSS transition
+  }
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-zoom]');
+    if (btn) { open(btn.dataset.zoom, btn); return; }
+    // Anywhere outside the figure closes it, including the close button -- the
+    // button is a sibling of .lb-fig, so one test covers both.
+    if (!lb.hidden && lb.contains(e.target) && !e.target.closest('.lb-fig')) close();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    // The viewer holds only one control, so trapping Tab means keeping focus
+    // on it rather than cycling a list.
+    if (e.key === 'Tab') { e.preventDefault(); lb.querySelector('.lb-close').focus(); }
+  });
+}
+
+/* ============================================================================
    PAGE CHROME — reveal, mini header, progress, scroll spy, anchors
    ============================================================================ */
 function initChrome(){
@@ -991,6 +1183,7 @@ window.HOME = { PUBS: PUBS, PUB: PUB, DOMAINS: DOMAINS, jumpToPub: jumpToPub };
    BOOT
    ============================================================================ */
 buildPubs();
+initOrder();
 /* ============================================================================
    ASIDE ALIGNMENT — the hover card runs down to the core's baseline (the flat
    edge of the half disc). The baseline scales with the map's width, so it is
@@ -1019,3 +1212,4 @@ initOrbs();
 initNews();
 initChrome();
 initRail();
+initLightbox();

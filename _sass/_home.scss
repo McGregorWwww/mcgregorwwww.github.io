@@ -46,6 +46,11 @@ html[data-tpl="home"]{
   --core-ink:#FFFFFF;         /* text on the core disc */
   --vsr-bg:#E9EEF6;           /* the light neck + box under the disc */
   --thread-bg:linear-gradient(#FBFCFD,#F5F7FA);
+  /* The figure viewer's backdrop stays dark in both palettes: it is a scrim
+     over the page, so it cannot be derived from --ink (which inverts). The
+     chrome on top of it is light for the same reason. */
+  --scrim:rgba(10,13,17,.84);
+  --on-scrim:#FFFFFF;
 }
 
 html[data-tpl="home"]{
@@ -1171,6 +1176,54 @@ html[data-tpl="home"] .vsr-cell.dim{
 /* ==========================================================================
    PUBLICATIONS
    ========================================================================== */
+/* Order control, on the 04 heading. It reads as the same family as .fbtn
+   below, one notch quieter: the order is a standing choice, the filters are
+   the thing you poke at. margin-left:auto pushes it right, and .count follows
+   it, so the pair sits as one block against the right edge.
+
+   align-items:baseline, not centre: .sec-head lines its children up on the
+   h2's baseline, and a flex box hands up the baseline of its own first line.
+   So the button labels land on the same line .count sits on. */
+html[data-tpl="home"] .orderbar{
+  display:flex;align-items:baseline;gap:5px;margin-left:auto
+}
+
+/* .count carries its own margin-left:auto. Two auto margins in one flex row
+   split the slack between them, which would prise the pair apart and leave
+   the order control floating mid-row -- so the second one gives way. */
+html[data-tpl="home"] .orderbar + .count{
+  margin-left:0
+}
+
+html[data-tpl="home"] .olab{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap
+}
+
+html[data-tpl="home"] .obtn{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0;cursor:pointer;
+  background:transparent;color:var(--muted);border:1px solid var(--rule);padding:3px 7px;
+  transition:all .25s ease;white-space:nowrap;display:inline-flex;align-items:center;gap:4px
+}
+
+html[data-tpl="home"] .obtn:hover{
+  border-color:var(--line-hi);color:var(--ink)
+}
+
+html[data-tpl="home"] .obtn.on{
+  background:var(--accent);border-color:var(--accent);color:var(--on-accent)
+}
+
+/* The arrow only means something once Year is the active order; while Impact
+   is on it would read as a sort direction that is not in force. */
+html[data-tpl="home"] .obtn .arrow{
+  font-size:10px;opacity:0;transition:opacity .25s ease
+}
+
+html[data-tpl="home"] .obtn.on .arrow{
+  opacity:.75
+}
+
 html[data-tpl="home"] .filterbar{
   position:sticky;top:50px;z-index:120;background:rgba(var(--surface-rgb),.94);
   backdrop-filter:saturate(180%) blur(10px);-webkit-backdrop-filter:saturate(180%) blur(10px);
@@ -1309,9 +1362,48 @@ html[data-tpl="home"] .pub:hover .fig-idx{
   color:var(--accent)
 }
 
+/* A button, not a link: it opens the figure in the viewer rather than leaving
+   for arXiv. width/padding/font are the button defaults being undone -- the
+   frame has to stay the same plate it was as an anchor. */
 html[data-tpl="home"] .thumb{
   display:block;position:relative;overflow:hidden;background:var(--thumbbg);
-  border:1px solid var(--rule);aspect-ratio:4/3;transition:border-color .3s ease
+  border:1px solid var(--rule);aspect-ratio:4/3;transition:border-color .3s ease;
+  width:100%;padding:0;margin:0;font:inherit;color:inherit;cursor:zoom-in;
+  -webkit-appearance:none;appearance:none
+}
+
+html[data-tpl="home"] .thumb:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px
+}
+
+/* The one affordance that says the figure enlarges. It stays out of the way
+   until the card is hovered, so a column of cards is not dotted with badges. */
+/* Top-right, not bottom-right: the .br registration tick sits in that corner
+   and comes up on the same hover, so the two would collide. */
+html[data-tpl="home"] .thumb-zoom{
+  position:absolute;right:0;top:0;z-index:1;
+  display:grid;place-items:center;width:20px;height:20px;
+  background:var(--accent);color:var(--on-accent);
+  font-family:var(--mono);font-size:13px;line-height:1;
+  opacity:0;transform:translateY(-3px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+  pointer-events:none
+}
+
+html[data-tpl="home"] .pub:hover .thumb-zoom,
+html[data-tpl="home"] .thumb:focus-visible .thumb-zoom{
+  opacity:1;transform:translateY(0)
+}
+
+/* A touch device has no hover to reveal it, so the badge is the only thing
+   saying the figure is pressable. It stays up permanently there. */
+@media(hover:none){
+  html[data-tpl="home"] .thumb-zoom{
+    opacity:1;transform:translateY(0)
+  }
+  html[data-tpl="home"] .thumb{
+    cursor:pointer
+  }
 }
 
 /* registration ticks — the same drafting mark the background grid uses.
@@ -1638,6 +1730,115 @@ html[data-tpl="home"] #toast.show{
 }
 
 /* ==========================================================================
+   FIGURE VIEWER — the thumbnail's enlarged figure
+   ========================================================================== */
+/* Above #toast (500) so a "BibTeX copied" toast cannot land on top of the
+   backdrop. The backdrop is ink rather than black so it tracks the palette. */
+html[data-tpl="home"] .lb{
+  position:fixed;inset:0;z-index:600;
+  display:grid;place-items:center;padding:32px;
+  background:var(--scrim);
+  opacity:0;transition:opacity .26s ease
+}
+
+/* This rule is load-bearing, not tidiness. `display:grid` above is an author
+   declaration and [hidden]'s display:none is only a UA one, so without this
+   the closed viewer would sit over the page from first paint. */
+html[data-tpl="home"] .lb[hidden]{
+  display:none
+}
+
+html[data-tpl="home"] .lb.on{
+  opacity:1
+}
+
+/* Scroll is locked while the viewer is up: the figure is the whole subject,
+   and a page scrolling behind a fixed backdrop reads as a bug. The class goes
+   on <html>, not <body> -- it is the root element's overflow that propagates
+   to the viewport, so locking body alone leaves the page scrollable. */
+html[data-tpl="home"].lb-open{
+  overflow:hidden
+}
+
+/* The theme styles bare `figure` and `figcaption` globally (_base.scss: flex
+   with a 2em margin, img width:100% + border-radius, a caption colour and
+   font). All of that has to be undone here, or the viewer inherits a rounded,
+   stretched figure with a mismatched caption. Hence the explicit margin,
+   display and font declarations below -- they are resets, not decoration.
+
+   No max-width: the box shrink-wraps the image, so the caption ends up exactly
+   as wide as the figure it describes. min-width keeps a long title from being
+   squeezed into a column by a narrow figure. */
+/* align-items:center, not the flex default of stretch: a stretched img with
+   width:auto would be pulled out to the box's width and upscaled whenever the
+   min-width below is what sets that width. Centred, it keeps its own size. */
+html[data-tpl="home"] .lb-fig{
+  margin:0;min-width:min(420px,100%);
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  background:var(--surface);border:1px solid var(--line-hi);
+  box-shadow:0 24px 70px rgba(0,0,0,.4);
+  transform:scale(.975);transition:transform .26s var(--ease)
+}
+
+html[data-tpl="home"] .lb.on .lb-fig{
+  transform:scale(1)
+}
+
+/* The image sizes itself against the viewport rather than filling the box, so
+   it keeps its own aspect ratio with no letterboxing. The 170px subtracted
+   from the height is the 64px of backdrop padding plus room for a caption of
+   up to three wrapped lines; max() keeps it usable in a short window. */
+html[data-tpl="home"] .lb-fig img{
+  display:block;margin:0;border-radius:0;
+  width:auto;height:auto;
+  max-width:min(1180px,calc(100vw - 64px));
+  max-height:max(180px,calc(100vh - 170px));
+  background:var(--thumbbg)
+}
+
+/* width:0 + min-width:100% is deliberate. Some of these titles are long
+   enough to set the box's intrinsic width on their own, which would leave the
+   caption stretching well past the figure it sits under. At width:0 the
+   caption contributes nothing to that measurement -- the image decides the
+   width -- and min-width then takes it back out to the full box, where the
+   title wraps instead. */
+html[data-tpl="home"] .lb-cap{
+  flex:0 0 auto;width:0;min-width:100%;box-sizing:border-box;
+  display:flex;align-items:baseline;gap:11px;
+  margin:0;padding:11px 15px;border-top:1px solid var(--rule);background:var(--band);
+  color:var(--body);font-family:var(--serif);font-size:14px
+}
+
+html[data-tpl="home"] .lb-plate{
+  flex:0 0 auto;font-family:var(--mono);font-size:9px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  background:var(--accent);color:var(--on-accent);padding:3px 7px;line-height:1.55
+}
+
+html[data-tpl="home"] .lb-title{
+  font-family:var(--serif);font-size:14px;line-height:1.45;color:var(--ink)
+}
+
+/* Fixed to the viewport corner, not the figure: the figure's own size varies
+   with the image, and a control that moves with it is harder to aim at. */
+html[data-tpl="home"] .lb-close{
+  position:fixed;top:16px;right:20px;z-index:1;
+  width:34px;height:34px;padding:0;
+  display:grid;place-items:center;
+  background:transparent;border:1px solid rgba(255,255,255,.4);
+  color:var(--on-scrim);font-family:var(--mono);font-size:20px;line-height:1;
+  cursor:pointer;transition:border-color .25s ease,background .25s ease
+}
+
+html[data-tpl="home"] .lb-close:hover{
+  background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.7)
+}
+
+html[data-tpl="home"] .lb-close:focus-visible{
+  outline:2px solid var(--on-scrim);outline-offset:2px
+}
+
+/* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 @media(max-width:1000px){
@@ -1732,6 +1933,25 @@ html[data-tpl="home"] #toast.show{
   html[data-tpl="home"] .wrap{
     padding:0 20px 80px
   }
+  /* On a phone the figure needs the width more than the backdrop needs the
+     margin, and the close button comes in off the edge to match. The three
+     constants in the viewer's own sizing are restated against the narrower
+     padding: 24px of it, and a caption that wraps to more lines down here. */
+  html[data-tpl="home"] .lb{
+    padding:12px
+  }
+  html[data-tpl="home"] .lb-fig{
+    min-width:0
+  }
+  html[data-tpl="home"] .lb-fig img{
+    max-width:calc(100vw - 24px);max-height:max(160px,calc(100vh - 190px))
+  }
+  html[data-tpl="home"] .lb-cap{
+    flex-direction:column;align-items:flex-start;gap:6px;padding:9px 12px
+  }
+  html[data-tpl="home"] .lb-close{
+    top:8px;right:10px
+  }
   html[data-tpl="home"] .banner-in{
     grid-template-columns:86px minmax(0,1fr);gap:0 18px;padding:30px 20px 26px
   }
@@ -1806,6 +2026,22 @@ html[data-tpl="home"] #toast.show{
   }
   html[data-tpl="home"] .fgrp.b{
     margin-left:0;padding-left:0;border-left:0;flex-basis:100%;margin-top:4px
+  }
+  /* The 04 heading carries three things, and on a phone the title, the order
+     control and the credit line no longer share one line. The order control
+     drops to its own row under them -- last, because it is the only one you
+     press, so it wants the clear edge. */
+  html[data-tpl="home"] #pubs .sec-head{
+    flex-wrap:wrap
+  }
+  html[data-tpl="home"] .orderbar{
+    order:3;flex-basis:100%;margin:6px 0 0
+  }
+  /* Once the order control is on its own row it is no longer .count's
+     neighbour in the layout, so .count takes the auto margin back and stays
+     right-aligned against the title on the first row. */
+  html[data-tpl="home"] #pubs .orderbar + .count{
+    margin-left:auto
   }
   html[data-tpl="home"] .trio{
     grid-template-columns:1fr;gap:24px

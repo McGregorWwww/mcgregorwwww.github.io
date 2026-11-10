@@ -119,6 +119,15 @@ redirect_from:
 <!-- ============ 04 · publications ============ -->
 <section id="pubs">
   <div class="sec-head"><span class="num">04</span><h2>Selected Publications</h2>
+    <!-- Order sits on the heading, not in the sticky filter bar below: that bar
+         is deliberately one row, and a fourth group would make it two for good. -->
+    <div class="orderbar" id="orderbar" role="group" aria-label="Order publications">
+      <span class="olab" aria-hidden="true">Order</span>
+      <button class="obtn on" data-o="default" aria-pressed="true"
+              title="Order by venue standing, then first-author papers, then recency">Default</button>
+      <button class="obtn" data-o="time" aria-pressed="false"
+              title="Order by date — press again to reverse">Year <span class="arrow" aria-hidden="true">&darr;</span></button>
+    </div>
     <span class="count"><sup>&dagger;</sup> equal contribution &middot; <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">all papers on Google Scholar &rarr;</a></span></div>
   <div class="filterbar" id="filterbar">
     <button class="fbtn on" data-f="all">All<span class="n"></span></button>
