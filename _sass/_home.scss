@@ -86,7 +86,7 @@ html[data-tpl="home"]{
      written straight onto .vkey::before's mask-image instead. That is not just
      tidiness -- GitHub Pages compiles this with sass 3.7.4, which crashes on a
      quoted url() inside a custom property (see the note on .vkey::before). */
-  --brush:linear-gradient(100deg,rgba(164,198,239,.9),rgba(164,198,239,.62) 46%,rgba(164,198,239,.92));
+  --brush:linear-gradient(100deg,rgba(176,208,245,.62),rgba(176,208,245,.4) 46%,rgba(176,208,245,.64));
   /* three research domains — one hue family, three depths */
   --d-med:#6E8FB8;
   --d-nat:#3E64A3;
@@ -1808,9 +1808,9 @@ html[data-tpl="home"] .vkey::before{
      An inline box's background area runs down to the font's descent, well
      below the baseline, so insetting the stroke evenly would hang it under the
      letters. Measured at 12.5px: the content box ends ~6px under the baseline,
-     so .1em pulls the paint back to roughly 2px under it. All four are in em,
-     so the stroke keeps its proportions at any font size. */
-  inset:-.26em -.34em .1em;
+     so .04em pulls the paint back to just under it. All four are in em, so the
+     stroke keeps its proportions at any font size. */
+  inset:-.42em -.52em .04em;
   background-image:var(--brush);
   transform:rotate(-.5deg);
   -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3ClinearGradient id='d' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.92'/%3E%3Cstop offset='.2' stop-color='%23fff' stop-opacity='.78'/%3E%3Cstop offset='.5' stop-color='%23fff' stop-opacity='.62'/%3E%3Cstop offset='.78' stop-color='%23fff' stop-opacity='.84'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cpath fill='url(%23d)' d='M2 9c14-5 44-7 92-6 46 1 80 3 103 7 3 1 3 3 1 4-16 5-48 8-94 9-22 0-36-2-52-1-18 1-34 4-48 1-3-1-4-3-2-5-2-3-2-6 0-8z'/%3E%3C/svg%3E");
@@ -2597,7 +2597,7 @@ html[data-tpl="home"][data-theme="midnight"]{
   /* Same stroke, but paint on a dark page has to be thinner or it swamps the
      text it sits under: the acronym stays light-on-dark, so the wash reads as
      a tint of the ink rather than a colour of its own. */
-  --brush:linear-gradient(100deg,rgba(109,150,214,.46),rgba(109,150,214,.26) 46%,rgba(109,150,214,.5));
+  --brush:linear-gradient(100deg,rgba(120,160,222,.34),rgba(120,160,222,.19) 46%,rgba(120,160,222,.36));
   --d-med:#5B7BAE; --d-nat:#86A8E6; --d-hum:#C5D7FA;
   --core-a:#3A5A94; --core-b:#1E3360; --core-hi:#DCE7FB; --core-sub:#A9C0E8;
   --core-ink:#F2F5FA;         /* the core stays light-on-dark in both themes */
