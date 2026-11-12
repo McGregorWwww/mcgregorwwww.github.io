@@ -136,7 +136,7 @@ redirect_from:
       <button class="obtn" data-o="time" aria-pressed="false"
               title="Order by date — press again to reverse">Year <span class="arrow" aria-hidden="true">&darr;</span></button>
     </div>
-    <span class="count"><sup>&dagger;</sup> equal contribution &middot; <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">all papers on Google Scholar &rarr;</a></span></div>
+    <span class="count"><sup>&dagger;</sup> co-first authors &middot; <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">all papers on Google Scholar &rarr;</a></span></div>
   <div class="filterbar" id="filterbar">
     <button class="fbtn on" data-f="all">All<span class="n"></span></button>
     <span class="fgrp b">Domain</span>

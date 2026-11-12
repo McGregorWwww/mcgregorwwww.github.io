@@ -59,7 +59,7 @@ const PUBS = [
     // principle by Nature Cancer on 2026-11-05 (NATCANCER-A21239C); no DOI or
     // volume until it is published. t stays at the arXiv date.
     title:'Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Imaging Tasks',
-    authors:[['Haonan Wang',1],['Jiaji Mao',0],['Lehan Wang',0],['Qixiang Zhang',0],['Marawan Elbatel',0],['Yi Qin',0],['Huijun Hu',0],['Baoxun Li',0],['Wenhui Deng',0],['Weifeng Qin',0],['Hongrui Li',0],['Jialin Liang',0],['Jun Shen',0],['Xiaomeng Li',0]],
+    authors:[['Haonan Wang',1,'†'],['Jiaji Mao',0,'†'],['Lehan Wang',0],['Qixiang Zhang',0],['Marawan Elbatel',0],['Yi Qin',0],['Huijun Hu',0],['Baoxun Li',0],['Wenhui Deng',0],['Weifeng Qin',0],['Hongrui Li',0],['Jialin Liang',0],['Jun Shen',0],['Xiaomeng Li',0]],
     img:'SyRe.png', scholar:'KDNRnW0AAAAJ:UebtZRa9Y70C', links:[['Paper','https://arxiv.org/abs/2505.03380'],['Code','https://github.com/xmed-lab/SyRe']] },
   { id:'neurons', venue:'ICCV', year:2025, t:2025.50, dom:'hum', me:1, cats:['brain'], short:'Neurons',
     title:'Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction',
@@ -987,12 +987,12 @@ function bibtex(p){
     if (url) rows.push(['url', '{' + url + '}']);
   }
 
-  // The dagger marks equal contribution on the page; carry it into the entry
+  // The dagger marks co-first authorship on the page; carry it into the entry
   // so a copy-paste keeps that information.
   // p.note carries publication status, e.g. "Accepted in principle".
   const notes = [];
   if (p.note) notes.push(p.note);
-  if (p.authors.some(a => a[2])) notes.push('$^\\dagger$ Equal contribution');
+  if (p.authors.some(a => a[2])) notes.push('$^\\dagger$ Co-first authors');
   if (notes.length) rows.push(['note', '{' + notes.join('; ') + '}']);
 
   const pad = Math.max(...rows.map(r => r[0].length));

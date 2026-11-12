@@ -81,6 +81,22 @@ html[data-tpl="home"]{
   --accent:#2A4A80;
   --accent-soft:rgba(var(--accent-rgb),.09);
   --thumbbg:#F2F4F7;
+  /* the wash under the venue acronym — a brush stroke, so the paint is uneven
+     along its length. The silhouette lives in --brush-img; only the colour
+     changes between palettes. preserveAspectRatio="none" lets the one shape
+     stretch over an acronym of any width.
+
+     The element is only ~20px tall and the mask is scaled to it from a wide
+     viewBox, so it is squashed much harder vertically than horizontally:
+     hairline streaks drawn inside the stroke land on sub-pixels and vanish,
+     and a detached fleck of paint reads as a stray dot. So the brush
+     character is carried by two things that survive any squash -- the outline
+     (a chisel heel at the left, top and bottom edges that are not parallel, a
+     bite out of the bottom, a tip that thins as the brush lifts) and a
+     gradient in the mask itself, which thins the paint through the middle of
+     the stroke where a loaded brush runs driest. */
+  --brush:linear-gradient(100deg,rgba(164,198,239,.9),rgba(164,198,239,.62) 46%,rgba(164,198,239,.92));
+  --brush-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3ClinearGradient id='d' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.92'/%3E%3Cstop offset='.2' stop-color='%23fff' stop-opacity='.78'/%3E%3Cstop offset='.5' stop-color='%23fff' stop-opacity='.62'/%3E%3Cstop offset='.78' stop-color='%23fff' stop-opacity='.84'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cpath fill='url(%23d)' d='M2 9c14-5 44-7 92-6 46 1 80 3 103 7 3 1 3 3 1 4-16 5-48 8-94 9-22 0-36-2-52-1-18 1-34 4-48 1-3-1-4-3-2-5-2-3-2-6 0-8z'/%3E%3C/svg%3E");
   /* three research domains — one hue family, three depths */
   --d-med:#6E8FB8;
   --d-nat:#3E64A3;
@@ -1756,9 +1772,38 @@ html[data-tpl="home"] .pub-venue{
 }
 
 /* the venue acronym: the one token a reader scans for, so it carries the
-   weight on a line that is otherwise all italic */
+   weight on a line that is otherwise all italic, plus a pale blue wash to
+   catch the eye before the words are read. */
+/* No horizontal padding here: the acronym is usually inside parentheses
+   ("Conference on ... (CVPR), 2024"), and padding would push the brackets off
+   the letters and read as "( CVPR )". The stroke overhangs instead, via the
+   negative inset on ::before. */
 html[data-tpl="home"] .vkey{
-  font-weight:700;color:var(--ink)
+  font-weight:700;color:var(--ink);
+  position:relative;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone
+}
+
+/* The wash is painted by a pseudo-element, not by `background` on .vkey
+   itself: the stroke's ragged silhouette comes from a mask, and a mask on the
+   span would eat the letters along with the paint. z-index:-1 keeps it behind
+   the text but still above .pub's own surface, which is a stacking context.
+   The texture is in the mask; this element only supplies the colour, tilted a
+   degree so the stroke does not sit square to the baseline. */
+html[data-tpl="home"] .vkey::before{
+  content:'';position:absolute;z-index:-1;
+  /* The bottom inset is positive -- it crops the box rather than growing it.
+     An inline box's background area runs down to the font's descent, well
+     below the baseline, so insetting the stroke evenly would hang it under the
+     letters. Measured at 12.5px: the content box ends ~6px under the baseline,
+     so .1em pulls the paint back to roughly 2px under it. All four are in em,
+     so the stroke keeps its proportions at any font size. */
+  inset:-.26em -.34em .1em;
+  background-image:var(--brush);
+  transform:rotate(-.5deg);
+  -webkit-mask-image:var(--brush-img);mask-image:var(--brush-img);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat
 }
 
 html[data-tpl="home"] .ven-tag{
@@ -2536,6 +2581,10 @@ html[data-tpl="home"][data-theme="midnight"]{
   --shadow-1:0 1px 1px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.28);
   --shadow-2:0 2px 6px rgba(0,0,0,.36),0 14px 36px rgba(0,0,0,.42);
   --accent:#8DB1EE; --accent-rgb:141,177,238; --accent-soft:rgba(141,177,238,.12);
+  /* Same stroke, but paint on a dark page has to be thinner or it swamps the
+     text it sits under: the acronym stays light-on-dark, so the wash reads as
+     a tint of the ink rather than a colour of its own. */
+  --brush:linear-gradient(100deg,rgba(109,150,214,.46),rgba(109,150,214,.26) 46%,rgba(109,150,214,.5));
   --d-med:#5B7BAE; --d-nat:#86A8E6; --d-hum:#C5D7FA;
   --core-a:#3A5A94; --core-b:#1E3360; --core-hi:#DCE7FB; --core-sub:#A9C0E8;
   --core-ink:#F2F5FA;         /* the core stays light-on-dark in both themes */
