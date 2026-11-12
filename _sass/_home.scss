@@ -81,22 +81,12 @@ html[data-tpl="home"]{
   --accent:#2A4A80;
   --accent-soft:rgba(var(--accent-rgb),.09);
   --thumbbg:#F2F4F7;
-  /* the wash under the venue acronym — a brush stroke, so the paint is uneven
-     along its length. The silhouette lives in --brush-img; only the colour
-     changes between palettes. preserveAspectRatio="none" lets the one shape
-     stretch over an acronym of any width.
-
-     The element is only ~20px tall and the mask is scaled to it from a wide
-     viewBox, so it is squashed much harder vertically than horizontally:
-     hairline streaks drawn inside the stroke land on sub-pixels and vanish,
-     and a detached fleck of paint reads as a stray dot. So the brush
-     character is carried by two things that survive any squash -- the outline
-     (a chisel heel at the left, top and bottom edges that are not parallel, a
-     bite out of the bottom, a tip that thins as the brush lifts) and a
-     gradient in the mask itself, which thins the paint through the middle of
-     the stroke where a loaded brush runs driest. */
+  /* the colour of the wash under the venue acronym. Only the colour is a
+     variable: the brush's silhouette is identical in both palettes, so it is
+     written straight onto .vkey::before's mask-image instead. That is not just
+     tidiness -- GitHub Pages compiles this with sass 3.7.4, which crashes on a
+     quoted url() inside a custom property (see the note on .vkey::before). */
   --brush:linear-gradient(100deg,rgba(164,198,239,.9),rgba(164,198,239,.62) 46%,rgba(164,198,239,.92));
-  --brush-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3ClinearGradient id='d' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.92'/%3E%3Cstop offset='.2' stop-color='%23fff' stop-opacity='.78'/%3E%3Cstop offset='.5' stop-color='%23fff' stop-opacity='.62'/%3E%3Cstop offset='.78' stop-color='%23fff' stop-opacity='.84'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cpath fill='url(%23d)' d='M2 9c14-5 44-7 92-6 46 1 80 3 103 7 3 1 3 3 1 4-16 5-48 8-94 9-22 0-36-2-52-1-18 1-34 4-48 1-3-1-4-3-2-5-2-3-2-6 0-8z'/%3E%3C/svg%3E");
   /* three research domains — one hue family, three depths */
   --d-med:#6E8FB8;
   --d-nat:#3E64A3;
@@ -1788,8 +1778,30 @@ html[data-tpl="home"] .vkey{
    itself: the stroke's ragged silhouette comes from a mask, and a mask on the
    span would eat the letters along with the paint. z-index:-1 keeps it behind
    the text but still above .pub's own surface, which is a stacking context.
-   The texture is in the mask; this element only supplies the colour, tilted a
-   degree so the stroke does not sit square to the baseline. */
+   The shape is in the mask; this element only supplies the colour, tilted a
+   degree so the stroke does not sit square to the baseline.
+
+   The brush is a data URI written straight into mask-image below, NOT held in
+   a custom property. GitHub Pages pins jekyll-sass-converter 1.5.2 (Ruby sass
+   3.7.4), whose parser throws "undefined method 'size' for nil" on a *quoted*
+   url() inside a `--var` declaration -- the whole stylesheet then fails to
+   build, which is what happened the first time this shipped. An unquoted
+   url() parses, but this URI contains the single quotes of the SVG's own
+   attributes, so it cannot go unquoted. url(var(--x)) is no escape either:
+   that compiles, but no browser substitutes a var() inside url(). A plain
+   property takes the quoted url() fine, and since the silhouette is the same
+   in both palettes, nothing is lost by putting it here.
+
+   preserveAspectRatio="none" lets the one shape stretch over an acronym of
+   any width. The element is only ~20px tall and the mask is scaled to it from
+   a 200-unit viewBox, so it is squashed much harder vertically than
+   horizontally: hairline streaks drawn inside the stroke land on sub-pixels
+   and vanish, and a detached fleck of paint reads as a stray dot. So the
+   brush character is carried by the two things that survive the squash -- the
+   outline (a chisel heel at the left, top and bottom edges that are not
+   parallel, a bite out of the bottom, a tip that thins as the brush lifts)
+   and the gradient inside the mask, which thins the paint through the middle
+   of the stroke where a loaded brush runs driest. */
 html[data-tpl="home"] .vkey::before{
   content:'';position:absolute;z-index:-1;
   /* The bottom inset is positive -- it crops the box rather than growing it.
@@ -1801,7 +1813,8 @@ html[data-tpl="home"] .vkey::before{
   inset:-.26em -.34em .1em;
   background-image:var(--brush);
   transform:rotate(-.5deg);
-  -webkit-mask-image:var(--brush-img);mask-image:var(--brush-img);
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3ClinearGradient id='d' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.92'/%3E%3Cstop offset='.2' stop-color='%23fff' stop-opacity='.78'/%3E%3Cstop offset='.5' stop-color='%23fff' stop-opacity='.62'/%3E%3Cstop offset='.78' stop-color='%23fff' stop-opacity='.84'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cpath fill='url(%23d)' d='M2 9c14-5 44-7 92-6 46 1 80 3 103 7 3 1 3 3 1 4-16 5-48 8-94 9-22 0-36-2-52-1-18 1-34 4-48 1-3-1-4-3-2-5-2-3-2-6 0-8z'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3ClinearGradient id='d' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.92'/%3E%3Cstop offset='.2' stop-color='%23fff' stop-opacity='.78'/%3E%3Cstop offset='.5' stop-color='%23fff' stop-opacity='.62'/%3E%3Cstop offset='.78' stop-color='%23fff' stop-opacity='.84'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='1'/%3E%3C/linearGradient%3E%3Cpath fill='url(%23d)' d='M2 9c14-5 44-7 92-6 46 1 80 3 103 7 3 1 3 3 1 4-16 5-48 8-94 9-22 0-36-2-52-1-18 1-34 4-48 1-3-1-4-3-2-5-2-3-2-6 0-8z'/%3E%3C/svg%3E");
   -webkit-mask-size:100% 100%;mask-size:100% 100%;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat
 }
