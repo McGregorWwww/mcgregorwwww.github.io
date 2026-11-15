@@ -1,5 +1,5 @@
 {
- "citedby": 2596,
+ "citedby": 2689,
  "profile": "https://scholar.google.com/citations?user=KDNRnW0AAAAJ",
  "publications": {
   "KDNRnW0AAAAJ:0EnyYjriUFMC": {
@@ -11,7 +11,7 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:2osOgNQ5qMEC": {
-   "cites": 1672,
+   "cites": 1718,
    "kind": "conference",
    "lead": true,
    "title": "UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer",
@@ -19,7 +19,7 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:3fE2CSJIrl8C": {
-   "cites": 42,
+   "cites": 48,
    "kind": "conference",
    "lead": false,
    "title": "Token Activation Map to Visually Explain Multimodal LLMs",
@@ -27,7 +27,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:5nxA0vEk-isC": {
-   "cites": 9,
+   "cites": 10,
    "kind": "preprint",
    "lead": false,
    "title": "Multi-modal explainable medical AI assistant for trustworthy human-AI collaboration",
@@ -35,7 +35,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:8k81kl-MbHgC": {
-   "cites": 25,
+   "cites": 24,
    "kind": "preprint",
    "lead": false,
    "title": "Unieval: Unified holistic evaluation for unified multimodal understanding and generation",
@@ -43,7 +43,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:KlAtU1dfN6UC": {
-   "cites": 11,
+   "cites": 12,
    "kind": "conference",
    "lead": true,
    "title": "ZEBRA: Towards Zero-Shot Cross-Subject Generalization for Universal Brain Visual Decoding",
@@ -51,7 +51,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:LkGwnXOMwfcC": {
-   "cites": 66,
+   "cites": 69,
    "kind": "conference",
    "lead": false,
    "title": "Touchstone benchmark: Are we on the right way for evaluating AI algorithms for medical segmentation?",
@@ -59,7 +59,7 @@
    "year": 2024
   },
   "KDNRnW0AAAAJ:MXK_kJrjxJIC": {
-   "cites": 9,
+   "cites": 10,
    "kind": "journal",
    "lead": true,
    "title": "S&D Messenger: Exchanging Semantic and Domain Knowledge for Generic Semi-Supervised Medical Image Segmentation",
@@ -67,7 +67,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:Se3iqnhoufwC": {
-   "cites": 10,
+   "cites": 13,
    "kind": "conference",
    "lead": true,
    "title": "Neurons: Emulating the Human Visual Cortex Improves Fidelity and Interpretability in fMRI-to-Video Reconstruction",
@@ -75,7 +75,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:Tyk-4Ss8FVUC": {
-   "cites": 115,
+   "cites": 118,
    "kind": "conference",
    "lead": true,
    "title": "DHC: Dual-debiased heterogeneous co-training framework for class-imbalanced semi-supervised medical image segmentation",
@@ -86,12 +86,12 @@
    "cites": 2,
    "kind": "preprint",
    "lead": true,
-   "title": "Reinforced correlation between vision and language for precise medical ai assistant",
+   "title": "Synergistic Vision-Language Reinforcement Enables Scalable On-Demand Analysis across Diverse Clinical Tasks",
    "venue": "arXiv preprint arXiv:2505.03380, 2025",
    "year": 2025
   },
   "KDNRnW0AAAAJ:WF5omc3nYNoC": {
-   "cites": 187,
+   "cites": 204,
    "kind": "journal",
    "lead": true,
    "title": "Narrowing the semantic gaps in u-net with learnable skip connections: The case of medical image segmentation",
@@ -99,7 +99,7 @@
    "year": 2024
   },
   "KDNRnW0AAAAJ:Y0pCki6q_DkC": {
-   "cites": 100,
+   "cites": 104,
    "kind": "conference",
    "lead": true,
    "title": "Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation",
@@ -115,7 +115,7 @@
    "year": 2026
   },
   "KDNRnW0AAAAJ:YsMSGLbcyi4C": {
-   "cites": 123,
+   "cites": 125,
    "kind": "conference",
    "lead": true,
    "title": "AllSpark: Reborn Labeled Features from Unlabeled in Transformer for Semi-Supervised Semantic Segmentation",
@@ -131,7 +131,7 @@
    "year": 2026
   },
   "KDNRnW0AAAAJ:_FxGoFyzp5QC": {
-   "cites": 39,
+   "cites": 40,
    "kind": "conference",
    "lead": false,
    "title": "Interpretable bilingual multimodal large language model for diverse biomedical tasks",
@@ -147,7 +147,7 @@
    "year": 2026
   },
   "KDNRnW0AAAAJ:hqOjcs7Dif8C": {
-   "cites": 46,
+   "cites": 47,
    "kind": "journal",
    "lead": true,
    "title": "MCA-UNet: multi-scale cross co-attentional U-Net for automatic medical image segmentation",
@@ -155,7 +155,7 @@
    "year": 2023
   },
   "KDNRnW0AAAAJ:kNdYIx-mwKoC": {
-   "cites": 72,
+   "cites": 73,
    "kind": "journal",
    "lead": false,
    "title": "MS-SSD: Multi-scale single shot detector for ship detection in remote sensing images",
@@ -163,7 +163,7 @@
    "year": 2023
   },
   "KDNRnW0AAAAJ:roLk4NBRz8UC": {
-   "cites": 4,
+   "cites": 6,
    "kind": "journal",
    "lead": true,
    "title": "Artificial intelligence model for automatic 3-dimensional reconstruction of ossicular chain and bony labyrinth from high-resolution CT",
@@ -171,7 +171,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:ufrVoPGSRksC": {
-   "cites": 15,
+   "cites": 17,
    "kind": "journal",
    "lead": false,
    "title": "GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation",
@@ -203,5 +203,5 @@
   "papers": 22,
   "preprint": 5
  },
- "updated": "2026-10-16"
+ "updated": "2026-11-15"
 }
