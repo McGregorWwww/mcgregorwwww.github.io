@@ -35,6 +35,7 @@ import re
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
@@ -46,8 +47,42 @@ UA = (
 RETRIES = 4
 BACKOFF = 20  # seconds, multiplied by attempt number
 
+# Routing the Scholar request through something other than this machine's own
+# IP. Google serves plain HTTP 403 -- not a captcha -- to GitHub Actions' shared
+# egress addresses, and no amount of waiting clears it: the block is on the
+# address range, and sleeping does not move the runner to a new one. So the
+# request needs a different exit, and there are two shapes of those:
+#
+#   * A standard HTTP/HTTPS proxy. Nothing to do here -- urllib reads
+#     HTTPS_PROXY from the environment by itself. Set that and this file does
+#     not change.
+#
+#   * A scraping service with a REST endpoint, which wants the target URL as a
+#     query parameter and returns the fetched page as the response body. Every
+#     vendor spells this differently, so rather than hardcode one, SCRAPER_URL
+#     is a template with a {url} placeholder for the percent-encoded target:
+#
+#       SCRAPER_URL='https://api.scraperapi.com/?api_key=KEY&url={url}'
+#       SCRAPER_URL='https://api.scrapingbee.com/api/v1/?api_key=KEY&url={url}'
+#
+#     Put the key in the template and keep the whole thing in a secret; it is
+#     a credential either way. The response must be the target page's own HTML
+#     -- a service that wraps it in JSON needs a parser, which this does not
+#     have, and parse() would find 0 publications and refuse to write.
+#
+# Both are optional. With neither set this behaves exactly as before, which is
+# what a local run wants: a home IP is not blocked and needs no middleman.
+SCRAPER_URL = os.environ.get("SCRAPER_URL", "").strip()
+
+
+def via_scraper(url):
+    """Wrap `url` in SCRAPER_URL's {url} placeholder, percent-encoded."""
+    return SCRAPER_URL.replace("{url}", urllib.parse.quote(url, safe=""))
+
 
 def fetch(url, attempt=1):
+    if SCRAPER_URL:
+        url = via_scraper(url)
     req = urllib.request.Request(
         url,
         headers={
@@ -62,6 +97,19 @@ def fetch(url, attempt=1):
 
 
 def fetch_with_retry(url):
+    """Retry only what retrying can fix.
+
+    Two failures look similar in a log and need opposite handling. A captcha,
+    a 429 or a dropped connection is about this moment: the same address will
+    very likely work shortly, so back off and ask again. A 403 is about *who
+    is asking* -- Google blocks the caller's address range outright -- and no
+    number of retries from the same address changes that answer. The retry
+    budget was being spent on exactly the case it cannot help: on the Actions
+    runners this slept 20+40+60s per attempt, then the workflow slept 5, 10
+    and 20 minutes between whole attempts, to arrive at the same 403 and hold
+    a runner for half an hour. So 403 now gives up at once, and says what to
+    do about it instead.
+    """
     last = None
     for i in range(1, RETRIES + 1):
         try:
@@ -74,6 +122,15 @@ def fetch_with_retry(url):
         except urllib.error.HTTPError as e:
             last = f"HTTP {e.code}"
             print(f"  attempt {i}: {last}", file=sys.stderr)
+            if e.code == 403:
+                raise SystemExit(
+                    "ERROR: HTTP 403 from Google -- this IP is blocked, not "
+                    "rate-limited, so retrying from here cannot help.\n"
+                    "       Route the request elsewhere: set HTTPS_PROXY, or "
+                    "set SCRAPER_URL to a scraping endpoint template\n"
+                    "       (see the note at the top of this file). Running "
+                    "the script from a home machine also works."
+                ) from e
         except Exception as e:  # noqa: BLE001 - network layer, report and retry
             last = f"{type(e).__name__}: {e}"
             print(f"  attempt {i}: {last}", file=sys.stderr)

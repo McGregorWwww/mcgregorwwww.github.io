@@ -22,11 +22,16 @@ name: Update citation and star counts
 # the file looked live while half of it was stale.
 #
 # Two independent fixes, because the failure had two causes:
-#   * weekly, not monthly -- a captcha costs 7 days instead of ~30;
-#   * retry within the run -- a captcha is transient and tied to the runner's
-#     IP, so sleeping and asking again often clears it without waiting a week.
+#   * weekly, not monthly -- a bad week costs 7 days instead of ~30;
+#   * retry within the run, on the theory that the block was a captcha.
 # Weekly is still far below the rate that gets an IP blocked; the fragile-half
 # warning is about hourly polling, not about seven scrapes in two months.
+#
+# The retry half of that was wrong, and was removed on 2026-11-24. The runners
+# do not get a captcha, they get a flat HTTP 403: the block is on the Actions
+# egress range, not on a session, so waiting changes nothing and the sleeps
+# only held a runner long enough to queue the following run behind it. What a
+# 403 needs is a different exit address -- see the fetch step below.
 #
 # Why the JSON lives here at all:
 #   * GitHub Pages serves google-scholar-stats/ as a plain static file from the
@@ -115,9 +120,11 @@ jobs:
       github.event_name == 'workflow_dispatch' && inputs.mode == 'everything'
       || github.event_name == 'schedule' && github.event.schedule == '17 6 * * 0'
     runs-on: ubuntu-latest
-    # Raised from 20: the retry below can now sleep up to 5+10+20 = 35 minutes
-    # between its four attempts, on top of the script's own internal backoff.
-    timeout-minutes: 60
+    # Back to 15 now that the 35 minutes of retry sleeps are gone. A run that
+    # cannot finish in this long is stuck, and holding the runner only delays
+    # the next scheduled run behind it -- which is how one weekly run ended up
+    # queued for 36 hours.
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -129,36 +136,40 @@ jobs:
       # Full mode re-reads Scholar and refreshes stars in the same pass, so the
       # two halves can never drift apart by more than the star job's interval.
       #
-      # Retried in the shell rather than by re-running the job, so one weekly
-      # run gets several widely spaced chances at Scholar. The script already
-      # retries internally (4 attempts, 20/40/60s apart) and only exits
-      # non-zero once those are exhausted -- which is the captcha case, and a
-      # minute of backoff is not enough for it to lift. These sleeps are in
-      # minutes for that reason, and they grow: 5, then 10, then 20.
+      # The 5/10/20-minute retry loop that used to be here is gone. It was
+      # written for a captcha -- transient, lifts if you wait -- but what the
+      # runners actually get is a flat HTTP 403: Google blocks the Actions
+      # egress range outright, so every attempt from the same runner returns
+      # the same 403 no matter how long it waits. The loop's only effect was
+      # to hold a runner for 35 minutes and queue the next scheduled run
+      # behind it; one weekly run sat queued for 36 hours because of it. The
+      # script keeps its own short backoff for the failures that *are*
+      # transient, and now exits immediately on 403.
+      #
+      # SCRAPER_URL is the way out: an endpoint template that fetches the URL
+      # from an address Google will answer (see fetch_citations.py's header for
+      # the shape, and the secret's value for which vendor). HTTPS_PROXY works
+      # too and needs no code -- urllib reads it on its own. Both are optional:
+      # unset, this behaves as it always did and simply fails on 403, which is
+      # the honest outcome when there is no route to Scholar.
       #
       # The script writes the output file only after a successful parse, so a
-      # failed attempt cannot leave a truncated or empty JSON behind for the
-      # next one. Nothing is committed until the step as a whole succeeds.
+      # failed attempt cannot leave a truncated or empty JSON behind.
       - name: Fetch citations and stars
         env:
           GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUT: ../google-scholar-stats/citations.json
+          SCRAPER_URL: ${{ secrets.SCRAPER_URL }}
+          HTTPS_PROXY: ${{ secrets.SCHOLAR_HTTPS_PROXY }}
         working-directory: google_scholar_crawler
         run: |
-          for wait in 5 10 20 done; do
-            if python fetch_citations.py; then
-              echo "::notice::Scholar fetch succeeded."
-              exit 0
-            fi
-            if [ "$wait" = done ]; then
-              echo "::error::Scholar fetch failed on every attempt. Counts keep" \
-                   "their previous values; the next scheduled run is in a week."
-              exit 1
-            fi
-            echo "::warning::Scholar fetch failed. Retrying in ${wait}m."
-            sleep "${wait}m"
-          done
+          if [ -z "${SCRAPER_URL}${HTTPS_PROXY}" ]; then
+            echo "::warning::Neither SCRAPER_URL nor SCHOLAR_HTTPS_PROXY is" \
+                 "set. Google 403s the Actions runners, so this will probably" \
+                 "fail; see this workflow's comments."
+          fi
+          python fetch_citations.py
 
       - name: Show the result
         run: |
