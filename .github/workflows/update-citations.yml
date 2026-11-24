@@ -47,9 +47,17 @@ on:
     # Stars: 4x/day. Off minute 0 to avoid the top-of-hour scheduler crunch,
     # which is when scheduled runs are most likely to be delayed or dropped.
     - cron: '23 */6 * * *'
-    # Citations: Sundays, 06:17 UTC. The job keys off this exact string, so
+    # Citations: daily, 06:17 UTC. The job keys off this exact string, so
     # editing it here means editing the `if:` on the citations job too.
-    - cron: '17 6 * * 0'
+    #
+    # Daily rather than weekly because the counts are no longer scraped from
+    # the runner's own IP (which Google 403s) but read through SerpApi, whose
+    # free plan allows 250 searches a month. One full read of the profile is
+    # one search, so daily costs ~30/month -- 12% of the allowance, leaving
+    # the rest for retries and manual runs. The profile gains roughly three
+    # citations a day, so anything less frequent is visibly behind Scholar
+    # for no saving that matters.
+    - cron: '17 6 * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -118,7 +126,7 @@ jobs:
   citations:
     if: >-
       github.event_name == 'workflow_dispatch' && inputs.mode == 'everything'
-      || github.event_name == 'schedule' && github.event.schedule == '17 6 * * 0'
+      || github.event_name == 'schedule' && github.event.schedule == '17 6 * * *'
     runs-on: ubuntu-latest
     # Back to 15 now that the 35 minutes of retry sleeps are gone. A run that
     # cannot finish in this long is stuck, and holding the runner only delays
@@ -146,12 +154,21 @@ jobs:
       # script keeps its own short backoff for the failures that *are*
       # transient, and now exits immediately on 403.
       #
-      # SCRAPER_URL is the way out: an endpoint template that fetches the URL
-      # from an address Google will answer (see fetch_citations.py's header for
-      # the shape, and the secret's value for which vendor). HTTPS_PROXY works
-      # too and needs no code -- urllib reads it on its own. Both are optional:
-      # unset, this behaves as it always did and simply fails on 403, which is
-      # the honest outcome when there is no route to Scholar.
+      # The way out is SERPAPI_KEY, which is what this now runs on. SerpApi
+      # reads Scholar from its own addresses and hands back the profile as
+      # JSON, so the 403 never arises. The free plan allows 250 searches a
+      # month; one run is one search, and the daily schedule spends ~30. The
+      # script logs the remaining balance on every run and warns under 40,
+      # because the search endpoint itself gives no hint of the balance -- a
+      # 429 would otherwise be the first sign, after the counts had already
+      # stopped updating.
+      #
+      # SCRAPER_URL and HTTPS_PROXY are the earlier, unused routes, kept
+      # because they cost nothing and cover a different failure: if SerpApi
+      # were ever unavailable, either one restores the direct scrape without
+      # a code change. All three are optional -- with none set this still
+      # scrapes directly and fails on 403, the honest outcome when there is
+      # no route to Scholar.
       #
       # The script writes the output file only after a successful parse, so a
       # failed attempt cannot leave a truncated or empty JSON behind.
@@ -160,14 +177,15 @@ jobs:
           GOOGLE_SCHOLAR_ID: KDNRnW0AAAAJ
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUT: ../google-scholar-stats/citations.json
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
           SCRAPER_URL: ${{ secrets.SCRAPER_URL }}
           HTTPS_PROXY: ${{ secrets.SCHOLAR_HTTPS_PROXY }}
         working-directory: google_scholar_crawler
         run: |
-          if [ -z "${SCRAPER_URL}${HTTPS_PROXY}" ]; then
-            echo "::warning::Neither SCRAPER_URL nor SCHOLAR_HTTPS_PROXY is" \
-                 "set. Google 403s the Actions runners, so this will probably" \
-                 "fail; see this workflow's comments."
+          if [ -z "${SERPAPI_KEY}${SCRAPER_URL}${HTTPS_PROXY}" ]; then
+            echo "::warning::No route to Scholar is configured (SERPAPI_KEY," \
+                 "SCRAPER_URL, SCHOLAR_HTTPS_PROXY all unset). Google 403s the" \
+                 "Actions runners, so this will fail; see this workflow's comments."
           fi
           python fetch_citations.py
 

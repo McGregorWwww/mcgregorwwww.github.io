@@ -19,9 +19,11 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-# The scrape runs weekly, so one unlucky captcha costs 7 days and is not worth
-# shouting about. Past two missed runs it is a standing failure, not bad luck.
-MAX_AGE_DAYS = 16
+# The read runs daily, so a single failure is noise -- a flaky network or one
+# bad response. Three days in a row is a standing fault worth a red run. Was 16
+# when this ran weekly; lowering it is the point of moving to daily, since a
+# threshold looser than the schedule hides exactly what it is meant to catch.
+MAX_AGE_DAYS = 3
 
 JSON_PATH = Path(__file__).resolve().parent.parent / "google-scholar-stats" / "citations.json"
 

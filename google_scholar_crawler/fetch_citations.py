@@ -57,6 +57,11 @@ BACKOFF = 20  # seconds, multiplied by attempt number
 #     HTTPS_PROXY from the environment by itself. Set that and this file does
 #     not change.
 #
+#   * SerpApi, which does not return the page at all -- it returns Scholar's
+#     content already parsed into JSON. That needs its own reader rather than
+#     the HTML regexes below, so it is a separate path: see serpapi_fetch().
+#     Set SERPAPI_KEY to turn it on. This is the one in use.
+#
 #   * A scraping service with a REST endpoint, which wants the target URL as a
 #     query parameter and returns the fetched page as the response body. Every
 #     vendor spells this differently, so rather than hardcode one, SCRAPER_URL
@@ -148,10 +153,18 @@ def looks_blocked(html):
 
 
 def clean(s):
-    """Scholar wraps titles in <a> with nested <span>/<b> tags."""
+    """Strip Scholar's markup and normalise its whitespace.
+
+    Scholar wraps titles in <a> with nested <span>/<b> tags. The \xa0 replace
+    is not redundant with the &nbsp; one: the entity arrives spelled out in
+    some fields and already decoded to U+00A0 in others, and leaving the two
+    forms to coexist meant the HTML path and the SerpApi path wrote venues
+    that differed by one invisible character on the same paper.
+    """
     s = re.sub(r"<[^>]+>", "", s)
     return (s.replace("&amp;", "&").replace("&#39;", "'")
              .replace("&quot;", '"').replace("&nbsp;", " ")
+             .replace("\xa0", " ")
              .replace("&lt;", "<").replace("&gt;", ">")).strip()
 
 
@@ -186,6 +199,123 @@ def is_lead(authors):
     practice equal-contribution authors sit at the front of the list."""
     names = [n.strip() for n in authors.split(",")]
     return bool(names) and (names[0].rstrip("*") == ME or f"{ME}*" in names)
+
+
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "").strip()
+SERPAPI = "https://serpapi.com/search.json"
+# Scholar's own page size, and comfortably above the ~22 records on this
+# profile, so one request returns everything and there is no pagination to
+# walk. Each request costs one search from the monthly allowance, so a second
+# page would double the cost of every run.
+SERPAPI_NUM = 100
+
+
+def serpapi_quota():
+    """Searches left this month, or None if the check itself fails.
+
+    account.json does not count against the allowance (verified: usage stayed
+    put across a call), so this is free to log on every run. Worth logging:
+    the free plan's 250/month is ample for one daily read, but a loop or an
+    accidental second schedule would burn it quietly, and the search endpoint
+    gives no hint of the balance -- a 429 is the first sign, by which point
+    the counts have already stopped updating.
+    """
+    try:
+        q = urllib.parse.urlencode({"api_key": SERPAPI_KEY})
+        with urllib.request.urlopen(f"https://serpapi.com/account.json?{q}", timeout=30) as r:
+            acct = json.load(r)
+    except Exception as e:  # noqa: BLE001 - advisory only, never fail the run
+        print(f"  (could not read SerpApi quota: {type(e).__name__})", file=sys.stderr)
+        return None
+    left = acct.get("total_searches_left")
+    total = acct.get("searches_per_month")
+    used = acct.get("this_month_usage")
+    print(f"serpapi quota   : {left} of {total} left this month "
+          f"(used {used}, renews {acct.get('plan_renewal_date', '?')})")
+    # One a day plus room for retries; below this something is eating searches.
+    if isinstance(left, int) and left < 40:
+        print(f"::warning::Only {left} SerpApi searches left this month.")
+    return left
+
+
+def serpapi_fetch(uid):
+    """Read the profile through SerpApi, returning what parse() returns.
+
+    SerpApi does not proxy the page, it returns Scholar's content already
+    parsed as JSON, so none of the HTML regexes apply. The shapes worth
+    naming, because they are easy to guess wrong (verified against a live
+    response on 2026-11-24):
+
+      cited_by.table is a *list* of one-key dicts, not a dict:
+          [{'citations': {'all': 2714, 'since_2021': 2712}},
+           {'h_index': ...}, {'i10_index': ...}]
+      articles[].cited_by is a dict with the count under 'value', and the key
+      is absent entirely for an uncited paper rather than being 0.
+      articles[].year is a string.
+
+    Everything else is deliberately shared with the HTML path: the same
+    citation_id keys, the same kind_of() and is_lead() on the same venue and
+    author strings. The two paths therefore produce byte-identical output,
+    which is what makes it safe to switch between them.
+    """
+    q = urllib.parse.urlencode({
+        "engine": "google_scholar_author",
+        "author_id": uid,
+        "api_key": SERPAPI_KEY,
+        "hl": "en",
+        "num": str(SERPAPI_NUM),
+    })
+    req = urllib.request.Request(
+        f"{SERPAPI}?{q}",
+        headers={"User-Agent": "citation-fetcher", "Accept": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            data = json.load(r)
+    except urllib.error.HTTPError as e:
+        body = e.read(400).decode("utf-8", "replace")
+        # 401 is a bad key, 429 is the monthly allowance spent. Both are
+        # standing conditions: say so rather than retrying into them.
+        raise SystemExit(
+            f"ERROR: SerpApi returned HTTP {e.code}.\n"
+            f"       {body.strip()[:300]}\n"
+            "       401/403 = bad or missing SERPAPI_KEY; 429 = monthly "
+            "search allowance exhausted."
+        ) from e
+
+    if data.get("error"):
+        raise SystemExit(f"ERROR: SerpApi reported: {data['error']}")
+
+    total = None
+    for row in data.get("cited_by", {}).get("table", []):
+        if "citations" in row:
+            total = row["citations"].get("all")
+            break
+
+    pubs = {}
+    for a in data.get("articles", []):
+        cid = a.get("citation_id")
+        if not cid:
+            continue
+        venue = clean(a.get("publication", "") or "")
+        year = a.get("year")
+        pubs[cid] = {
+            "title": clean(a.get("title", "")),
+            "cites": (a.get("cited_by") or {}).get("value") or 0,
+            "year": int(year) if str(year).isdigit() else None,
+            "venue": venue,
+            "kind": kind_of(venue),
+            "lead": is_lead(a.get("authors", "") or ""),
+        }
+
+    if not pubs:
+        raise SystemExit(
+            "ERROR: SerpApi returned 0 articles. Refusing to write an empty "
+            "file over good data.\n"
+            "       Either the response shape changed or the author_id is "
+            f"wrong (used {uid!r})."
+        )
+    return total, pubs
 
 
 def parse(html):
@@ -294,8 +424,17 @@ def main():
         # `updated` tracks the Scholar scrape, so it is deliberately not touched
         # here -- bumping it nightly would claim the citations were re-read.
     else:
-        html = fetch_with_retry(PROFILE.format(uid=uid))
-        total, pubs = parse(html)
+        # SerpApi when a key is set, a direct scrape otherwise. No fallback
+        # between them on purpose: a run that quietly fell back to scraping
+        # would 403 on CI and look like a SerpApi problem, and one that fell
+        # the other way would spend searches without being asked to. Each
+        # path fails with its own diagnosis instead.
+        if SERPAPI_KEY:
+            total, pubs = serpapi_fetch(uid)
+            serpapi_quota()      # after the fetch, so the number reflects it
+        else:
+            html = fetch_with_retry(PROFILE.format(uid=uid))
+            total, pubs = parse(html)
 
         if not pubs:
             raise SystemExit(
@@ -305,7 +444,7 @@ def main():
 
         out = {
             "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-            "source": "scholar.google.com",
+            "source": "serpapi.com/google_scholar_author" if SERPAPI_KEY else "scholar.google.com",
             "profile": f"https://scholar.google.com/citations?user={uid}",
             "citedby": total,
             "publications": pubs,
