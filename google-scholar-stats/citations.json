@@ -1,5 +1,5 @@
 {
- "citedby": 2689,
+ "citedby": 2714,
  "profile": "https://scholar.google.com/citations?user=KDNRnW0AAAAJ",
  "publications": {
   "KDNRnW0AAAAJ:0EnyYjriUFMC": {
@@ -11,7 +11,7 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:2osOgNQ5qMEC": {
-   "cites": 1718,
+   "cites": 1732,
    "kind": "conference",
    "lead": true,
    "title": "UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer",
@@ -19,7 +19,7 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:3fE2CSJIrl8C": {
-   "cites": 48,
+   "cites": 52,
    "kind": "conference",
    "lead": false,
    "title": "Token Activation Map to Visually Explain Multimodal LLMs",
@@ -75,7 +75,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:Tyk-4Ss8FVUC": {
-   "cites": 118,
+   "cites": 120,
    "kind": "conference",
    "lead": true,
    "title": "DHC: Dual-debiased heterogeneous co-training framework for class-imbalanced semi-supervised medical image segmentation",
@@ -99,7 +99,7 @@
    "year": 2024
   },
   "KDNRnW0AAAAJ:Y0pCki6q_DkC": {
-   "cites": 104,
+   "cites": 106,
    "kind": "conference",
    "lead": true,
    "title": "Towards Generic Semi-Supervised Framework for Volumetric Medical Image Segmentation",
@@ -107,7 +107,7 @@
    "year": 2023
   },
   "KDNRnW0AAAAJ:YOwf2qJgpHMC": {
-   "cites": 1,
+   "cites": 2,
    "kind": "preprint",
    "lead": false,
    "title": "Escaping the BLEU Trap: A Signal-Grounded Framework with Decoupled Semantic Guidance for EEG-to-Text Decoding",
@@ -115,7 +115,7 @@
    "year": 2026
   },
   "KDNRnW0AAAAJ:YsMSGLbcyi4C": {
-   "cites": 125,
+   "cites": 126,
    "kind": "conference",
    "lead": true,
    "title": "AllSpark: Reborn Labeled Features from Unlabeled in Transformer for Semi-Supervised Semantic Segmentation",
@@ -171,7 +171,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:ufrVoPGSRksC": {
-   "cites": 17,
+   "cites": 18,
    "kind": "journal",
    "lead": false,
    "title": "GlandSAM: Injecting Morphology Knowledge into Segment Anything Model for Label-free Gland Segmentation",
@@ -203,5 +203,5 @@
   "papers": 22,
   "preprint": 5
  },
- "updated": "2026-11-15"
+ "updated": "2026-11-24"
 }
