@@ -15,7 +15,7 @@
    "kind": "conference",
    "lead": true,
    "title": "UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer",
-   "venue": "🏅 AAAI Conference on Artificial Intelligence (Most Influential Paper of AAAI …, 2022",
+   "venue": "🏅 AAAI Conference on Artificial Intelligence (Most Influential Paper of AAAI …, 2022",
    "year": 2022
   },
   "KDNRnW0AAAAJ:3fE2CSJIrl8C": {
@@ -179,7 +179,7 @@
    "year": 2024
   }
  },
- "source": "scholar.google.com",
+ "source": "serpapi.com/google_scholar_author",
  "stars": {
   "McGregorWwww/UCTransNet": 437,
   "xmed-lab/AllSpark": 89,
