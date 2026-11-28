@@ -1,5 +1,5 @@
 {
- "citedby": 2722,
+ "citedby": 2730,
  "profile": "https://scholar.google.com/citations?user=KDNRnW0AAAAJ",
  "publications": {
   "KDNRnW0AAAAJ:0EnyYjriUFMC": {
@@ -11,7 +11,7 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:2osOgNQ5qMEC": {
-   "cites": 1736,
+   "cites": 1740,
    "kind": "conference",
    "lead": true,
    "title": "UCTransNet: Rethinking the Skip Connections in U-Net from a Channel-wise Perspective with Transformer",
@@ -19,12 +19,20 @@
    "year": 2022
   },
   "KDNRnW0AAAAJ:3fE2CSJIrl8C": {
-   "cites": 52,
+   "cites": 53,
    "kind": "conference",
    "lead": false,
    "title": "Token Activation Map to Visually Explain Multimodal LLMs",
    "venue": "🏅 International Conference on Computer Vision (ICCV Oral Presentation), 2025",
    "year": 2025
+  },
+  "KDNRnW0AAAAJ:4TOpqqG69KYC": {
+   "cites": 3,
+   "kind": "preprint",
+   "lead": false,
+   "title": "TriALS: Triphasic-Aided Liver Lesion Segmentation Benchmark in Non-Contrast CT",
+   "venue": "arXiv preprint arXiv:2605.16572, 2026",
+   "year": 2026
   },
   "KDNRnW0AAAAJ:5nxA0vEk-isC": {
    "cites": 10,
@@ -35,7 +43,7 @@
    "year": 2025
   },
   "KDNRnW0AAAAJ:8k81kl-MbHgC": {
-   "cites": 24,
+   "cites": 23,
    "kind": "preprint",
    "lead": false,
    "title": "Unieval: Unified holistic evaluation for unified multimodal understanding and generation",
@@ -147,7 +155,7 @@
    "year": 2026
   },
   "KDNRnW0AAAAJ:hqOjcs7Dif8C": {
-   "cites": 47,
+   "cites": 48,
    "kind": "journal",
    "lead": true,
    "title": "MCA-UNet: multi-scale cross co-attentional U-Net for automatic medical image segmentation",
@@ -189,7 +197,7 @@
   "xmed-lab/NEURONS": 31,
   "xmed-lab/NeuronsPlusPlus": 2,
   "xmed-lab/SD-Messenger": 3,
-  "xmed-lab/SemKey": 14,
+  "xmed-lab/SemKey": 15,
   "xmed-lab/SyRe": 3,
   "xmed-lab/TAM": 193,
   "xmed-lab/UniEval": 25,
@@ -200,8 +208,8 @@
   "conference": 10,
   "journal": 7,
   "lead": 12,
-  "papers": 22,
-  "preprint": 5
+  "papers": 23,
+  "preprint": 6
  },
- "updated": "2026-11-27"
+ "updated": "2026-11-28"
 }
